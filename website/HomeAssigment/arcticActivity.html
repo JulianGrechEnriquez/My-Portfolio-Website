@@ -1,0 +1,233 @@
+<html>
+
+<head>
+
+    <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
+    <script
+        src="https://cdn.jsdelivr.net/gh/c-frame/aframe-particle-system-component@1.2.0/dist/aframe-particle-system-component.min.js"></script>
+    <script
+        src="https://cdn.jsdelivr.net/npm/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
+
+    <script src="sripts/telaportFunctions.js"></script>
+    <script src="sripts/hoverFunction.js"></script>
+
+    <script src="sripts/arcticActivity/temperature.js"></script>
+
+</head>
+
+<body>
+    <a-scene temp-controller >
+        <a-assets>
+            <a-asset-item id="Artic" src="3D-models/homeAssigment/arctic/arctic_landscape_low-poly.glb"></a-asset-item>
+            <a-asset-item id="button" src="3D-models/homeAssigment/arctic/red_button.glb"></a-asset-item>
+
+            <a-asset-item id="seal"
+                src="3D-models/homeAssigment/arctic/dotted_white_seal_-_free_giveaway.glb"></a-asset-item>
+            <a-asset-item id="penguin" src="3D-models/homeAssigment/arctic/penguin.glb"></a-asset-item>
+            <a-asset-item id="polarbear" src="3D-models/homeAssigment/arctic/polar_bear.glb"></a-asset-item>
+            <a-asset-item id="ice_berg" src="3D-models/homeAssigment/arctic/iceber01.glb"></a-asset-item>
+            <a-asset-item id="wolf" src="3D-models/homeAssigment/arctic/arctic_wolf_psx.glb"></a-asset-item>
+            <a-asset-item id="lab" src="3D-models/homeAssigment/mainarea/low_poly_sci-fi_lab.glb"></a-asset-item>
+            <a-asset-item id="pillar" src="3D-models/homeAssigment/mainarea/medieval_sci-fi_pillar.glb"></a-asset-item>
+
+            <img id="skyArctic" src="northern-lights-3273425_640.jpg">
+
+
+        </a-assets>
+
+
+
+
+        <a-entity environment="preset: arches; lighting: none"></a-entity>
+        <a-light type="ambient" intensity="1" color="#ffffff"></a-light>
+
+
+        <a-light id="articAreaLight" light="angle: 33.36" type="spot" position="0.52799 2.46232 3.05534"
+            target="#articAreaTarget" visible="false"></a-light>
+
+
+        <a-entity id="articAreaTarget" position="0.28986 -0.49666 3.15368"></a-entity>
+
+
+
+
+        <a-sky src="#skyArctic" rotation="0 0 -90"></a-sky>
+
+        <a-entity gltf-model="#Artic" position="0 -7 0" scale="3 3 3"></a-entity>
+
+        <a-entity class="iceBox" gltf-model="#ice_berg" position="57.52483 9.7227 -58.33601" scale="10 10 10"
+            rotation="0 0 180"></a-entity>
+
+        <a-entity id="snowSystem" particle-system="preset: snow; particleCount: 5000;" position="0 10 -20"></a-entity>
+
+        <a-box position="0 2 0" depth="8" height="4" width="8" color="#444" opacity="0.3"
+            material="side: double; transparent: true;"></a-box>
+
+        <a-plane position="0 2 -2" rotation="0 0 0" width="3" height="2" color="#000" opacity="0"
+            visible="false"></a-plane>
+
+        <a-entity id="temperatureText" text="value: Temperature: 0°C; color: white; width: 4;"
+            position="0 3 -4"></a-entity>
+
+        <a-entity id="activityexplanationArctic"
+            text="value: Welcome to the Arctic activity! Playing is simple: press the red button to increase the temperature or the blue button to decrease it. After pressing a button, look around to see how the ecosystem changes.; align: center; width: 3; color: #2133"
+            position="0.07977 1.79304 -3.32715" look-at="#camera">
+            <a-plane id="textbackgroundArcticActivity" geometry="height: 1.24; width: 3.44" position="0 0.01259 -0.1"
+                height="5" width="15" color="#000000" opacity="0.5"></a-plane>
+        </a-entity>
+
+
+
+        <a-sphere id="increaseBtn" position="-1.4457 1.3624 -2.92878" depth="0.2" height="0.5" width="0.2"
+            color="#ff5555" class="clickable" scale="0.1 0.1 0.1">
+
+        </a-sphere>
+
+
+        <a-entity gltf-model="#button" position="1.5 0 -3" scale="0.5 0.5 0.5"></a-entity>
+        <a-entity gltf-model="#button" position="-1.5 0 -3" scale="0.5 0.5 0.5"></a-entity>
+
+
+        <a-sphere id="decreaseBtn" position="1.56668 1.33697 -2.93643" depth="0.2" height="0.5" width="0.2"
+            color="#55aaff" class="clickable" scale="0.1 0.1 0.1">
+
+        </a-sphere>
+
+
+        <a-sound id="articMusic" src="audio/arctic/arctic-winds-northpole-nr2-17693.mp3" loop="true" autoplay="true" volume="0.2"
+            position="1.08478 2 -3.82064">
+        </a-sound>
+
+
+
+        <a-entity position="0.89969 -0.70915 3" scale="0.6 0.6 0.6">
+            <a-gltf-model src="#pillar" scale="0.5 0.5 0.5"></a-gltf-model>
+            <a-entity id="ArticContainer" position="-1 3.3 0.17827" scale="0.09 0.09 0.09"
+                spin-on-hover="spotlightId: #articAreaLight"
+                page-teleport-on-click="url: arctic.html; prompt: Do you want to go to the activity area?">
+                <a-gltf-model src="#Artic"></a-gltf-model>
+            </a-entity>
+        </a-entity>
+
+
+
+
+        <a-entity gltf-model="#wolf" class="wolf" position="-12.33471 0 -28.1669" scale="3 3 3"
+            rotation="0 28.394069453298208 0"></a-entity>
+        <a-entity gltf-model="#wolf" class="wolf" position="-22.21886 2.22961 -28.78823" scale="3 3 3"
+            rotation="0 44.95369564816926 0">
+        </a-entity>
+
+        <a-entity gltf-model="#wolf" class="wolf" position="-13.61651 8.00647 -40.24772" scale="3 3 3"
+            rotation="9.401091502506548 0 0">
+        </a-entity>
+
+        <a-entity gltf-model="#wolf" class="wolf" position="-26.29729 16.6875 -45.45831" scale="3 3 3"
+            rotation="0 43.41644988383326 0">
+        </a-entity>
+
+        <a-entity class="polarbear" gltf-model="#polarbear" position="20.40461 1.84686 -21.57904"
+            scale="0.009 0.009 0.009" rotation="-9.231495995147824 0 0">
+        </a-entity>
+
+        <a-entity class="polarbear" gltf-model="#polarbear" position="24.37867 5.34534 -13.57513"
+            scale="0.009 0.009 0.009" rotation="-40.6977651459375 -8.584053686649995 2.744467838676643">
+        </a-entity>
+
+        <a-entity class="polarbear" gltf-model="#polarbear" position="20.40461 1.84686 -21.57904"
+            scale="0.009 0.009 0.009" rotation="-9.231495995147824 0 0">
+        </a-entity>
+
+        <a-entity class="polarbear" gltf-model="#polarbear" position="24.19293 2.70259 -21.47181"
+            scale="0.009 0.009 0.009" rotation="-24.552 -7.146502578666758 0.1054242343040715">
+        </a-entity>
+
+        <a-entity class="polarbear" gltf-model="#polarbear" position="24.19293 4.28356 -29.0111"
+            scale="0.009 0.009 0.009" rotation="16.545875207787912 0.0911002894258009 -1.0805984016167325">
+        </a-entity>
+
+        <a-entity class="polarbear" gltf-model="#polarbear" position="25.09884 2.57281 -9.70787"
+            scale="0.009 0.009 0.009" rotation="26.297043923119393 -0.7202079484794448 0.13464508185574348">
+        </a-entity>
+
+
+
+
+
+        <a-entity class="seal" gltf-model="#seal" position="22.22656 -1.09828 47.69079" scale="4 4 4"
+            rotation="32.630519390495515 -85.06818975866359 -0.31627270291221443"></a-entity>
+
+
+        <a-entity class="seal" gltf-model="#seal" position="22.22656 -0.58852 54.66911" scale="4 4 4"
+            rotation="31.69144156427609 -85.1186100446351 -0.41138369690393106"></a-entity>
+
+        <a-entity class="seal" gltf-model="#seal" position="29.69614 1.43121 43.70204" scale="4 4 4"
+            rotation="7.8271764392821765 176.6898707780335 -0.2532473454478239"></a-entity>
+
+        <a-entity class="seal" gltf-model="#seal" position="39.68296 3.65593 43.09962" scale="4 4 4"
+            rotation="7.042224259952949 -151.58114132201547 4.419223473844041"></a-entity>
+
+        <a-entity class="seal" gltf-model="#seal" position="46.19968 1.78862 37.56838" scale="4 4 4"
+            rotation="21.892144394153625 -157.36744209504164 16.233040251646486"></a-entity>
+
+
+        <a-entity class="iceBox" gltf-model="#ice_berg" position="42.52203 4.6233 51.36293" scale="10 10 10"
+            rotation="0 0 -175.85564422832303"></a-entity>
+
+
+        <a-entity class="iceBox" gltf-model="#ice_berg" position="-41.19598 21.10422 -44.04288" scale="10 10 10"
+            rotation="1.011270508405903 0 -179.9998479605043"></a-entity>
+
+        <a-entity class="iceBox" gltf-model="#ice_berg" position="-2.58249 -2.02833 29.57991" scale="10 10 10"
+            rotation="1.011270508405903 0 -179.9998479605043"></a-entity>
+
+        <a-entity class="iceBox" gltf-model="#ice_berg" position="-41.32782 6.68785 -2.15931" scale="10 10 10"
+            rotation="1.011270508405903 0 -179.9998479605043"></a-entity>
+
+        <a-entity class="iceBox" gltf-model="#ice_berg" position="-28.7854 -1.09073 9.42322" scale="15 15 15"
+            rotation="76.38329550007057 -179.9998479605043 0"></a-entity>
+
+        <a-entity class="iceBox" gltf-model="#ice_berg" position="-28.7854 -5.73138 15.07235" scale="15 15 15"
+            rotation="54.95066325761187 0 179.9998479605043"></a-entity>
+        <a-entity class="penguin" gltf-model="#penguin" position="-28.71394 1.91107 19.98533" scale="0.1 0.1 0.1"
+            rotation="0 -89.99963750135457 -78.5083959622108"></a-entity>
+        <a-entity class="penguin" gltf-model="#penguin" position="-28.71394 3.97132 27.03726" scale="0.1 0.1 0.1"
+            rotation="0 -89.99963750135457 -48.59999905638182"></a-entity>
+
+        <a-entity class="penguin" gltf-model="#penguin" position="-28.71394 4.05615 12.97895" scale="0.1 0.1 0.1"
+            rotation="0 -90.00021045914971 -123.73596543645259"></a-entity>
+
+        <a-entity class="penguin" gltf-model="#penguin" position="-28.71394 7.27138 6.67769" scale="0.1 0.1 0.1"
+            rotation="0 -89.99963750135457 -111.39216269815414"></a-entity>
+
+        <a-entity class="penguin" gltf-model="#penguin" position="-28.71394 9.07638 3.85826" scale="0.1 0.1 0.1"
+            rotation="0 -90 0"></a-entity>
+
+        <a-entity class="penguin" gltf-model="#penguin" position="-28.71394 9.07638 2.51004" scale="0.1 0.1 0.1"
+            rotation="0 -90 0"></a-entity>
+
+        <a-entity class="penguin" gltf-model="#penguin" position="-28.71394 8.97943 0.37428" scale="0.1 0.1 0.1"
+            rotation="0 -90 0"></a-entity>
+
+        <a-entity class="penguin" gltf-model="#penguin" position="-28.71394 8.27311 -1.6454" scale="0.1 0.1 0.1"
+            rotation="0 -90.00021045914971 12.909312082092578"></a-entity>
+
+
+
+
+
+
+        <a-entity id="camera" camera look-controls position="0 1.6 0" raycaster="objects: .clickable"
+            cursor="rayOrigin: cursor">
+            <a-cursor></a-cursor>
+        </a-entity>
+
+        <a-light type="directional" intensity="0.8" position="2 4 3"></a-light>
+        <a-light type="ambient" color="#BBB"></a-light>
+
+
+    </a-scene>
+
+</body>
+
+</html>

@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- A-Frame Core -->
+    <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
+    <script src="sripts/telaportFunctions.js"></script>
+    <script src="sripts/hoverFunction.js"></script>
+    <script src="sripts/clickText.js"></script>
+
+
+    <!-- A-Frame Components -->
+
+
+
+    <script src="https://unpkg.com/aframe-event-set-component@5.0.1/dist/aframe-event-set-component.min.js"></script>
+    <script
+        src="https://cdn.jsdelivr.net/npm/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
+
+    <!-- Custom Components -->
+
+</head>
+
+<body>
+    <a-scene shadow="type: pcfsoft">
+        <a-assets>
+            <a-asset-item id="lab" src="3D-models/homeAssigment/mainarea/low_poly_sci-fi_lab.glb"></a-asset-item>
+            <a-asset-item id="pillar" src="3D-models/homeAssigment/mainarea/medieval_sci-fi_pillar.glb"></a-asset-item>
+            <a-asset-item id="forest" src="3D-models/homeAssigment/rainforest/free_low_poly_forest.glb"></a-asset-item>
+            <a-asset-item id="bird" src="3D-models/homeAssigment/rainforest/bird.glb"></a-asset-item>
+            <a-asset-item id="tree" src="3D-models/homeAssigment/rainforest/realistic_tree_2_free.glb"></a-asset-item>
+            <a-asset-item id="monkey" src="3D-models/homeAssigment/rainforest/low_poly_baboon.glb"></a-asset-item>
+            <a-asset-item id="jaguar" src="3D-models/homeAssigment/rainforest/jaguar.glb"></a-asset-item>
+            <a-asset-item id="frog" src="3D-models/homeAssigment/rainforest/australian_tree_frog.glb"></a-asset-item>
+            <a-asset-item id="sign" src="3D-models/homeAssigment/rainforest/wooden_sign_-_low_poly.glb"></a-asset-item>
+            <a-assets>
+                <img id="sky" src="sky.jpg">
+            </a-assets>
+
+        </a-assets>
+        <a-entity environment="preset: arches; lighting: none"></a-entity>
+        <a-light type="ambient" intensity="1" color="#ffffff"></a-light>
+
+        <a-sky src="#sky"></a-sky>
+
+        <a-light id="treeLight" light="angle: 30" type="spot" position="10.05277 6.18217 18.00305" target="#treeTarget"
+            visible="false"></a-light>
+        <a-light id="labLightForest" light="angle: 30" type="spot" position="14.39788 6 16.36994" target="#labLightForestTarget"
+            visible="false"></a-light>
+
+        <a-entity id="treeTarget" position="9.2876 2.19853 17"></a-entity>
+        <a-entity id="labLightForestTarget" position="14.19862 1.29967 15.90715"></a-entity>
+
+        <a-plane id="wall1" geometry="height: 54.31; width: 38.91" scale="4.23161 -0.66563 1"
+            position="0 14.70772 74.8143" height="100" width="100" color="#D3D3D3 " opacity="0.5"
+            rotation="0 180 0"></a-plane>
+
+
+        <!-- Basic plane. -->
+        <a-entity id="pill1tree" scale="0.5 0.5 0.5" position="9.89914 1.13211 17.22802">
+            <a-gltf-model src="#pillar" scale="0.5 0.5 0.5"></a-gltf-model>
+            <a-entity position="-1 3.3 0.17827" scale="0.1 0.1 0.1" spin-on-hover="spotlightId: #treeLight"
+                page-teleport-on-click="url: rainForestActivity.html; prompt: Do you want to go to the activity area?">
+                <a-gltf-model src="#tree"></a-gltf-model>
+            </a-entity>
+        </a-entity>
+        <a-entity id="pill2treelab" position="14.75556 0.93673 15.92389" scale="0.5 0.5 0.5">
+            <a-gltf-model src="#pillar" scale="0.5 0.5 0.5"></a-gltf-model>
+            <a-entity position="-1 3.3 0.17827" scale="0.1 0.1 0.1" spin-on-hover="spotlightId: #labLightForest"
+                page-teleport-on-click="url: mainArea.html; prompt: Do you want to go to the mainarea ?">
+                <a-gltf-model src="#lab"></a-gltf-model>
+            </a-entity>
+        </a-entity>
+
+
+        <!-- Sounds -->
+        <a-sound id="forestMusic" src="audio/rainForest/rainforest-33441.mp3" loop="true" autoplay="true"
+            position="0 2 0"></a-sound>
+
+        <!-- Animale modals -->
+
+
+        <a-entity id="frog modals1" rotation="0 -39.76097915089861 0" gltf-model="#frog"
+            position="24.88038 4.53413 32.55239" scale="0.005 0.005 0.005"
+            show-text-on-click="message: This is a jaguar, a majestic big cat!; sound: #frogSound">
+            <a-sound id="frogSound" src="audio/rainForest/frog-croaking-sound-effect-322956.mp3"></a-sound>
+        </a-entity>
+
+        <a-entity id="monkeymodal1" rotation="0.7757848546071346 179.9998479605043 0" gltf-model="#monkey"
+            position="2.74153 2.46119 36.07101" scale="0.3 0.3 0.3"
+            show-text-on-click="targetTextId: #monkeytext; duration: 10000; sound: #monkeySound"><a-sound
+                id="monkeySound" src="audio/rainForest/monkey-128368.mp3"></a-sound></a-entity>
+
+
+        <a-entity id="jaguarmodal2" rotation="0 180 0" gltf-model="#jaguar" position="1.02769 1.17628 -14.78921"
+            scale="0.5 0.5 0.5"
+            show-text-on-click="message: This is a jaguar, a majestic big cat!; sound: #jaguarSound">
+            <a-sound id="jaguarSound" src="audio/rainForest/the-sound-of-a-female-jaguar.mp3"></a-sound>
+        </a-entity>
+
+        <a-entity id="frog modals2" gltf-model="#frog" position="28.0566 2.88504 40.77807" scale="0.005 0.005 0.005"
+            show-text-on-click="message: This is a jaguar, a majestic big cat!; sound: #frogSound">
+            <a-sound id="frogSound" src="audio/rainForest/frog-croaking-sound-effect-322956.mp3"></a-sound>
+        </a-entity>
+
+        <a-entity id="monkeymodal2" rotation="0 -96.06439576281434 0" gltf-model="#monkey"
+            position="12.06966 3.13295 43.59204" scale="0.2 0.2 0.2"
+            show-text-on-click="message: This is a jaguar, a majestic big cat!; sound: #monkeySound"><a-sound
+                id="monkeySound" src="audio/rainForest/monkey-128368.mp3"></a-sound></a-entity>
+
+        <a-entity id="birdmodal2" rotation="0 0 0" gltf-model="#bird" position="-18.88073 3.42083 7.30774"
+            scale="0.2 0.2 0.2"></a-entity>
+
+        <a-entity id="jaguarmodal3" rotation="8.341119581514524 -127.20923559053563 -5.962198816131346"
+            gltf-model="#jaguar" position="-7.54332 1.17628 -1.94818" scale="0.5 0.5 0.5">
+
+        </a-entity>
+
+        <a-entity id="frog modals3" rotation="0 -78.39838806554567 0" gltf-model="#frog"
+            position="26.91135 1.24477 21.42112" scale="0.01 0.01 0.01"
+            show-text-on-click="targetTextId: #frogtext; duration: 10000; sound: #frogSound">
+            <a-sound id="frogSound" src="audio/rainForest/frog-croaking-sound-effect-322956.mp3"></a-sound>
+        </a-entity>
+
+        <a-entity id="monkeymodal3" rotation="-11.692922683029842 179.9998479605043 0" gltf-model="#monkey"
+            position="-3.30423 2.9679 47.65986" scale="0.2 0.2 0.2"
+            show-text-on-click="message: This is a jaguar, a majestic big cat!; sound: #monkeySound"><a-sound
+                id="monkeySound" src="audio/rainForest/monkey-128368.mp3"></a-sound></a-entity>
+
+        <a-entity id="birdmodal3" rotation="0 -90 0" gltf-model="#bird" position="-25.35133 4.33173 8.1321"
+            scale="0.2 0.2 0.2"></a-entity>
+        <a-entity id="jaguarmodal4" rotation="0 138.2461215981407 0" gltf-model="#jaguar"
+            position="15.21596 1.17628 -6.96289" scale="0.5 0.5 0.5"></a-entity>
+
+
+        <a-entity id="frog modals4" rotation="0 -130.09350513122422 0" gltf-model="#frog"
+            position="21.88873 1.12578 15.40864" scale="0.005 0.005 0.005"
+            show-text-on-click="message: This is a jaguar, a majestic big cat!; sound: #frogSound">
+            <a-sound id="frogSound" src="audio/rainForest/frog-croaking-sound-effect-322956.mp3"></a-sound>
+        </a-entity>
+
+        <a-entity id="monkeymodal4" rotation="0 -38.541152005065086 0" gltf-model="#monkey"
+            position="10.81377 1.28236 26.95262" scale="0.2 0.2 0.2"
+            show-text-on-click="message: This is a jaguar, a majestic big cat!; sound: #monkeySound"><a-sound
+                id="monkeySound" src="audio/rainForest/monkey-128368.mp3"></a-sound></a-entity>
+
+        <a-entity id="birdmodal4" rotation="0 0 0" gltf-model="#bird" position="-18.54578 3.5006 -3.01456"
+            scale="0.5 0.5 0.5" show-text-on-click="targetTextId: #birdtext; duration: 10000; sound: #birdSound">
+            <a-sound id="birdSound" src="audio/rainForest/bird-327231.mp3"></a-sound>
+        </a-entity>
+
+        <a-entity id="jaguarmodal5" gltf-model="#jaguar" position="3.93405 1.17628 8.90838"
+            scale="0.5 0.5 0.5"></a-entity>
+
+        <a-entity id="monkeymodal5" rotation="-22.058302154741565 44.55606293834847 -10.650712453686873"
+            gltf-model="#monkey" position="-17.5015 3.51801 26.86254" scale="0.2 0.2 0.2"></a-entity>
+
+        <a-entity id="birdmodal5" rotation="0 90 0" gltf-model="#bird" position="-16.65487 2.6592 -7.88001"
+            scale="0.2 0.2 0.2"></a-entity>
+
+        <a-entity id="jaguarmodal" rotation="-1.2536316557462412 -19.137936272959756 0" gltf-model="#jaguar"
+            position="-4.0734 1.17628 11.29579" scale="0.5 0.5 0.5"></a-entity>
+
+
+        <a-entity id="jaguarmodal6" rotation="-11.894030869120758 0 3.014903917978392" gltf-model="#jaguar"
+            position="2.34838 2.8969 -5.65404" scale="0.5 0.5 0.5"
+            show-text-on-click="targetTextId: #jagurtext; duration: 10000; sound: #jaguarSound">
+            <a-sound id="jaguarSound" src="audio/rainForest/the-sound-of-a-female-jaguar.mp3"></a-sound>
+        </a-entity>
+
+        <a-entity id="frog modals6" rotation="0 -99.7588276258179 0" gltf-model="#frog"
+            position="29.07403 2.98871 25.79342" scale="0.005 0.005 0.005">
+
+        </a-entity>
+
+
+        <a-entity id="monkeymodal6" rotation="0 -12.140975678822144 0" gltf-model="#monkey"
+            position="-4.01183 1.28236 26.47383" scale="0.2 0.2 0.2"></a-entity>
+
+        <a-entity id="birdmodal6" rotation="0 90 0" gltf-model="#bird" position="-25.78194 3.12703 6.74763"
+            scale="0.2 0.2 0.2"></a-entity>
+
+        <a-entity id="jaguarmodal9" rotation="0 28.832382166573286 0" gltf-model="#jaguar"
+            position="15.46518 1.17628 4.30237" scale="0.5 0.5 0.5"></a-entity>
+
+
+        <a-gltf-model id="area" scale="0.4 0.4 0.4" src="#forest" position="0 12.45695 0"></a-gltf-model>
+        <a-gltf-model id="area-2" scale="0.4 0.4 0.4" src="#forest" position="7.54815 12.457 129.09133"
+            rotation="0 180 0"></a-gltf-model>
+
+        <a-entity id="signmodal" rotation="0 -11.31 0" gltf-model="#sign" position="18.31641 2.08831 55.5386"
+            scale="3 3 3"></a-entity>
+
+
+        <a-entity id="welcome"
+            text="value: Welcome to the rainforest! If you want to learn how the animals in this ecosystem are being affected by climate change and how they are adapting, click on the enlarged models.; align: center; width: 6; color: #2133"
+            position="25.03266 3.31453 58.90224" look-at="#camera">
+            <a-plane id="textbackgroundForest" geometry="height: 1.53; width: 6.45" position="0 -0.03863 -0.87029"
+                height="5" width="15" color="#000000" opacity="0.5"></a-plane>
+        </a-entity>
+
+
+        <a-entity id="frogtext" visible="false"
+            text="value: Frogs are very sensitive to climate change because they depend on moist environments to survive. To adapt, they hide in cooler, wetter microhabitats like under leaves or near shaded pools to avoid drying out. Many frog species also shift their breeding times to match new rainfall patterns caused by climate change, increasing the survival chances of their offspring. Some frogs may even be evolving skin that helps them retain moisture better.; align: center; width: 6; color: #2133"
+            position="25.43837 3.39599 17.87039" look-at="#camera">
+            <a-plane id="textbackground" geometry="height: 3.43; width: 6.65" position="0 -0.01257 -0.86988" height="5"
+                width="15" color="#005477 " opacity="0.5" rotation="0 0 -0.1"></a-plane>
+        </a-entity>
+        <a-entity id="jagurtext" visible="false"
+            text="value: Jaguars are adapting to climate change in the rainforest by becoming more active at night when temperatures are cooler. As parts of their habitat dry out or shrink due to climate change, jaguars move to new areas in search of water and prey. They also adjust their diets by hunting different animals if their usual prey becomes scarce, 
+            showing flexibility that helps them survive in a changing environment.; align: center; width: 6; color: #2133"
+            position="6.61641 5.70605 -5.65404" look-at="#camera">
+            <a-plane id="textbackground" geometry="width: 5.98; height: 3.05" position="0 0 -0.1" height="5" width="15"
+                color="#005477 " opacity="0.5" rotation="0 0 0"></a-plane>
+        </a-entity>
+        <a-entity id="monkeytext" visible="false"
+            text="value: Monkeys, such as howler and spider monkeys, cope with climate change by resting more during the hottest parts of the day and staying in higher, cooler parts of the tree canopy. They sometimes form smaller groups to reduce competition for limited food caused by climate change. Additionally, monkeys may follow fruiting trees that shift their locations due to changing rainfall patterns brought on by climate change.; align: center; width: 6; color: #2133"
+            position="7.33902 3.67278 35.23832" look-at="#camera">
+            <a-plane id="textbackground" geometry="width: 5.98; height: 3.05" position="0 0 -0.1" height="5" width="15"
+                color="#005477 " opacity="0.5" rotation="0 0 0"></a-plane>
+
+        </a-entity>
+
+        <a-entity id="birdtext" visible="false"
+            text="value: Rainforest birds such as toucans, parrots, and hummingbirds respond to climate change by moving to higher elevations where temperatures are cooler. They often adjust their nesting times or choose different nesting spots to better suit the changing weather caused by climate change. Birds also adapt their diets by eating a wider variety of insects and fruits if their preferred food sources become less available due to climate change.; align: center; width: 6; color: #2133"
+            position="-23.13148 3.68621 0.18882" look-at="#camera">
+            <a-plane id="textbackground" geometry="width: 5.98; height: 3.05" position="0 0 -0.1" height="5" width="15"
+                color="#005477 " opacity="0.5" rotation="0 0 0"></a-plane>
+        </a-entity>
+
+
+
+
+
+
+
+
+
+
+
+        <!-- Camera -->
+        <a-entity id="cameraRig" position="21.18962 1.6 64.09503">
+            <a-camera id="camera">
+                <a-cursor></a-cursor>
+            </a-camera>
+        </a-entity>
+    </a-scene>
+
+
+</body>
+
+</html>

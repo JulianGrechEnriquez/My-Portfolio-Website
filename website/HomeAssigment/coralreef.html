@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+
+    <!-- A-Frame Core -->
+    <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
+    <script src="sripts/telaportFunctions.js"></script>
+    <script src="sripts/hoverFunction.js"></script>
+    <script src="sripts/clickText.js"></script>
+    <script src="sripts/coralReefActivity/coralWhite.js"></script>
+
+
+    <!-- A-Frame Components -->
+
+
+
+    <script src="https://unpkg.com/aframe-event-set-component@5.0.1/dist/aframe-event-set-component.min.js"></script>
+    <script
+        src="https://cdn.jsdelivr.net/npm/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
+
+    <!-- Custom Components -->
+
+</head>
+
+<body>
+    <a-scene shadow="type: pcfsoft" >
+        <a-assets>
+
+            <a-asset-item id="lab" src="3D-models/homeAssigment/mainarea/low_poly_sci-fi_lab.glb"></a-asset-item>
+            <a-asset-item id="pillar" src="3D-models/homeAssigment/mainarea/medieval_sci-fi_pillar.glb"></a-asset-item>
+
+            <a-asset-item id="coralreef" src="3D-models/homeAssigment/coralreef/coral_reef.glb"></a-asset-item>
+            <a-asset-item id="hermitcrab" src="3D-models/homeAssigment/coralreef/little_hermit_crab.glb"></a-asset-item>
+            <a-asset-item id="coral_reef" src="3D-models/homeAssigment/coralreef/coral.glb"></a-asset-item>
+            <a-asset-item id="sea-turtle" position="2.82362 3.82542 11.42094" scale="1 1 1"
+                src="3D-models/homeAssigment/coralreef/sea_turtle (1).glb"></a-asset-item>
+            <a-asset-item id="clown-fish"
+                src="3D-models/homeAssigment/coralreef/clown_fish_low_poly_animated.glb"></a-asset-item>
+            <a-asset-item id="shark" src="3D-models/homeAssigment/coralreef/reef_shark.glb"></a-asset-item>
+            <a-asset-item id="light" src="3D-models/homeAssigment/coralreef/under_water_light_house.glb"></a-asset-item>
+
+
+        </a-assets>
+        <a-entity environment="preset: arches; lighting: none"></a-entity>
+        <a-light type="ambient" intensity="1" color="#ffffff"></a-light>
+
+        <a-light id="coralLight" light="intensity: 3.38; angle: 30" type="spot" position="2.50368 6.31506 -5.26298" target="#coralTarget"
+            visible="false"></a-light>
+
+        <a-entity id="coralTarget" position="1.04762 2.66392 -5.56678"></a-entity>
+
+        <a-light id="labTargetCoralLight" light="angle: 30" type="spot" position="1.86012 6.31506 -3.22986" target="#labTargetCoralTarget"
+            visible="false"></a-light>
+
+        <a-entity id="labTargetCoralTarget" position="0.69473 2.66392 -2.64719"></a-entity>
+
+        <a-entity id="pill1coral" scale="0.5 0.5 0.5" position="1.56227 2.66392 -5.47725">
+            <a-gltf-model src="#pillar" scale="0.5 0.5 0.5"></a-gltf-model>
+            <a-entity position="-1 3.3 0.17827" scale="0.2 0.2 0.2" spin-on-hover="spotlightId: #coralLight"
+                set-white-color
+                page-teleport-on-click="url: coralreefActivity.html; prompt: Do you want to go to the activity area?">
+                <a-gltf-model src="#coral_reef" scale="0.5 0.5 0.5" set-white-color></a-gltf-model>
+            </a-entity>
+        </a-entity>
+        <a-entity id="pill2coral" position="1.59794 2.78119 -2.78693" scale="0.5 0.5 0.5">
+            <a-gltf-model src="#pillar" scale="0.5 0.5 0.5"></a-gltf-model>
+            <a-entity position="-1 3.3 0.17827" scale="0.1 0.1 0.1" spin-on-hover="spotlightId: #labTargetCoralLight"
+                page-teleport-on-click="url:mainArea.html; prompt: Do you want to go to the mainarea ?">
+                <a-gltf-model src="#lab"></a-gltf-model>
+            </a-entity>
+        </a-entity>
+
+        <a-entity id="light" gltf-model="#light" position="0 -3.186 0" scale="40 40 40"></a-entity>
+
+
+        <a-plane id="wall2coral" geometry="height: 54.31; width: 40" scale="1 -0.66563 1" position="0 14.70772 16.12697"
+            height="100" width="100" color="#005477 " opacity="1" rotation="0 180 0"></a-plane>
+        <a-plane id="wall3coral" geometry="height: 57.4; width: 40" scale="1 -0.66563 1"
+            position="-0.33452 16.29285 -21.05494" height="100" width="100" color="#005477 " opacity="1"
+            rotation="0 0 0"></a-plane>
+        <a-plane id="wall4coral" geometry="height: 57.4; width: 38.99" scale="1 -0.66563 1"
+            position="0 31.81833 -1.91251" height="100" width="100" color="#005477 " opacity="1"
+            rotation="90 0 0"></a-plane>
+
+        <a-plane id="wall5coralcoral" geometry="height: 57.4; width: 40" scale="1 -0.666 1"
+            position="-18.94715 14.20756 -1.23747" height="100" width="100" color="#005477 " opacity="1"
+            rotation="0 -270 0"></a-plane>
+
+        <a-plane id="wall6coral" geometry="height: 57.4; width: 40" scale="1 -0.666 1"
+            position="18.8498 15.51479 -2.95475" height="100" width="100" color="#005477 " opacity="1"
+            rotation="0 270 0"></a-plane>
+
+        <a-sound id="oceanMusic" src="audio/coralreef/ocean-waves-250310.mp3" loop="true" autoplay="true"
+            position="11.85221 0 -2.53277"></a-sound>
+
+
+
+        <a-entity id="herm" rotation="12.586163885638793 83.37911017861792 -1.449010263885852" gltf-model="#hermitcrab"
+            position="-11.09833 5.04176 6.84275" scale="1 1 1"
+            show-text-on-click="targetTextId: #hermitcrabtext; duration: 10000; sound: #hermitcrabSound">
+            <a-sound id="hermitcrabSound" src="audio/coralreef/kepiting-220057.mp3"></a-sound>
+        </a-entity>
+
+        <a-entity id="sharkmodal" position="0 -0.0121 -13.78021" scale="0.5 0.5 0.5"
+            show-text-on-click="targetTextId: #sharktext; duration: 10000; sound: #sharkSound">
+            <a-entity gltf-model="#shark" scale="160 160 160" rotation="0 5.026558736682713 0">
+                <a-sound id="sharkSound" src="audio/coralreef/weird_shark_noise-46308.mp3"></a-sound>
+
+            </a-entity>
+
+            <a-cylinder visible="false" id="sharkbox" position="0 5.40195 0" color="crimson" height="30" radius="1.5"
+                geometry="height: 17.33; radius: 1.61"
+                rotation="0 -0.33632622574179327 -90.00021045914971"></a-cylinder>
+        </a-entity>
+
+        <a-entity id="coral-1" gltf-model="#coral_reef" position="9.15107 0.29915 8.64923" scale="0.2 0.2 0.2"
+            show-text-on-click="targetTextId: #coraltext; duration: 10000; sound: "></a-entity>
+
+        <a-entity id="sea-turtlel" gltf-model="#sea-turtle" position="1.70887 2 10.70252" scale="2 2 2"
+            show-text-on-click="targetTextId: #sea-turtletext; duration: 10000; sound: #sea-turtleSound">
+            <a-sound id="sea-turtleSound"
+                src="audio/coralreef/the-egyptian-tortoise-makes-a-sound-like-this.mp3"></a-sound>
+        </a-entity>
+        <a-entity id="clown-fishsy" gltf-model="#clown-fish" position="15.01148 1 -15.76538" scale="16 16 16"
+            show-text-on-click="targetTextId: #clown-fishtext; duration: 10000; sound: #clown-fishSound">
+            <a-sound id="clown-fishSound" src="audio/coralreef/clownfish.mp3"></a-sound>
+        </a-entity>
+
+        <a-entity id="clown-fishtext" visible="false"
+            text="value: Clownfish, which live in sea anemones on coral reefs, are facing problems due to climate change. As ocean temperatures rise and coral reefs bleach, clownfish lose their homes and protection. Warmer water also affects how clownfish communicate and find mates. Some clownfish are moving to deeper or cooler parts of the reef, but they depend closely on healthy anemones, which also struggle with heat. Climate change puts pressure on their ability to survive and reproduce.; align: center; width: 6; color: #2133"
+            position="15.01148 4 -15.76538" look-at="#camera">
+            <a-plane id="textbackgroundfish" geometry="height: 3.17; width: 6.52" position="0 -0.03863 -0.87029"
+                height="5" width="15" color="#000000" opacity="0.5"></a-plane>
+        </a-entity>
+
+        <a-entity id="coraltext" visible="false"
+            text="value:  Coral reefs are one of the most affected ecosystems by climate change. Warmer ocean temperatures cause coral bleaching, where corals lose the algae they need to survive. Some corals are adapting by forming partnerships with more heat-tolerant algae or growing in deeper, cooler water. However, if temperatures stay too high, corals struggle to recover. Climate change also leads to ocean acidification, which weakens coral skeletons and makes it harder for reefs to grow.; align: center; width: 6; color: #2133"
+            position="9.15107 6 8.64923" look-at="#camera">
+            <a-plane id="textbackground" geometry="height: 3.24; width: 6.91" position="0 0 -1" height="5" width="15"
+                color="#000000" opacity="0.5"></a-plane>
+        </a-entity>
+
+        <a-entity id="sea-turtletext" visible="false"
+            text="value: Sea turtles are highly sensitive to climate change, especially because the temperature of the sand where they lay eggs affects the sex of their hatchlings. Warmer sand from climate change leads to more female turtles, which could cause population problems in the future. Sea turtles are also shifting their nesting seasons and migrating to cooler areas. Rising sea levels and stronger storms can destroy nesting beaches, so turtles must find new places to lay their eggs.; align: center; width: 6; color: #2133"
+            position="1.67773 4.49895 10.44151" look-at="#camera">
+            <a-plane id="textbackground" geometry="height: 3.24; width: 6.91" position="0 0 -1" height="5" width="15"
+                color="#000000" opacity="0.5"></a-plane>
+        </a-entity>
+
+        <a-entity id="sharktext" visible="false"
+            text="value: Reef sharks are being impacted by climate change as coral reefs become damaged and fish populations move. With less healthy reef to hunt in, reef sharks may have to travel farther or hunt different prey. Warmer water also affects their behavior and energy levels. Some reef sharks are moving to deeper or cooler areas as a way to adapt. However, climate change also brings more human activity and pollution, making survival harder for reef sharks.; align: center; width: 6; color: #2133"
+            position="0 7 -13.78021" look-at="#camera">
+            <a-plane id="textbackground" geometry="height: 3.24; width: 6.91" position="0 0 -1" height="5" width="15"
+                color="#000000" opacity="0.5"></a-plane>
+        </a-entity>
+
+        <a-entity id="hermitcrabtext" scale="1 1 1" visible="false"
+            text="value: Hermit crabs are affected by climate change as ocean temperatures rise and sea levels increase. Warmer waters can change where they find food and suitable shells. Some hermit crabs are moving to cooler, deeper waters or changing their behavior to avoid heat. Climate change also affects the availability of shells, so hermit crabs may compete more for safe homes. Their ability to find new homes and adapt to different conditions helps them survive as their coastal habitats change.; align: center; width: 6; color: #2133"
+            position="-11.09833 6.70236 2.52028" look-at="#camera">
+            <a-plane id="textbackground" geometry="height: 3.24; width: 6.91" position="0 0 -1" height="5" width="15"
+                color="#000000" opacity="0.5"></a-plane>
+        </a-entity>
+
+        <a-entity id="Welcome"
+            text="value:  Welcome to the coralreef! If you want to learn how the animals in this ecosystem are being affected by climate change and how they are adapting, click on the enlarged models.; align: center; width: 6; color: #2133"
+            position="10.76499 3.42059 -5.3242" look-at="#camera">
+            <a-plane id="textbackground" geometry="height: 3.24; width: 6.91" position="0 0 -1" height="5" width="15"
+                color="#000000" opacity="0.5"></a-plane>
+        </a-entity>
+
+
+
+        <!-- Camera -->
+        <a-entity id="cameraRig" position="18.77046 1.6 -5.20178" rotation="0 90 0">
+            <a-camera id="camera">
+                <a-cursor></a-cursor>
+            </a-camera>
+        </a-entity>
+    </a-scene>
+
+
+</body>
+
+
+</html>

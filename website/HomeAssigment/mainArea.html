@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+
+  <!-- A-Frame Core -->
+  <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
+  <script src="sripts/telaportFunctions.js"></script>
+  <script src="sripts/hoverFunction.js"></script>
+
+
+
+  <!-- A-Frame Components -->
+
+
+
+  <script src="https://unpkg.com/aframe-event-set-component@5.0.1/dist/aframe-event-set-component.min.js"></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
+
+</head>
+
+<body>
+  <a-scene shadow="type: pcfsoft" >
+    <a-assets>
+
+      <a-asset-item id="lab" src="3D-models/homeAssigment/mainarea/low_poly_sci-fi_lab.glb"></a-asset-item>
+      <a-asset-item id="pillar" src="3D-models/homeAssigment/mainarea/medieval_sci-fi_pillar.glb"></a-asset-item>
+      <a-asset-item id="forest" src="3D-models/homeAssigment/rainforest/rainforest.glb"></a-asset-item>
+      <a-asset-item id="Artic" src="3D-models/homeAssigment/arctic/arctic_landscape_low-poly.glb"></a-asset-item>
+      <a-asset-item id="coralreef" src="3D-models/homeAssigment/coralreef/coral_reef.glb"></a-asset-item>
+    </a-assets>
+
+
+
+    <!-- Lab Environment -->
+    <a-entity environment="preset: arches; lighting: none"></a-entity>
+    <a-light type="ambient" intensity="0.5" color="#ffffff"></a-light>
+
+    <!-- Spotlights -->
+    <a-light id="forestLight" light="angle: 33" type="spot" position="-8 6 -8" target="#forestTarget"
+      visible="false"></a-light>
+    <a-light id="ArticLight" light="angle: 30" type="spot" position="8 6 -8" target="#ArticTarget"
+      visible="false"></a-light>
+    <a-light id="oceanLight" light="angle: 30" type="spot" position="0 6 -14.91628" target="#oceanTarget"
+      visible="false"></a-light>
+
+    <a-entity id="forestTarget" position="-8.25109 2.19853 -7.5916"></a-entity>
+    <a-entity id="ArticTarget" position="7.58207 3.335 -8"></a-entity>
+    <a-entity id="oceanTarget" position="-0.53521 1.56355 -14.55604"></a-entity>
+
+    <!-- Miniature Environments -->
+    <a-entity id="rainForestpillarl" position="-7.43424 0 -7.36323">
+      <a-gltf-model src="#pillar" scale="0.5 0.5 0.5"></a-gltf-model>
+      <a-entity id="forestContainer" position="-1 3.3 0.17827" scale="0.05 0.05 0.05"
+        spin-on-hover="spotlightId: #forestLight"
+        page-teleport-on-click="url: rainForest.html; prompt: Do you want to go to the activity area?">
+        <a-gltf-model src="#forest"></a-gltf-model>
+      </a-entity>
+    </a-entity>
+
+    <a-entity id="coralpillarl" position="0.771 0 -15.076">
+      <a-gltf-model src="#pillar" scale="0.5 0.5 0.5"></a-gltf-model>
+      <a-entity id="oceanContainer" position="-1 3.3 0.17827" scale="1 1 1" spin-on-hover="spotlightId: #oceanLight"
+        page-teleport-on-click="url: coralreef.html; prompt: Do you want to go to the activity area?">
+        <a-gltf-model src="#coralreef"></a-gltf-model>
+      </a-entity>
+    </a-entity>
+
+    <a-entity id="articpillarl" position="7.434 0 -7.363">
+      <a-gltf-model src="#pillar" scale="0.5 0.5 0.5"></a-gltf-model>
+      <a-entity id="ArticContainer" position="-1 3.3 0.17827" scale="0.1 0.1 0.1"
+        spin-on-hover="spotlightId: #ArticLight"
+        page-teleport-on-click="url: arctic.html; prompt: Do you want to go to the activity area?">
+        <a-gltf-model src="#Artic"></a-gltf-model>
+      </a-entity>
+    </a-entity>
+
+    <!-- Main area -->
+    <a-gltf-model id="labmodal" rotation="0 20.775449651443648 0" src="#lab" position="-0.7707 0 -5.5138"
+      scale="2 2 2"></a-gltf-model>
+
+
+
+    <a-entity id="textintro" text="value: Welcome to My VR Experience!
+
+    To begin exploring:
+
+      1) Click the VR symbol in the bottom-right corner to enter VR mode.
+
+      2) Use the WASD keys to move around the environment.
+
+      3) Click on a model on one of the pillars to enter an ecosystem and learn more!
+
+      Enjoy your virtual journey! ; align: center; width: 6; color: #2133" position="-0.0175 3.04104 -7.39067" look-at="#camera">
+    </a-entity>
+    <!-- Camera -->
+    <a-entity id="cameraRig" position="0 1.6 0">
+      <a-camera id="camera">
+        <a-cursor></a-cursor>
+      </a-camera>
+    </a-entity>
+  </a-scene>
+
+
+</body>
+
+</html>

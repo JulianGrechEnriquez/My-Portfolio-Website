@@ -66,12 +66,7 @@ body {
 
 }
 
-.cards {
-    display: flex;
 
-    flex-wrap: wrap;
-    margin-bottom: 20px;
-}
 
 /* ensure cards wrap nicely on smaller screens */
 @media(max-width:800px) {
@@ -94,6 +89,8 @@ body {
     text-align: center;
 
 }
+
+
 .card:hover {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     scale: 1;

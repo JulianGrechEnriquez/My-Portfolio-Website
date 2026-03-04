@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+
+  <!-- A-Frame Core -->
+  <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
+  <script src="sripts/telaportFunctions.js"></script>
+  <script src="sripts/hoverFunction.js"></script>
+
+  <script src="sripts/coralReefActivity/coralWhite.js"></script>
+  <script src="sripts/coralReefActivity/chestPlayAnimation.js"></script>
+  <script src="sripts/coralReefActivity/magicSphere.js"></script>
+
+
+  <!-- Optional: Fix for redefining grabbable -->
+  <script>
+    delete AFRAME.components['grabbable'];
+  </script>
+
+
+  <!-- Super Hands -->
+  <script src="https://unpkg.com/super-hands@3.0.5/dist/super-hands.min.js"></script>
+
+  <!-- Event Set -->
+  <script src="https://unpkg.com/aframe-event-set-component@^5.0.0/dist/aframe-event-set-component.min.js"></script>
+
+  <!-- Physics System -->
+  <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-physics-system@v4.1.0/dist/aframe-physics-system.js"></script>
+
+
+  <script src="https://unpkg.com/aframe-extras@6.1.1/dist/aframe-extras.min.js"></script>
+
+
+</head>
+
+<body>
+  <a-scene physics="gravity:0" >
+
+    <a-assets>
+      <a-asset-item id="lab" src="3D-models/homeAssigment/mainarea/low_poly_sci-fi_lab.glb"></a-asset-item>
+      <a-asset-item id="pillar" src="3D-models/homeAssigment/mainarea/medieval_sci-fi_pillar.glb"></a-asset-item>
+      <a-asset-item id="coralreef" src="3D-models/homeAssigment/coralreef/coral_reef.glb"></a-asset-item>
+      <a-asset-item id="hermitcrab" src="3D-models/homeAssigment/coralreef/little_hermit_crab.glb"></a-asset-item>
+      <a-asset-item id="coral_reef" src="3D-models/homeAssigment/coralreef/coral.glb"></a-asset-item>
+      <a-asset-item id="sea-turtle" position="2.82362 3.82542 11.42094" scale="1 1 1"
+        src="3D-models/homeAssigment/coralreef/sea_turtle (1).glb"></a-asset-item>
+      <a-asset-item id="shark" src="3D-models/homeAssigment/coralreef/reef_shark.glb"></a-asset-item>
+      <a-asset-item id="clown-fish" position="9.03096 1 -18.47073"
+        src="3D-models/homeAssigment/coralreef/clown_fish_low_poly_animated.glb"></a-asset-item>
+      <a-asset-item id="light" position="0 -3.186 0" rotation="0 -90 0"
+        src="3D-models/homeAssigment/coralreef/under_water_light_house.glb"></a-asset-item>
+
+
+
+      <a-asset-item id="treasure_chest" src="3D-models/homeAssigment/coralreef/treasure_chest.glb"></a-asset-item>
+    </a-assets>
+
+    <a-entity environment="preset: arches; lighting: none"></a-entity>
+    <a-light type="ambient" intensity="1" color="#ffffff"></a-light>
+
+
+    <a-light id="coralreefLight" light="intensity: 3.38" type="spot" position="2.50368 6.31506 -5.26298"
+      target="#coralreefTarget" visible="false"></a-light>
+
+    <a-entity id="coralreefTarget" position="1.81002 2.66392 -3.9966"></a-entity>
+
+
+    <!-- Coral Display -->
+    <a-entity position="2.357 2.422 -4.129 " scale="0.5 0.5 0.5">
+      <a-gltf-model src="#pillar" static-body scale="0.5 0.5 0.5"></a-gltf-model>
+      <a-entity id="oceanContainer" position="-1 3.3 0.17827" scale="1 1 1" spin-on-hover="spotlightId: #coralreefLight"
+        page-teleport-on-click="url: coralreef.html">
+        <a-gltf-model src="#coralreef"></a-gltf-model>
+      </a-entity>
+    </a-entity>
+
+    <!-- Animals -->
+    <a-entity id="light" gltf-model="#light" position="0 -3.186 0" scale="40 40 40"></a-entity>
+
+
+
+    <a-entity id="animatedModel" gltf-model="#treasure_chest" play-on-click animation-mixer="clip: none"
+      scale="0.03 0.03 0.03" position="16.48999 0.32282 -10.32462" class="clickable"></a-entity>
+
+
+    <a-entity id="herm1" gltf-model="#hermitcrab" class="hermitcrab" position="10.19033 1 -16.01397" scale="0.5 0.5 0.5"
+      visible="false"></a-entity>
+    <a-entity id="turtle1" rotation="-22.547608111783287 -102.48152306827957 4.85123365137268" gltf-model="#sea-turtle"
+      class="seaturtel" position="-12.60839 12.27782 -7.93603" scale="1 1 1" visible="false"></a-entity>
+    <a-entity id="clown1" gltf-model="#clown-fish" class="clownfish" position="5.54756 6.81595 -12.11933"
+      scale="10 10 10" visible="false"></a-entity>
+    <a-entity id="shar1" gltf-model="#shark" class="shark" position="6.74912 23.22533 0" scale="80 80 80"
+      visible="false"></a-entity>
+
+    <a-entity id="herm2" gltf-model="#hermitcrab" class="hermitcrab" position="-14.91847 1 -15.3341" scale="0.5 0.5 0.5"
+      visible="false"></a-entity>
+    <a-entity id="turtle2" rotation="0 -31.289225192094257 0" gltf-model="#sea-turtle" class="seaturtel"
+      position="-9.42861 12 9.33838" scale="1 1 1" visible="false"></a-entity>
+    <a-entity id="clown2" gltf-model="#clown-fish" class="clownfish" position="16 5.83666 -16.13551" scale="10 10 10"
+      visible="false"></a-entity>
+    <a-entity id="shar2" gltf-model="#shark" class="shark" position="-9.25515 26.30319 1" scale="80 80 80"
+      visible="false"></a-entity>
+
+    <a-entity id="herm3" rotation="11.735894517664653 96.46489326161078 1.3200947599814168" gltf-model="#hermitcrab"
+      class="hermitcrab" position="-11.19268 5.24717 7.92632" scale="1 1 1" visible="false"></a-entity>
+    <a-entity id="turtle3" rotation="-12.06248046088922 52.5087171347643 9.107164153604435" gltf-model="#sea-turtle"
+      class="seaturtel" position="0.29047 11.51726 -14.004" scale="1 1 1" visible="false"></a-entity>
+    <a-entity id="clown3" gltf-model="#clown-fish" class="clownfish" position="-8.53475 6.72363 1.95752"
+      scale="10 10 10" visible="false"></a-entity>
+    <a-entity id="shar3" rotation="0 -180 0" gltf-model="#shark" class="shark" position="-0.71469 22.72 9.16347"
+      scale="80 80 80" visible="false"></a-entity>
+
+    <a-entity id="herm4" rotation="15.647477385022784 88.24810552163964 -0.4726901809829292" gltf-model="#hermitcrab"
+      class="hermitcrab" position="1.95035 3.07867 -5.85037" scale="0.5 0.5 0.5" visible="false"></a-entity>
+    <a-entity id="turtle4" rotation="21.26131786171459 97.49392546166574 2.7307168515935034" gltf-model="#sea-turtle"
+      class="seaturtel" position="3.04149 15.62918 8.49747" scale="1 1 1" visible="false"></a-entity>
+    <a-entity id="clown4" gltf-model="#clown-fish" class="clownfish" position="8.80981 6.94685 3" scale="10 10 10"
+      visible="false"></a-entity>
+    <a-entity id="shar4" rotation="0 180 0" gltf-model="#shark" class="shark" position="1.01834 18.15189 -16.04575"
+      scale="80 80 80" visible="false"></a-entity>
+
+    <a-entity id="herm5" rotation="0 83.13331128450679 0" gltf-model="#hermitcrab" class="hermitcrab"
+      position="10.21749 1.32782 4" scale="0.5 0.5 0.5" visible="false"></a-entity>
+    <a-entity id="turtle5" gltf-model="#sea-turtle" class="seaturtel" position="10.23687 11.10104 -5.10829"
+      scale="1 1 1" visible="false"></a-entity>
+    <a-entity id="clown5" gltf-model="#clown-fish" class="clownfish" position="-14.8934 7.71729 -13.3732"
+      scale="10 10 10" visible="false"></a-entity>
+    <a-entity id="shar5" rotation="0 0 29.790940557827156" gltf-model="#shark" class="shark"
+      position="-8.53489 20.68853 1.42702" scale="80 80 80" visible="false"></a-entity>
+
+    <a-entity id="herm6" rotation="35.6694875358694 0 0" gltf-model="#hermitcrab" class="hermitcrab"
+      position="1.97796 2.72048 2.93303" scale="0.5 0.5 0.5" visible="false"></a-entity>
+    <a-entity id="turtle6" rotation="-21.32606209256437 66.11474589573595 -16.061725870902368" gltf-model="#sea-turtle"
+      class="seaturtel" position="12.16653 11.08583 11.71685" scale="1 1 1" visible="false"></a-entity>
+    <a-entity id="clown6" gltf-model="#clown-fish" class="clownfish" position="-0.51835 7.728 11.50187" scale="10 10 10"
+      visible="false"></a-entity>
+    <a-entity id="shar6" rotation="0 0 -14.429369112574653" gltf-model="#shark" class="shark"
+      position="-2.54252 24.13551 -10.46398" scale="80 80 80" visible="false"></a-entity>
+
+
+
+    <a-plane id="wall1coral" geometry="height: 54.31; width: 40" scale="1 -0.66563 1" position="0 14.70772 16.12697"
+      height="100" width="100" color="#005477 " opacity="1" rotation="0 180 0"></a-plane>
+    <a-plane id="wall2coral" geometry="height: 57.4; width: 40" scale="1 -0.66563 1"
+      position="-0.33452 16.29285 -21.05494" height="100" width="100" color="#005477 " opacity="1"
+      rotation="0 0 0"></a-plane>
+    <a-plane id="wall4coral" geometry="height: 57.4; width: 38.99" scale="1 -0.66563 1" position="0 31.81833 -1.91251"
+      height="100" width="100" color="#005477 " opacity="1" rotation="90 0 0"></a-plane>
+
+    <a-plane id="wall3coral" geometry="height: 57.4; width: 40" scale="1 -0.666 1"
+      position="-18.78415 14.20756 -1.06828" height="100" width="100" color="#005477 " opacity="1"
+      rotation="0 -270 0"></a-plane>
+
+    <a-plane id="wall4coral" geometry="height: 57.4; width: 40" scale="1 -0.666 1" position="18.8498 15.51479 -2.95475"
+      height="100" width="100" color="#005477 " opacity="1" rotation="0 270 0"></a-plane>
+
+
+    <!-- Camera -->
+    <a-entity id="cameraRig" camera wasd-controls look-controls  position="16.75855066406485 1.6 -3.802388440880023" rotation="5.271211715203576 94.07966996048121 0" cursor="rayOrigin: cursor"
+      static-body="shape: sphere; sphereRadius: 0.001" super-hands="colliderEvent: raycaster-intersection;
+                   colliderEventProperty: els;
+                   colliderEndEvent: raycaster-intersection-cleared;
+                   colliderEndEventProperty: clearedEls">
+      <a-cursor></a-cursor>
+    </a-entity>
+
+
+
+
+    <a-entity id="activityexplanationCoralreef"
+      text="value:Welcome to the Coral Reef activity! Playing is simple: open the chest and grab the magic sphere. Use the sphere to recolor the bleached coral. As more coral regains its color, watch as marine animals begin to return.; align: center; width: 3; color: #2133"
+      position="16.44968 2.8666 -7.7112" look-at="#camera">
+      <a-plane id="textbackgroundArcticActivity" geometry="height: 1.24; width: 3.44" position="0 0.01259 -0.1"
+        height="5" width="15" color="#000000" opacity="0.5"></a-plane>
+    </a-entity>
+
+
+    <!-- Ground -->
+
+
+    <a-sphere id="colorSphere" position="16.24585 1.60001 -8.77172" radius="0.3" color="#FF0000" grabbable
+      dynamic-body="linearDamping: 0.9; angularDamping: 0.9" change-color attach-to-camera-while-held
+      sphere-collider="objects: .collidable"></a-sphere>
+
+
+
+    <!-- Coral Reef Models -->
+    <a-entity id="coral-1" class="reef-coral collidable" gltf-model="#coral_reef" position="5.13621 0.29915 8.74927"
+      scale="0.1 0.1 0.1" static-body set-white-color></a-entity>
+    <a-entity id="coral-2" class="reef-coral collidable" gltf-model="#coral_reef" position="5.82996 1.55272 -0.89132"
+      scale="0.1 0.1 0.1" static-body set-white-color></a-entity>
+    <a-entity id="coral-3" class="reef-coral collidable" gltf-model="#coral_reef" position="-6.14611 1.4896 -5.35411"
+      scale="0.1 0.1 0.1" static-body set-white-color></a-entity>
+    <a-entity id="coral-4" class="reef-coral collidable" gltf-model="#coral_reef" position="9.83434 -0.0264 -8.17933"
+      scale="0.1 0.1 0.1" static-body set-white-color></a-entity>
+
+    <a-entity id="coral-6" class="reef-coral collidable" gltf-model="#coral_reef" position="6.12129 0.26135 4.05889"
+      scale="0.1 0.1 0.1" static-body set-white-color></a-entity>
+    <a-entity id="coral-7" class="reef-coral collidable" gltf-model="#coral_reef" position="-4.18943 1.4993 -9.52194"
+      scale="0.1 0.1 0.1" static-body set-white-color></a-entity>
+    <a-entity id="coral-8" class="reef-coral collidable" gltf-model="#coral_reef" position="9.9504 1.14425 3.28142"
+      scale="0.1 0.1 0.1" static-body set-white-color></a-entity>
+    <a-entity id="coral-9" rotation="0 0 22.1035658205569" class="reef-coral collidable" gltf-model="#coral_reef"
+      position="-3.55267 3.00347 -3.21466" scale="0.1 0.1 0.1" static-body set-white-color></a-entity>
+    <a-entity id="coral-10" class="reef-coral collidable" gltf-model="#coral_reef" position="-0.39289 0.89991 -12.40018"
+      scale="0.1 0.1 0.1" static-body set-white-color></a-entity>
+
+    <!-- Additional 50 Coral Reef Models -->
+    <a-entity id="coral-11" class="reef-coral collidable" gltf-model="#coral_reef" position="-6.0939 -0.01568 -15.66786"
+      scale="0.1 0.1 0.1" static-body set-white-color></a-entity>
+    <a-entity id="coral-12" class="reef-coral collidable" gltf-model="#coral_reef" position="-8.55191 0.18621 3.09744"
+      scale="0.1 0.1 0.1" static-body set-white-color></a-entity>
+    <a-entity id="coral-13" class="reef-coral collidable" gltf-model="#coral_reef" position="-0.83379 0.14312 9.42566"
+      scale="0.1 0.1 0.1" static-body set-white-color></a-entity>
+    <a-entity id="coral-14" class="reef-coral collidable" gltf-model="#coral_reef"
+      position="-11.85015 0.02194 -16.37122" scale="0.1 0.1 0.1" static-body set-white-color></a-entity>
+    <a-entity id="coral-15" class="reef-coral collidable" gltf-model="#coral_reef" position="3.09036 1.19038 -13.1564"
+      scale="0.1 0.1 0.1" static-body set-white-color></a-entity>
+    <a-entity id="coral-16" class="reef-coral collidable" gltf-model="#coral_reef" position="-5.89578 2.59852 7.38127"
+      scale="0.1 0.1 0.1" static-body set-white-color></a-entity>
+    <a-entity id="coral-17" class="reef-coral collidable" gltf-model="#coral_reef" position="5.6816 1.05123 -5.34792"
+      scale="0.1 0.1 0.1" static-body set-white-color></a-entity>
+    <a-entity id="coral-18" class="reef-coral collidable" gltf-model="#coral_reef" position="1.30373 1.21022 6.07651"
+      scale="0.1 0.1 0.1" static-body set-white-color></a-entity>
+    <a-entity id="coral-19" class="reef-coral collidable" gltf-model="#coral_reef" position="11.53808 0.30198 7.88959"
+      scale="0.1 0.1 0.1" static-body set-white-color></a-entity>
+    <a-entity id="coral-20" class="reef-coral collidable" gltf-model="#coral_reef" position="-9 0.00198 -9"
+      scale="0.1 0.1 0.1" static-body set-white-color></a-entity>
+
+    <a-entity id="coral-21" class="reef-coral collidable" gltf-model="#coral_reef" position="15.41003 0.24886 9.07075"
+      scale="0.1 0.1 0.1" static-body set-white-color></a-entity>
+    <a-entity id="coral-22" class="reef-coral collidable" gltf-model="#coral_reef" position="14.41607 0.21745 -16.14543"
+      scale="0.1 0.1 0.1" static-body set-white-color></a-entity>
+    <a-entity id="coral-23" class="reef-coral collidable" gltf-model="#coral_reef" position="7.93546 -0.03386 -10.8854"
+      scale="0.1 0.1 0.1" static-body set-white-color></a-entity>
+    <a-entity id="coral-24" class="reef-coral collidable" gltf-model="#coral_reef" position="-14.93557 0.65323 13.40879"
+      scale="0.1 0.1 0.1" static-body set-white-color></a-entity>
+    <a-entity id="coral-25" class="reef-coral collidable" gltf-model="#coral_reef" position="10.21569 0.08895 -4.95919"
+      scale="0.1 0.1 0.1" static-body set-white-color></a-entity>
+    <a-entity id="coral-26" class="reef-coral collidable" gltf-model="#coral_reef" position="-12.59849 0.24052 1.72297"
+      scale="0.1 0.1 0.1" static-body set-white-color></a-entity>
+    <a-entity id="coral-27" class="reef-coral collidable" gltf-model="#coral_reef" position="-3.1435 0.64933 -13.79504"
+      scale="0.1 0.1 0.1" static-body set-white-color></a-entity>
+    <a-entity id="coral-28" class="reef-coral collidable" gltf-model="#coral_reef" position="-11.43956 0.06734 -5.70737"
+      scale="0.1 0.1 0.1" static-body set-white-color></a-entity>
+    <a-entity id="coral-29" class="reef-coral collidable" gltf-model="#coral_reef" position="14 0.01297 -9"
+      scale="0.1 0.1 0.1" static-body set-white-color></a-entity>
+    <a-entity id="coral-30" class="reef-coral collidable" gltf-model="#coral_reef" position="-14 -0.00144 -9"
+      scale="0.1 0.1 0.1" static-body set-white-color></a-entity>
+
+    <a-entity id="coral-31" class="reef-coral collidable" gltf-model="#coral_reef" position="16.2472 0.2857 -11.15049"
+      scale="0.1 0.1 0.1" static-body set-white-color></a-entity>
+    <a-entity id="coral-32" class="reef-coral collidable" gltf-model="#coral_reef"
+      position="-13.35283 0.18384 -13.04869" scale="0.1 0.1 0.1" static-body set-white-color></a-entity>
+    <a-entity id="coral-33" class="reef-coral collidable" gltf-model="#coral_reef" position="5.76784 -0.00198 -15.92265"
+      scale="0.1 0.1 0.1" static-body set-white-color></a-entity>
+    <a-entity id="coral-34" class="reef-coral collidable" gltf-model="#coral_reef" position="-13.29652 0.1585 -2.96159"
+      scale="0.1 0.1 0.1" static-body set-white-color></a-entity>
+    <a-entity id="coral-35" class="reef-coral collidable" gltf-model="#coral_reef" position="16.22736 0.08719 13.66138"
+      scale="0.1 0.1 0.1" static-body set-white-color></a-entity>
+    <a-entity id="coral-36" class="reef-coral collidable" gltf-model="#coral_reef" position="1.79476 2.72013 1.32086"
+      scale="0.1 0.1 0.1" static-body set-white-color></a-entity>
+
+    <a-entity id="coral-38" class="reef-coral collidable" gltf-model="#coral_reef" position="-7.83973 0.17205 -5.41283"
+      scale="0.1 0.1 0.1" static-body set-white-color></a-entity>
+    <a-entity id="coral-39" class="reef-coral collidable" gltf-model="#coral_reef" position="-2.30229 1.16802 5.30093"
+      scale="0.1 0.1 0.1" static-body set-white-color></a-entity>
+    <a-entity id="coral-40" class="reef-coral collidable" gltf-model="#coral_reef" position="-8.60869 0.44127 -13.45832"
+      scale="0.1 0.1 0.1" static-body set-white-color></a-entity>
+
+    <a-entity id="coral-41" class="reef-coral collidable" gltf-model="#coral_reef" position="2.83118 0.97116 -10.90059"
+      scale="0.1 0.1 0.1" static-body set-white-color></a-entity>
+    <a-entity id="coral-42" class="reef-coral collidable" gltf-model="#coral_reef" position="-16.57158 0.08847 1.49727"
+      scale="0.1 0.1 0.1" static-body set-white-color></a-entity>
+    <a-entity id="coral-43" class="reef-coral collidable" gltf-model="#coral_reef" position="5.21121 0.17809 13.17653"
+      scale="0.1 0.1 0.1" static-body set-white-color></a-entity>
+    <a-entity id="coral-44" class="reef-coral collidable" gltf-model="#coral_reef" position="-5.66286 0.22431 12.49803"
+      scale="0.1 0.1 0.1" static-body set-white-color></a-entity>
+    <a-entity id="coral-45" class="reef-coral collidable" gltf-model="#coral_reef" position="-8.69638 -0.01685 14.82682"
+      scale="0.1 0.1 0.1" static-body set-white-color></a-entity>
+    <a-entity id="coral-46" class="reef-coral collidable" gltf-model="#coral_reef" position="-3.05907 0.251 14.23685"
+      scale="0.1 0.1 0.1" static-body set-white-color></a-entity>
+    <a-entity id="coral-47" class="reef-coral collidable" gltf-model="#coral_reef" position="-2.18867 0.2277 -16.68073"
+      scale="0.1 0.1 0.1" static-body set-white-color></a-entity>
+    <a-entity id="coral-48" class="reef-coral collidable" gltf-model="#coral_reef" position="9.83471 1.26584 -0.30164"
+      scale="0.1 0.1 0.1" static-body set-white-color></a-entity>
+    <a-entity id="coral-49" class="reef-coral collidable" gltf-model="#coral_reef"
+      position="10.91082 -0.13055 -12.91452" scale="0.1 0.1 0.1" static-body set-white-color></a-entity>
+    <a-entity id="coral-50" class="reef-coral collidable" gltf-model="#coral_reef" position="1.30925 0.21475 11.48886"
+      scale="0.1 0.1 0.1" static-body set-white-color></a-entity>
+
+    <a-entity id="coral-51" class="reef-coral collidable" gltf-model="#coral_reef" position="10.18892 0.23356 10.10307"
+      scale="0.1 0.1 0.1" static-body set-white-color></a-entity>
+    <a-entity id="coral-52" class="reef-coral collidable" gltf-model="#coral_reef" position="1.01614 0.11414 13.99041"
+      scale="0.1 0.1 0.1" static-body set-white-color></a-entity>
+    <a-entity id="coral-53" class="reef-coral collidable" gltf-model="#coral_reef" position="-6.25774 0.94684 0.1762"
+      scale="0.1 0.1 0.1" static-body set-white-color></a-entity>
+
+
+
+
+
+  </a-scene>
+
+</body>
+
+</html>

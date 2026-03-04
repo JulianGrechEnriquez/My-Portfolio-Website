@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+ 
+
+  <!-- A-Frame Core -->
+  <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
+  <script src="sripts/telaportFunctions.js"></script>
+  <script src="sripts/hoverFunction.js"></script>
+  <script src="sripts/clickText.js"></script>
+
+
+  <!-- A-Frame Components -->
+  <script
+    src="https://cdn.jsdelivr.net/gh/c-frame/aframe-particle-system-component@1.2.0/dist/aframe-particle-system-component.min.js"></script>
+
+
+  <script src="https://unpkg.com/aframe-event-set-component@5.0.1/dist/aframe-event-set-component.min.js"></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
+
+
+
+</head>
+
+<body>
+  <a-scene shadow="type: pcfsoft" >
+    <a-assets>
+
+      <a-asset-item id="lab" src="3D-models/homeAssigment/mainarea/low_poly_sci-fi_lab.glb"></a-asset-item>
+      <a-asset-item id="pillar" src="3D-models/homeAssigment/mainarea/medieval_sci-fi_pillar.glb"></a-asset-item>
+
+      <a-asset-item id="Artic" src="3D-models/homeAssigment/arctic/arctic_landscape_low-poly.glb"></a-asset-item>
+      <a-asset-item id="wolf" src="3D-models/homeAssigment/arctic/arctic_wolf_psx.glb"></a-asset-item>
+      <a-asset-item id="narwhal" src="3D-models/homeAssigment/arctic/stylized_narwhal.glb"></a-asset-item>
+      <a-asset-item id="seal" src="3D-models/homeAssigment/arctic/dotted_white_seal_-_free_giveaway.glb"></a-asset-item>
+      <a-asset-item id="penguin" src="3D-models/homeAssigment/arctic/penguin.glb"></a-asset-item>
+      <a-asset-item id="polarbear" src="3D-models/homeAssigment/arctic/polar_bear.glb"></a-asset-item>
+      <a-asset-item id="ice_berg" src="3D-models/homeAssigment/arctic/iceber01.glb"></a-asset>
+
+      <img id="skyArctic" src="northern-lights-3273425_640.jpg">
+
+    </a-assets>
+
+    <a-sky src="#skyArctic" rotation="0 0 -90"></a-sky>
+
+    <a-light id="iceBergLight" light="angle: 31.69" type="spot" position="-11.05665 6 -8" target="#iceBergTarget"
+      visible="false"></a-light>
+    <a-light id="labLight" light="angle: 33.43" type="spot" position="-0.12525 6 -17.59256" target="#labTarget"
+      visible="false"></a-light>
+
+    <a-entity id="iceBergTarget" position="-13.33468 -1.856 -9.66836"></a-entity>
+    <a-entity id="labTarget" position="-0.40204 -2.152 -18.41216"></a-entity>
+
+
+    <a-entity environment="preset: arches; lighting: none"></a-entity>
+    <a-light type="ambient" intensity="1" color="#ffffff"></a-light>
+
+    <!-- pillars -->
+    <a-entity position="-11.654 -1.856 -9.292">
+      <a-gltf-model src="#pillar" scale="0.5 0.5 0.5"></a-gltf-model>
+      <a-entity position="-1 4.2 0.17827" spin-on-hover="spotlightId: #iceBergLight"
+        page-teleport-on-click="url: arcticActivity.html; prompt: Do you want to go to the arctic activity area?">
+        <a-gltf-model src="#ice_berg"></a-gltf-model>
+      </a-entity>
+    </a-entity>
+
+    <a-entity position="0.679 -2.152 -18">
+      <a-gltf-model src="#pillar" scale="0.5 0.5 0.5"></a-gltf-model>
+      <a-entity position="-1 3.3 0.17827" scale="0.1 0.1 0.1" spin-on-hover="spotlightId: #labLight"
+        page-teleport-on-click="url:mainArea.html; prompt: Do you want to go to the mainarea ?">
+        <a-gltf-model src="#lab"></a-gltf-model>
+      </a-entity>
+    </a-entity>
+
+
+    <a-entity gltf-model="#wolf" class="wolf" position="-22.21886 2.22961 -28.78823" scale="3 3 3"
+      rotation="0 44.95369564816926 0"></a-entity>
+
+    <a-entity gltf-model="#wolf" class="wolf" position="-13.61651 8.00647 -40.24772" scale="3 3 3"
+      rotation="9.401091502506548 0 0"></a-entity>
+
+    <a-entity gltf-model="#wolf" class="wolf" position="-12.09865 -2.46323 -26.92955" scale="4 4 4"
+      rotation="0 28.394069453298208 0"
+      show-text-on-click="targetTextId: #wolftext; duration: 10000; sound: #wolfSound">
+      <a-sound id="wolfSound" src="audio/arctic/wolf-howl-268619.mp3"></a-sound></a-entity>
+    </a-entity>
+
+    <a-entity gltf-model="#wolf" class="wolf" position="-26.29729 16.6875 -45.45831" scale="3 3 3"
+      rotation="0 43.41644988383326 0"></a-entity>
+
+    <a-entity class="polarbear" gltf-model="#polarbear" position="20.40461 1.84686 -21.57904" scale="0.009 0.009 0.009"
+      rotation="-9.231495995147824 0 0"></a-entity>
+
+    <a-entity id="polar_bear" class="polarbear" gltf-model="#polarbear" position="24.37867 4.47895 -15.60259"
+      scale="0.015 0.015 0.015" rotation="-8.947881886558067 -6.578128445896981 -1.850080720477428"
+      show-text-on-click="targetTextId: #polar_beartext; duration: 10000; sound: #polar_bearSound">
+      <a-sound id="polar_bearSound" src="audio/arctic/the-sound-of-a-polar-bear-growling.mp3"></a-sound></a-entity>
+
+    <a-entity class="polarbear" gltf-model="#polarbear" position="20.40461 1.84686 -21.57904" scale="0.009 0.009 0.009"
+      rotation="-9.231495995147824 0 0"></a-entity>
+
+    <a-entity class="polarbear" gltf-model="#polarbear" position="24.19293 2.70259 -21.47181"
+      scale="0.009 0.009 0.009"></a-entity>
+
+    <a-entity class="polarbear" gltf-model="#polarbear" position="24.19293 4.28356 -29.0111" scale="0.009 0.009 0.009"
+      rotation="16.545875207787912 0.0911002894258009 -1.0805984016167325"></a-entity>
+
+    <a-entity class="polarbear" gltf-model="#polarbear" position="25.09884 2.57281 -9.70787" scale="0.009 0.009 0.009"
+      rotation="26.297043923119393 -0.7202079484794448 0.13464508185574348"></a-entity>
+
+    <a-entity class="seal" gltf-model="#seal" position="22.22656 -1.09828 47.69079" scale="4 4 4"
+      rotation="32.630519390495515 -85.06818975866359 -0.31627270291221443"></a-entity>
+
+
+    <a-entity class="seal" gltf-model="#seal" position="22.22656 -0.58852 54.66911" scale="4 4 4"
+      rotation="31.69144156427609 -85.1186100446351 -0.41138369690393106"></a-entity>
+
+    <a-entity id="sealModal" class="seal" gltf-model="#seal" position="39.18318 3.65245 40.54399" scale="6 6 6"
+      rotation="7.8271764392821765 -162.89705777584922 -0.2532473454478239"
+      show-text-on-click="targetTextId: #sealtext; duration: 10000; sound: #sealSound">
+      <a-sound id="sealSound" src="audio/arctic/seals-in-ed-edd-n-eddy-154201.mp3"></a-sound></a-entity>
+
+    <a-entity id="seal2" class="seal" gltf-model="#seal" position="33.02759 1.98379 42.73317" scale="4 4 4"
+      rotation="12.17936385109591 -163.74732714382336 -11.867674810544742"></a-entity>
+
+    <a-entity class="seal" gltf-model="#seal" position="46.19968 1.78862 37.56838" scale="4 4 4"
+      rotation="21.892144394153625 -157.36744209504164 16.233040251646486"></a-entity>
+
+
+    <a-entity  gltf-model="#ice_berg" position="42.52203 4.6233 51.36293" scale="10 10 10"
+      rotation="0 0 -175.85564422832303"></a-entity>
+
+
+    <a-entity gltf-model="#ice_berg" position="-41.19598 21.10422 -44.04288" scale="10 10 10"
+      rotation="1.011270508405903 0 -179.9998479605043"></a-entity>
+
+    <a-entity gltf-model="#ice_berg" position="-2.58249 -2.02833 29.57991" scale="10 10 10"
+      rotation="1.011270508405903 0 -179.9998479605043"></a-entity>
+
+    <a-entity gltf-model="#ice_berg" position="-41.32782 6.68785 -2.15931" scale="10 10 10"
+      rotation="1.011270508405903 0 -179.9998479605043"></a-entity>
+
+    <a-entity gltf-model="#ice_berg" position="-28.7854 -1.09073 9.42322" scale="15 15 15"
+      rotation="76.38329550007057 -179.9998479605043 0"></a-entity>
+
+    <a-entity gltf-model="#ice_berg" position="-28.7854 -5.73138 15.07235" scale="15 15 15"
+      rotation="54.95066325761187 0 179.9998479605043"></a-entity>
+
+    <a-entity gltf-model="#penguin" position="-28.71394 1.91107 19.98533" scale="0.1 0.1 0.1"
+      rotation="0 -89.99963750135457 -78.5083959622108"></a-entity>
+
+    <a-entity gltf-model="#penguin" position="-11.659 0 0" scale="0.2 0.2 0.2" rotation="0 28.394069453298208 0"
+      show-text-on-click="targetTextId: #penguintext; duration: 10000; sound: #penguinSound">
+      <a-sound id="penguinSound" src="audio/arctic/pinguin-220042.mp3"></a-sound>
+    </a-entity>
+
+    <a-entity gltf-model="#penguin" position="-28.71394 3.97132 27.03726" scale="0.1 0.1 0.1"
+      rotation="0 -89.99963750135457 -48.59999905638182"></a-entity>
+
+    <a-entity gltf-model="#penguin" position="-28.71394 4.05615 12.97895" scale="0.1 0.1 0.1"
+      rotation="0 -90.00021045914971 -123.73596543645259"></a-entity>
+
+    <a-entity gltf-model="#penguin" position="-28.71394 7.27138 6.67769" scale="0.1 0.1 0.1"
+      rotation="0 -89.99963750135457 -111.39216269815414"></a-entity>
+
+    <a-entity gltf-model="#penguin" position="-28.71394 9.07638 3.85826" scale="0.1 0.1 0.1"
+      rotation="0 -90 0"></a-entity>
+
+    <a-entity gltf-model="#penguin" position="-28.71394 9.07638 2.51004" scale="0.1 0.1 0.1"
+      rotation="0 -90 0"></a-entity>
+
+    <a-entity gltf-model="#penguin" position="-28.71394 8.97943 0.37428" scale="0.1 0.1 0.1"
+      rotation="0 -90 0"></a-entity>
+
+    <a-entity gltf-model="#penguin" position="-28.71394 8.27311 -1.6454" scale="0.1 0.1 0.1"
+      rotation="0 -90.00021045914971 12.909312082092578"></a-entity>
+
+    <!-- sound -->
+
+    <a-sound id="articMusic" src="audio/arctic/arctic-winds-northpole-nr2-17693.mp3" loop="true" autoplay="false"
+      position="0 2 0"></a-sound>
+
+    <!-- mian area -->
+
+
+
+    <a-entity gltf-model="#Artic" position="0 -7 0" scale="3 3 3"></a-entity>
+
+    <a-entity gltf-model="#ice_berg" position="57.52483 9.7227 -58.33601" scale="10 10 10"
+      rotation="0 0 180"></a-entity>
+
+    <a-entity id="snowSystem" particle-system="preset: snow; particleCount: 5000;" position="0 10 -20"></a-entity>
+
+    <!-- animale modals -->
+
+
+
+    <a-entity gltf-model="#narwhal" position="-5.57089 -6.45321 58.22567" scale="4 4 4"
+      rotation="-43.284096633158036 85.69500558653671 0">
+
+    </a-entity>
+
+    <a-entity gltf-model="#narwhal" position="-5.57089 -6.45321 58.22567" scale="4 4 4"
+      rotation="-43.284096633158036 85.69500558653671 0">
+
+    </a-entity>
+
+    <a-entity gltf-model="#narwhal" position="-7.42633 -6.45321 53.23868" scale="8 8 8" s
+      rotation="-43.284096633158036 -176.00690508623757 0"
+      show-text-on-click="targetTextId: #narwhaltext; duration: 10000; sound: #narwhalSound">
+      <a-sound id="narwhalSound" src="audio/arctic/narwhal-sound-made-with-Voicemod.mp3"></a-sound>
+    </a-entity>
+
+    <a-entity gltf-model="#narwhal" position="-16.34002 -7.24239 56.54608" scale="4 4 4"
+      rotation="-22.288631188384155 -105.52564783380963 -7.917130813117716">
+
+    </a-entity>
+
+    <a-entity gltf-model="#narwhal" position="-26.19595 -7.29899 56.54608" scale="4 4 4"
+      rotation="-22.288631188384155 61.19934097130862 -7.917130813117716">
+
+    </a-entity>
+
+    <!-- text -->
+
+    <a-entity id="wolftext" visible="false"
+      text="value: Arctic wolves are adapting to climate change by expanding their range in search of food as their usual prey, like musk oxen and Arctic hares, move to new areas. As warming temperatures change the timing of seasons, Arctic wolves are adjusting when they breed and hunt. Climate change is also leading to more human activity in the Arctic, so wolves must adapt to more disturbances and changes in their habitat; align: center; width: 6; color: #2133"
+      position="-7.4127 2.82891 -28.17743" look-at="#camera">
+      <a-plane id="Wolftextbackground" geometry="height: 3.19; width: 6.88" position="0 0 -0.1" height="5" width="15"
+        color="#005477 " opacity="0.5" material="color: #005477"></a-plane>
+    </a-entity>
+
+    <a-entity id="penguintext" visible="false"
+      text="value:  Penguins, especially those in the Antarctic like emperor and Adélie penguins, are being affected by climate change as sea ice melts earlier in the year. To adapt, some penguin colonies are moving to colder regions where ice is more stable. They are also changing their breeding times to match the new ice and food conditions caused by climate change. However, the loss of ice makes it harder to find food like krill, so penguins must swim longer distances, which affects their survival; align: center; width: 6; color: #2133"
+      position="-12.77558 2.82891 3.99713" look-at="#camera">
+      <a-plane id="Penguintextbackground" geometry="width: 5.98; height: 3.05" position="0 0 -0.1" height="5" width="15"
+        color="#005477 " opacity="0.5" rotation="0 0 0"></a-plane>
+    </a-entity>
+
+    <a-entity id="sealtext" visible="false"
+      text="value: Seals, like ringed and harp seals, are facing challenges from climate change as melting ice affects where they rest, breed, and raise their pups. In response, some seals are giving birth earlier or using land instead of ice. They are also swimming farther to find food as fish patterns shift due to warmer waters. Climate change is forcing seals to be more flexible, but it also makes young pups more vulnerable without stable ice.; align: center; width: 6; color: #2133"
+      position="43.51405 4.86399 35.43375" look-at="#camera">
+      <a-plane id="sealTextBackground" geometry="width: 5.98; height: 3.05" position="0 0 -0.1" height="5" width="15"
+        color="#005477 " opacity="0.5" rotation="0 0 0"></a-plane>
+    </a-entity>
+
+    <a-entity id="narwhaltext" visible="false"
+      text="value: Narwhals are Arctic whales known for their long tusks, and they are also affected by climate change. As sea ice melts and breaks up earlier, narwhals are changing their migration routes and timing. They are diving deeper and traveling longer distances to find their favorite fish, like Arctic cod, which are moving due to warmer waters. Narwhals must also adapt to more ships and human activity in their habitat as climate change opens the Arctic; align: center; width: 6; color: #2133"
+      position="-4.52434 -0.20517 47.87724" look-at="#camera">
+      <a-plane id="narwhaltextbackground" geometry="width: 5.98; height: 3.05" position="0 0 -0.1" height="5" width="15"
+        color="#005477 " opacity="0.5" rotation="0 0 0"></a-plane>
+    </a-entity>
+
+
+    <a-entity id="polar_beartext" visible="false"
+      text="value: Polar bears are strongly affected by climate change because they rely on sea ice to hunt seals. As the ice melts earlier and forms later each year, polar bears are adapting by swimming longer distances and spending more time on land. Some are shifting their diets by eating bird eggs, fish, or even human garbage when seals are not available. However, these changes are not always enough to replace the food they lose due to climate change.; align: center; width: 6; color: #2133"
+      position="25.9948 6.28521 -9.56884" look-at="#camera">
+      <a-plane id="polar_beartextbackground" geometry="width: 5.98; height: 3.05" position="0 0 -0.1" height="5"
+        width="15" color="#005477 " opacity="0.5" rotation="0 0 0"></a-plane>
+    </a-entity>
+
+    <a-entity
+      text="value: Welcome to the Arctic! If you want to learn how the animals in this ecosystem are being affected by climate change and how they are adapting, click on the enlarged models.; align: center; width: 6; color: #2133"
+      position="0 2 -7" look-at="#camera">
+      <a-plane id="textbackgroundArctic" geometry="height: 1.56; width: 6.99" position="0 -0.03863 -0.87029" height="5"
+        width="15" color="#000000" opacity="0.5"></a-plane>
+    </a-entity>
+
+
+    <!-- Camera -->
+    <a-entity id="cameraRig" position="0 1.6 0">
+      <a-camera id="camera" look-controls>
+        <a-cursor></a-cursor>
+      </a-camera>
+    </a-entity>
+  </a-scene>
+
+
+</body>
+
+</html>

@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  
+
+  <!-- A-Frame Core -->
+  <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
+
+  <script>
+    delete AFRAME.components['grabbable'];
+  </script>
+
+  
+  <script src="https://unpkg.com/super-hands@3.0.5/dist/super-hands.min.js"></script>
+
+  <!-- Event Set -->
+  <script src="https://unpkg.com/aframe-event-set-component@%5E5.0.0/dist/aframe-event-set-component.min.js"></script>
+
+  <!-- Physics System -->
+  <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-physics-system@v4.1.0/dist/aframe-physics-system.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-physics-system@v4.1.0/dist/aframe-physics-debug.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/aframe-extras@6.1.1/dist/aframe-extras.min.js"></script>
+
+  <!-- A-Frame Cloner Component -->
+  <script src="https://unpkg.com/aframe-cloner-component/dist/aframe-cloner-component.min.js"></script>
+</head>
+
+<body>
+  <a-scene physics="gravity:-1.8"  >
+
+    <!-- Assets -->
+    <a-assets>
+      <a-asset-item id="tree" src="3D-models/homeAssigment/rainforest/giant_low_poly_tree.glb"></a-asset-item>
+      <a-asset-item id="seed" src="3D-models/homeAssigment/rainforest/seed.glb"></a-asset-item>
+      <a-asset-item id="basket" src="3D-models/homeAssigment/rainforest/remake_-_net_basket.glb"></a-asset-item>
+      <a-asset-item id="chainsawModel"
+        src="3D-models/homeAssigment/rainforest/animated_chainsaw_low-poly_free-download.glb"></a-asset-item>
+      <a-asset-item id="jaguar" src="3D-models/homeAssigment/rainforest/jaguar.glb"></a-asset-item>
+      <a-asset-item id="frog" src="3D-models/homeAssigment/rainforest/australian_tree_frog.glb"></a-asset-item>
+      <a-asset-item id="pillar" src="3D-models/homeAssigment/mainarea/medieval_sci-fi_pillar.glb"></a-asset-item>
+      <a-asset-item id="forest" src="3D-models/homeAssigment/rainforest/rainforest.glb"></a-asset-item>
+      <a-asset-item id="monkey" src="3D-models/homeAssigment/rainforest/low_poly_baboon.glb"></a-asset-item>
+      <a-asset-item id="bird" src="3D-models/homeAssigment/rainforest/bird.glb"></a-asset-item>
+      <img id="ground"
+        src="top-view-green-grass-covered-with-yellowish-foliage-autumn-horizontal-shot-many-colorful-yellow-brown-leaves-lying-wet-meadow-fall-seasons-nature-environment-concept.jpg">
+      <img id="sky" src="sky.jpg">
+    </a-assets>
+    <a-sky src="#sky"></a-sky>
+
+
+    <!-- pillars -->
+    <a-entity id="pill1" scale="0.5 0.5 0.5" position="3.97518 -0.14264 -5.47725">
+      <a-gltf-model src="#pillar" scale="0.5 0.5 0.5"></a-gltf-model>
+      <a-entity id="forestContainer" position="-1 3.3 0.17827" scale="0.05 0.05 0.05"
+        spin-on-hover="spotlightId: #rainForestAreaLight"
+        page-teleport-on-click="url: rainForest.html; prompt: Do you want to go to the activity area?">
+        <a-gltf-model src="#forest"></a-gltf-model>
+      </a-entity>
+    </a-entity>
+
+    <!-- Chainsaw -->
+    <a-entity id="chainsaw" gltf-model="#chainsawModel" position="2.00011 0.141 -0.58418" rotation="0 0 0"
+      scale="0.2 0.2 0.2" grabbable draggable dynamic-body attach-to-camera-while-held
+      chainsaw-cuts-tree="sound: #chainsawSound">
+      <a-sound id="chainsawSound" src="audio/rainForest/chainsaw-340945.mp3" volume="0.3"></a-sound>
+      <a-box position="0.67929 0.19409 -5.69859" scale="1 0.41 4.87" rotation="3.02 0 90" visible="false"></a-box>
+    </a-entity>
+
+    <!-- Camera -->
+    <a-entity id="cameraRig" camera wasd-controls look-controls position="0 1.6 -0.58418" cursor="rayOrigin: cursor"
+      static-body="shape: sphere; sphereRadius: 0.001" super-hands="colliderEvent: raycaster-intersection;
+                   colliderEventProperty: els;
+                   colliderEndEvent: raycaster-intersection-cleared;
+                   colliderEndEventProperty: clearedEls">
+      <a-cursor></a-cursor>
+    </a-entity>
+
+    <!-- Trees -->
+    <a-entity class="tree" id="tree1" position="13.08535 0 39.14646" gltf-model="#tree" static-body tree-fall-animation>
+      <a-sound src="audio/rainForest/timber-tree-falling-1-40384.mp3"></a-sound>
+      <a-cylinder position="0 0 0" radius="0.5" height="3" visible="false" static-body>
+      </a-cylinder>
+    </a-entity>
+
+
+
+
+
+    <a-entity class="tree" id="tree2" position="-1.25636 0 -59.15895" gltf-model="#tree" static-body
+      tree-fall-animation>
+      <a-sound src="audio/rainForest/timber-tree-falling-1-40384.mp3"></a-sound>
+      <a-cylinder position="0 0 0" radius="0.5" height="3" visible="false" static-body>
+      </a-cylinder>
+    </a-entity>
+
+
+    <a-entity class="tree" id="tree3" position="-34.84044 0 10.09626" gltf-model="#tree" static-body
+      tree-fall-animation>
+      <a-sound src="audio/rainForest/timber-tree-falling-1-40384.mp3"></a-sound>
+      <a-cylinder position="0 0 0" radius="0.5" height="3" visible="false" static-body>
+      </a-cylinder>
+    </a-entity>
+
+    <a-entity id="tree-spot3" class="tree-spot" data-tree-id="tree3" position="-34.84044 0 10.09626" visible="false"
+      geometry="primitive: sphere; radius: 0.5" material="color: green; opacity: 0.5" static-body></a-entity>
+
+    <a-entity class="tree" id="tree4" position="35.9935 0 35.97907" gltf-model="#tree" static-body tree-fall-animation>
+      <a-sound src="audio/rainForest/timber-tree-falling-1-40384.mp3"></a-sound>
+      <a-cylinder position="0 0 0" radius="0.5" height="3" visible="false" static-body>
+      </a-cylinder>
+    </a-entity>
+    <a-entity id="tree-spot4" class="tree-spot" data-tree-id="tree4" position="35.9935 0 35.97907" visible="false"
+      geometry="primitive: sphere; radius: 0.5" material="color: green; opacity: 0.5" static-body></a-entity>
+
+    <a-entity class="tree" id="tree5" position="-58.97838 0 -0.67531" gltf-model="#tree" static-body
+      tree-fall-animation>
+      <a-sound src="audio/rainForest/timber-tree-falling-1-40384.mp3"></a-sound>
+      <a-cylinder position="0 0 0" radius="0.5" height="3" visible="false" static-body>
+      </a-cylinder>
+    </a-entity>
+
+    <a-entity id="tree-spot5" class="tree-spot" data-tree-id="tree5" position="-58.97838 0 -0.67531" visible="false"
+      geometry="primitive: sphere; radius: 0.5" material="color: green; opacity: 0.5" static-body></a-entity>
+
+    <a-entity class="tree" id="tree6" position="58.57377 0 -1.75865" gltf-model="#tree" static-body tree-fall-animation>
+      <a-sound src="audio/rainForest/timber-tree-falling-1-40384.mp3"></a-sound>
+      <a-cylinder position="0 0 0" radius="0.5" height="3" visible="false" static-body>
+      </a-cylinder>
+    </a-entity>
+
+    <a-entity id="tree-spot6" class="tree-spot" data-tree-id="tree6" position="58.57377 0 -1.75865" visible="false"
+      geometry="primitive: sphere; radius: 0.5" material="color: green; opacity: 0.5" static-body></a-entity>
+    <a-entity class="tree" id="tree7" position="41.39036 0 -40.38527" gltf-model="#tree" static-body
+      tree-fall-animation>
+      <a-sound src="audio/rainForest/timber-tree-falling-1-40384.mp3"></a-sound>
+      <a-cylinder position="0 0 0" radius="0.5" height="3" visible="false" static-body>
+      </a-cylinder>
+    </a-entity>
+
+
+    <a-entity class="tree" id="tree8" position="-46.62776 0 -35.9367" gltf-model="#tree" static-body
+      tree-fall-animation>
+      <a-sound src="audio/rainForest/timber-tree-falling-1-40384.mp3"></a-sound>
+      <a-cylinder position="0 0 0" radius="0.5" height="3" visible="false" static-body>
+      </a-cylinder>
+      <a-entity id="birdmodal1" rotation="0 0 0" gltf-model="#bird" position="0.91512 2.43917 0" scale="0.2 0.2 0.2"
+        show-text-on-click="message: This is a jaguar, a majestic big cat!; sound: #birdSound"><a-sound id="birdSound"
+          src="audio/rainForest/bird-327231.mp3"></a-sound></a-entity>
+    </a-entity>
+    <a-entity class="tree" id="tree9" position="18.43599 0 -44.33412" gltf-model="#tree" static-body
+      tree-fall-animation>
+      <a-sound src="audio/rainForest/timber-tree-falling-1-40384.mp3"></a-sound>
+      <a-cylinder position="0 0 0" radius="0.5" height="3" visible="false" static-body>
+      </a-cylinder>
+    </a-entity>
+    <a-entity class="tree" id="tree10" position="-5.75692 0 59.159" gltf-model="#tree" static-body tree-fall-animation>
+      <a-sound src="audio/rainForest/timber-tree-falling-1-40384.mp3"></a-sound>
+      <a-cylinder position="0 0 0" radius="0.5" height="3" visible="false" static-body>
+      </a-cylinder>
+    </a-entity>
+
+
+    <a-entity class="tree" id="tree11" position="-17.978 0 34.19141" gltf-model="#tree" static-body tree-fall-animation>
+      <a-sound src="audio/rainForest/timber-tree-falling-1-40384.mp3"></a-sound>
+      <a-cylinder position="0 0 0" radius="0.5" height="3" visible="false" static-body>
+      </a-cylinder>
+    </a-entity>
+
+    <a-entity class="tree" id="tree12" position="-18.35005 0 -43.62092" gltf-model="#tree" static-body
+      tree-fall-animation>
+      <a-sound src="audio/rainForest/timber-tree-falling-1-40384.mp3"></a-sound>
+      <a-cylinder position="0 0 0" radius="0.5" height="3" visible="false" static-body>
+      </a-cylinder>
+    </a-entity>
+
+    <a-entity class="tree" id="tree13" position="40.51406 0 -19.97655" gltf-model="#tree" static-body
+      tree-fall-animation>
+      <a-sound src="audio/rainForest/timber-tree-falling-1-40384.mp3"></a-sound>
+      <a-cylinder position="0 0 0" radius="0.5" height="3" visible="false" static-body>
+      </a-cylinder>
+    </a-entity>
+    <a-entity class="tree" id="tree14" position="-43.41065 0 37.99186" gltf-model="#tree" static-body
+      tree-fall-animation>
+      <a-sound src="audio/rainForest/timber-tree-falling-1-40384.mp3"></a-sound>
+      <a-cylinder position="0 0 0" radius="0.5" height="3" visible="false" static-body>
+      </a-cylinder>
+    </a-entity>
+    <a-entity class="tree" id="tree15" position="39.26504 0 10.63715" gltf-model="#tree" static-body
+      tree-fall-animation>
+      <a-sound src="audio/rainForest/timber-tree-falling-1-40384.mp3"></a-sound>
+      <a-cylinder position="0 0 0" radius="0.5" height="3" visible="false" static-body>
+      </a-cylinder>
+    </a-entity>
+    <a-entity class="tree" id="tree16" position="22.43245 0 -4.54445" gltf-model="#tree" static-body
+      tree-fall-animation>
+      <a-sound src="audio/rainForest/timber-tree-falling-1-40384.mp3"></a-sound>
+      <a-cylinder position="0 0 0" radius="0.5" height="3" visible="false" static-body>
+      </a-cylinder>
+      <a-entity id="birdmodal2" rotation="0 0 0" gltf-model="#bird" position="0.91512 2.43917 0"
+        scale="0.2 0.2 0.2"></a-entity>
+    </a-entity>
+
+    <a-entity class="tree" id="tree17" position="-21.41171 0 -1.86208" gltf-model="#tree" static-body
+      tree-fall-animation>
+      <a-sound src="audio/rainForest/timber-tree-falling-1-40384.mp3"></a-sound>
+      <a-cylinder position="0 0 0" radius="0.5" height="3" visible="false" static-body>
+      </a-cylinder>
+    </a-entity>
+
+    <a-entity class="tree" id="tree18" position="0.3679 0 20.3929" gltf-model="#tree" static-body tree-fall-animation>
+      <a-sound src="audio/rainForest/timber-tree-falling-1-40384.mp3"></a-sound>
+      <a-cylinder position="0 0 0" radius="0.5" height="3" visible="false" static-body>
+      </a-cylinder>
+    </a-entity>
+
+    <a-entity class="tree" id="tree19" position="-0.50466 0 -25.53722" gltf-model="#tree" static-body
+      tree-fall-animation>
+      <a-sound src="audio/rainForest/timber-tree-falling-1-40384.mp3"></a-sound>
+      <a-cylinder position="0 0 0" radius="0.5" height="3" visible="false" static-body>
+      </a-cylinder>
+    </a-entity>
+
+    <a-entity class="tree" id="tree20" position="-38.52811 0 -15.45796" gltf-model="#tree" static-body
+      tree-fall-animation>
+      <a-sound src="audio/rainForest/timber-tree-falling-1-40384.mp3"></a-sound>
+      <a-cylinder position="0 0 0" radius="0.5" height="3" visible="false" static-body>
+      </a-cylinder>
+    </a-entity>
+    <a-entity class="tree" id="tree21" position="-0.9853 0 -43.12681" gltf-model="#tree" static-body
+      tree-fall-animation>
+      <a-sound src="audio/rainForest/timber-tree-falling-1-40384.mp3"></a-sound>
+      <a-cylinder position="0 0 0" radius="0.5" height="3" visible="false" static-body>
+      </a-cylinder>
+      <a-entity id="birdmodal3" rotation="0 0 0" gltf-model="#bird" position="0.91512 2.43917 0"
+        scale="0.2 0.2 0.2"></a-entity>
+    </a-entity>
+    <a-entity class="tree" id="tree22" position="-19.30552 0 19.41643" gltf-model="#tree" static-body
+      tree-fall-animation>
+      <a-sound src="audio/rainForest/timber-tree-falling-1-40384.mp3"></a-sound>
+      <a-cylinder position="0 0 0" radius="0.5" height="3" visible="false" static-body>
+      </a-cylinder>
+      <a-entity id="birdmodal4" rotation="0 0 0" gltf-model="#bird" position="-18.54578 3.5006 -3.01456"
+        scale="0.5 0.5 0.5"></a-entity>
+    </a-entity>
+    <a-entity class="tree" id="tree23" position="23.48711 0 17.4352" gltf-model="#tree" static-body tree-fall-animation>
+      <a-sound src="audio/rainForest/timber-tree-falling-1-40384.mp3"></a-sound>
+      <a-cylinder position="0 0 0" radius="0.5" height="3" visible="false" static-body>
+      </a-cylinder>
+    </a-entity>
+    <a-entity class="tree" id="tree24" position="18.55498 0 -27.13359" gltf-model="#tree" static-body
+      tree-fall-animation>
+      <a-sound src="audio/rainForest/timber-tree-falling-1-40384.mp3"></a-sound>
+      <a-cylinder position="0 0 0" radius="0.5" height="3" visible="false" static-body>
+      </a-cylinder>
+    </a-entity>
+    <a-entity class="tree" id="tree25" position="-23.19341 0 -27.17483" gltf-model="#tree" static-body
+      tree-fall-animation>
+      <a-sound src="audio/rainForest/timber-tree-falling-1-40384.mp3"></a-sound>
+      <a-cylinder position="0 0 0" radius="0.5" height="3" visible="false" static-body>
+      </a-cylinder>
+    </a-entity>
+    <a-entity class="tree" id="tree26" position="8.55558 0 7.03991" gltf-model="#tree" static-body tree-fall-animation>
+      <a-sound src="audio/rainForest/timber-tree-falling-1-40384.mp3"></a-sound>
+      <a-cylinder position="0 0 0" radius="0.5" height="3" visible="false" static-body>
+      </a-cylinder>
+    </a-entity>
+
+    <a-entity class="tree" id="tree27" position="6.67204 0 -9.35961" gltf-model="#tree" static-body tree-fall-animation>
+      <a-sound src="audio/rainForest/timber-tree-falling-1-40384.mp3"></a-sound>
+      <a-cylinder position="0 0 0" radius="0.5" height="3" visible="false" static-body>
+      </a-cylinder>
+    </a-entity>
+
+    <a-entity class="tree" id="tree28" position="-12.23076 0 3.86945" gltf-model="#tree" static-body
+      tree-fall-animation>
+      <a-sound src="audio/rainForest/timber-tree-falling-1-40384.mp3"></a-sound>
+      <a-cylinder position="0 0 0" radius="0.5" height="3" visible="false" static-body>
+      </a-cylinder>
+    </a-entity>
+
+    <a-entity class="tree" id="tree29" position="-23.19341 0 -27.17483" gltf-model="#tree" static-body
+      tree-fall-animation>
+      <a-sound src="audio/rainForest/timber-tree-falling-1-40384.mp3"></a-sound>
+      <a-cylinder position="0 0 0" radius="0.5" height="3" visible="false" static-body>
+      </a-cylinder>
+    </a-entity>
+
+    <a-entity class="tree" id="tree30" position="-9.2644 0 44.1205" gltf-model="#tree" static-body tree-fall-animation>
+      <a-sound src="audio/rainForest/timber-tree-falling-1-40384.mp3"></a-sound>
+      <a-cylinder position="0 0 0" radius="0.5" height="3" visible="false" static-body>
+      </a-cylinder>
+    </a-entity>
+    <a-entity class="tree" id="tree31" position="-13.28123 0 -18.9637" gltf-model="#tree" static-body
+      tree-fall-animation>
+      <a-sound src="audio/rainForest/timber-tree-falling-1-40384.mp3"></a-sound>
+      <a-cylinder position="0 0 0" radius="0.5" height="3" visible="false" static-body>
+      </a-cylinder>
+    </a-entity>
+    <a-entity class="tree" id="tree32" position="-4.63178 0 11.86793" gltf-model="#tree" static-body
+      tree-fall-animation>
+      <a-sound src="audio/rainForest/timber-tree-falling-1-40384.mp3"></a-sound>
+      <a-cylinder position="0 0 0" radius="0.5" height="3" visible="false" static-body>
+      </a-cylinder>
+    </a-entity>
+    <a-entity class="tree" id="tree33" position="21.69977 0 -14.99904" gltf-model="#tree" static-body
+      tree-fall-animation>
+      <a-sound src="audio/rainForest/timber-tree-falling-1-40384.mp3"></a-sound>
+      <a-cylinder position="0 0 0" radius="0.5" height="3" visible="false" static-body>
+      </a-cylinder>
+    </a-entity>
+    <a-entity class="tree" id="tree34" position="-31.35524 0 -29.78442" gltf-model="#tree" static-body
+      tree-fall-animation>
+      <a-sound src="audio/rainForest/timber-tree-falling-1-40384.mp3"></a-sound>
+      <a-cylinder position="0 0 0" radius="0.5" height="3" visible="false" static-body>
+      </a-cylinder>
+    </a-entity>
+    <a-entity class="tree" id="tree35" position="-28.80904 0 -4.69852" gltf-model="#tree" static-body
+      tree-fall-animation>
+      <a-sound src="audio/rainForest/timber-tree-falling-1-40384.mp3"></a-sound>
+      <a-cylinder position="0 0 0" radius="0.5" height="3" visible="false" static-body>
+      </a-cylinder>
+    </a-entity>
+
+    <a-entity class="tree" id="tree36" position="-37.77811 0 15.39399" gltf-model="#tree" static-body
+      tree-fall-animation>
+      <a-sound src="audio/rainForest/timber-tree-falling-1-40384.mp3"></a-sound>
+      <a-cylinder position="0 0 0" radius="0.5" height="3" visible="false" static-body>
+      </a-cylinder>
+    </a-entity>
+
+    <a-entity class="tree" id="tree37" position="-25.95499 0 11.26916" gltf-model="#tree" static-body
+      tree-fall-animation>
+      <a-sound src="audio/rainForest/timber-tree-falling-1-40384.mp3"></a-sound>
+      <a-cylinder position="0 0 0" radius="0.5" height="3" visible="false" static-body>
+      </a-cylinder>
+    </a-entity>
+
+    <a-entity class="tree" id="tree38" position="4.00367 0 49.77763" gltf-model="#tree" static-body tree-fall-animation>
+      <a-sound src="audio/rainForest/timber-tree-falling-1-40384.mp3"></a-sound>
+      <a-cylinder position="0 0 0" radius="0.5" height="3" visible="false" static-body>
+      </a-cylinder>
+    </a-entity>
+
+    <a-entity class="tree" id="tree39" position="-5.62181 0 35.51764" gltf-model="#tree" static-body
+      tree-fall-animation>
+      <a-sound src="audio/rainForest/timber-tree-falling-1-40384.mp3"></a-sound>
+      <a-cylinder position="0 0 0" radius="0.5" height="3" visible="false" static-body>
+      </a-cylinder>
+    </a-entity>
+
+    <a-entity class="tree" id="tree40" position="-28.37638 0 47.8114" gltf-model="#tree" static-body
+      tree-fall-animation>
+      <a-sound src="audio/rainForest/timber-tree-falling-1-40384.mp3"></a-sound>
+      <a-cylinder position="0 0 0" radius="0.5" height="3" visible="false" static-body>
+      </a-cylinder>
+    </a-entity>
+
+    <a-entity class="tree" id="tree41" position="-54.46701 0 10.82371" gltf-model="#tree" static-body
+      tree-fall-animation>
+      <a-sound src="audio/rainForest/timber-tree-falling-1-40384.mp3"></a-sound>
+      <a-cylinder position="0 0 0" radius="0.5" height="3" visible="false" static-body>
+      </a-cylinder>
+    </a-entity>
+
+    <a-entity class="tree" id="tree42" position="-48.01747 0 -7.74027" gltf-model="#tree" static-body
+      tree-fall-animation>
+      <a-sound src="audio/rainForest/timber-tree-falling-1-40384.mp3"></a-sound>
+      <a-cylinder position="0 0 0" radius="0.5" height="3" visible="false" static-body>
+      </a-cylinder>
+    </a-entity>
+
+    <a-entity class="tree" id="tree43" position="-35.83008 0 24.90411" gltf-model="#tree" static-body
+      tree-fall-animation>
+      <a-sound src="audio/rainForest/timber-tree-falling-1-40384.mp3"></a-sound>
+      <a-cylinder position="0 0 0" radius="0.5" height="3" visible="false" static-body>
+      </a-cylinder>
+    </a-entity>
+    <a-entity class="tree" id="tree44" position="19.84259 0 49.05706" gltf-model="#tree" static-body
+      tree-fall-animation>
+      <a-sound src="audio/rainForest/timber-tree-falling-1-40384.mp3"></a-sound>
+      <a-cylinder position="0 0 0" radius="0.5" height="3" visible="false" static-body>
+      </a-cylinder>
+    </a-entity>
+    <a-entity class="tree" id="tree45" position="9.37184 0 27.13354" gltf-model="#tree" static-body tree-fall-animation>
+      <a-sound src="audio/rainForest/timber-tree-falling-1-40384.mp3"></a-sound>
+      <a-cylinder position="0 0 0" radius="0.5" height="3" visible="false" static-body>
+      </a-cylinder>
+      <a-entity id="birdmodal5" rotation="0 0 0" gltf-model="#bird" position="0.91512 2.43917 0" scale="0.2 0.2 0.2"
+        show-text-on-click="message: This is a jaguar, a majestic big cat!; sound: #birdSound"><a-sound id="birdSound"
+          src="audio/rainForest/bird-327231.mp3"></a-sound></a-entity>
+    </a-entity>
+    <a-entity class="tree" id="tree46" position="46.85804 0 20.48524" gltf-model="#tree" static-body
+      tree-fall-animation>
+      <a-sound src="audio/rainForest/timber-tree-falling-1-40384.mp3"></a-sound>
+      <a-cylinder position="0 0 0" radius="0.5" height="3" visible="false" static-body>
+      </a-cylinder>
+      <a-entity id="birdmodal6" rotation="0 0 0" gltf-model="#bird" position="0.91512 2.43917 0" scale="0.2 0.2 0.2"
+        show-text-on-click="message: This is a jaguar, a majestic big cat!; sound: #birdSound"><a-sound id="birdSound"
+          src="audio/rainForest/bird-327231.mp3"></a-sound></a-entity>
+    </a-entity>
+    <a-entity class="tree" id="tree47" position="48.81976 0 -0.20659" gltf-model="#tree" static-body
+      tree-fall-animation>
+      <a-sound src="audio/rainForest/timber-tree-falling-1-40384.mp3"></a-sound>
+      <a-cylinder position="0 0 0" radius="0.5" height="3" visible="false" static-body>
+      </a-cylinder>
+    </a-entity>
+    <a-entity class="tree" id="tree48" position="28.09358 0 -27.22942" gltf-model="#tree" static-body
+      tree-fall-animation>
+      <a-sound src="audio/rainForest/timber-tree-falling-1-40384.mp3"></a-sound>
+      <a-cylinder position="0 0 0" radius="0.5" height="3" visible="false" static-body>
+      </a-cylinder>
+    </a-entity>
+    <a-entity class="tree" id="tree49" position="-18.39982 0 -13.29022" gltf-model="#tree" static-body
+      tree-fall-animation>
+      <a-sound src="audio/rainForest/timber-tree-falling-1-40384.mp3"></a-sound>
+      <a-cylinder position="0 0 0" radius="0.5" height="3" visible="false" static-body>
+      </a-cylinder>
+    </a-entity>
+    <a-entity class="tree" id="tree50" position="35.95862 0 -3.30404" gltf-model="#tree" static-body
+      tree-fall-animation>
+      <a-sound src="audio/rainForest/timber-tree-falling-1-40384.mp3"></a-sound>
+      <a-cylinder position="0 0 0" radius="0.5" height="3" visible="false" static-body>
+      </a-cylinder>
+    </a-entity>
+
+    <a-entity id="tree-spot1" class="tree-spot" data-tree-id="tree1" position="13.08535 0 39.14646" visible="false"
+      geometry="primitive: sphere; radius: 0.5" material="color: green; opacity: 0.5" static-body></a-entity>
+    <a-entity id="tree-spot2" class="tree-spot" data-tree-id="tree2" position="-1.25636 0 -59.15895" visible="false"
+      geometry="primitive: sphere; radius: 0.5" material="color: green; opacity: 0.5" static-body></a-entity>
+    <a-entity id="tree-spot7" class="tree-spot" data-tree-id="tree7" position="41.39036 0 -40.38527" visible="false"
+      geometry="primitive: sphere; radius: 0.5" material="color: green; opacity: 0.5" static-body></a-entity>
+
+    <a-entity id="tree-spot8" class="tree-spot" data-tree-id="tree8" position="-46.62776 0 -35.9367" visible="false"
+      geometry="primitive: sphere; radius: 0.5" material="color: green; opacity: 0.5" static-body></a-entity>
+
+    <a-entity id="tree-spot9" class="tree-spot" data-tree-id="tree9" position="18.43599 0 -44.33412" visible="false"
+      geometry="primitive: sphere; radius: 0.5" material="color: green; opacity: 0.5" static-body></a-entity>
+
+    <a-entity id="tree-spot10" class="tree-spot" data-tree-id="tree10" position="-5.75692 0 59.159" visible="false"
+      geometry="primitive: sphere; radius: 0.5" material="color: green; opacity: 0.5" static-body></a-entity>
+    <a-entity id="tree-spot11" class="tree-spot" data-tree-id="tree11" position="-17.978 0 34.19141" visible="false"
+      geometry="primitive: sphere; radius: 0.5" material="color: green; opacity: 0.5" static-body></a-entity>
+
+    <a-entity id="tree-spot12" class="tree-spot" data-tree-id="tree12" position="-18.35005 0 -43.62092" visible="false"
+      geometry="primitive: sphere; radius: 0.5" material="color: green; opacity: 0.5" static-body></a-entity>
+
+    <a-entity id="tree-spot13" class="tree-spot" data-tree-id="tree13" position="40.51406 0 -19.97655" visible="false"
+      geometry="primitive: sphere; radius: 0.5" material="color: green; opacity: 0.5" static-body></a-entity>
+
+    <a-entity id="tree-spot14" class="tree-spot" data-tree-id="tree14" position="-43.41065 0 37.99186" visible="false"
+      geometry="primitive: sphere; radius: 0.5" material="color: green; opacity: 0.5" static-body></a-entity>
+
+    <a-entity id="tree-spot15" class="tree-spot" data-tree-id="tree15" position="39.26504 0 10.63715" visible="false"
+      geometry="primitive: sphere; radius: 0.5" material="color: green; opacity: 0.5" static-body></a-entity>
+
+    <a-entity id="tree-spot16" class="tree-spot" data-tree-id="tree16" position="22.43245 0 -4.54445" visible="false"
+      geometry="primitive: sphere; radius: 0.5" material="color: green; opacity: 0.5" static-body></a-entity>
+
+    <a-entity id="tree-spot17" class="tree-spot" data-tree-id="tree17" position="-21.41171 0 -1.86208" visible="false"
+      geometry="primitive: sphere; radius: 0.5" material="color: green; opacity: 0.5" static-body></a-entity>
+
+    <a-entity id="tree-spot18" class="tree-spot" data-tree-id="tree18" position="0.3679 0 20.3929" visible="false"
+      geometry="primitive: sphere; radius: 0.5" material="color: green; opacity: 0.5" static-body></a-entity>
+    <a-entity id="tree-spot19" class="tree-spot" data-tree-id="tree19" position="-0.50466 0 -25.53722" visible="false"
+      geometry="primitive: sphere; radius: 0.5" material="color: green; opacity: 0.5" static-body></a-entity>
+
+    <a-entity id="tree-spot20" class="tree-spot" data-tree-id="tree20" position="-38.52811 0 -15.45796" visible="false"
+      geometry="primitive: sphere; radius: 0.5" material="color: green; opacity: 0.5" static-body></a-entity>
+
+    <a-entity id="tree-spot21" class="tree-spot" data-tree-id="tree21" position="-0.9853 0 -43.12681" visible="false"
+      geometry="primitive: sphere; radius: 0.5" material="color: green; opacity: 0.5" static-body></a-entity>
+
+    <a-entity id="tree-spot22" class="tree-spot" data-tree-id="tree22" position="-19.30552 0 19.41643" visible="false"
+      geometry="primitive: sphere; radius: 0.5" material="color: green; opacity: 0.5" static-body></a-entity>
+
+    <a-entity id="tree-spot23" class="tree-spot" data-tree-id="tree23" position="23.48711 0 17.4352" visible="false"
+      geometry="primitive: sphere; radius: 0.5" material="color: green; opacity: 0.5" static-body></a-entity>
+
+    <a-entity id="tree-spot24" class="tree-spot" data-tree-id="tree24" position="18.55498 0 -27.13359" visible="false"
+      geometry="primitive: sphere; radius: 0.5" material="color: green; opacity: 0.5" static-body></a-entity>
+
+    <a-entity id="tree-spot25" class="tree-spot" data-tree-id="tree25" position="-23.19341 0 -27.17483" visible="false"
+      geometry="primitive: sphere; radius: 0.5" material="color: green; opacity: 0.5" static-body></a-entity>
+
+    <a-entity id="tree-spot26" class="tree-spot" data-tree-id="tree26" position="8.55558 0 7.03991" visible="false"
+      geometry="primitive: sphere; radius: 0.5" material="color: green; opacity: 0.5" static-body></a-entity>
+
+    <a-entity id="tree-spot27" class="tree-spot" data-tree-id="tree27" position="6.67204 0 -9.35961" visible="false"
+      geometry="primitive: sphere; radius: 0.5" material="color: green; opacity: 0.5" static-body></a-entity>
+
+    <a-entity id="tree-spot28" class="tree-spot" data-tree-id="tree28" position="-12.23076 0 3.86945" visible="false"
+      geometry="primitive: sphere; radius: 0.5" material="color: green; opacity: 0.5" static-body></a-entity>
+
+    <a-entity id="tree-spot29" class="tree-spot" data-tree-id="tree29" position="-23.19341 0 -27.17483" visible="false"
+      geometry="primitive: sphere; radius: 0.5" material="color: green; opacity: 0.5" static-body></a-entity>
+
+    <a-entity id="tree-spot30" class="tree-spot" data-tree-id="tree30" position="-9.2644 0 44.1205" visible="false"
+      geometry="primitive: sphere; radius: 0.5" material="color: green; opacity: 0.5" static-body></a-entity>
+
+    <a-entity id="tree-spot31" class="tree-spot" data-tree-id="tree31" position="-13.28123 0 -18.9637" visible="false"
+      geometry="primitive: sphere; radius: 0.5" material="color: green; opacity: 0.5" static-body></a-entity>
+
+    <a-entity id="tree-spot32" class="tree-spot" data-tree-id="tree32" position="-4.63178 0 11.86793" visible="false"
+      geometry="primitive: sphere; radius: 0.5" material="color: green; opacity: 0.5" static-body></a-entity>
+
+    <a-entity id="tree-spot33" class="tree-spot" data-tree-id="tree33" position="21.69977 0 -14.99904" visible="false"
+      geometry="primitive: sphere; radius: 0.5" material="color: green; opacity: 0.5" static-body></a-entity>
+
+    <a-entity id="tree-spot34" class="tree-spot" data-tree-id="tree34" position="-31.35524 0 -29.78442" visible="false"
+      geometry="primitive: sphere; radius: 0.5" material="color: green; opacity: 0.5" static-body></a-entity>
+
+    <a-entity id="tree-spot35" class="tree-spot" data-tree-id="tree35" position="-28.80904 0 -4.69852" visible="false"
+      geometry="primitive: sphere; radius: 0.5" material="color: green; opacity: 0.5" static-body></a-entity>
+
+    <a-entity id="tree-spot36" class="tree-spot" data-tree-id="tree36" position="-37.77811 0 15.39399" visible="false"
+      geometry="primitive: sphere; radius: 0.5" material="color: green; opacity: 0.5" static-body></a-entity>
+
+    <a-entity id="tree-spot37" class="tree-spot" data-tree-id="tree37" position="-25.95499 0 11.26916" visible="false"
+      geometry="primitive: sphere; radius: 0.5" material="color: green; opacity: 0.5" static-body></a-entity>
+
+    <a-entity id="tree-spot38" class="tree-spot" data-tree-id="tree38" position="4.00367 0 49.77763" visible="false"
+      geometry="primitive: sphere; radius: 0.5" material="color: green; opacity: 0.5" static-body></a-entity>
+
+    <a-entity id="tree-spot39" class="tree-spot" data-tree-id="tree39" position="-5.62181 0 35.51764" visible="false"
+      geometry="primitive: sphere; radius: 0.5" material="color: green; opacity: 0.5" static-body></a-entity>
+
+    <a-entity id="tree-spot40" class="tree-spot" data-tree-id="tree40" position="-28.37638 0 47.8114" visible="false"
+      geometry="primitive: sphere; radius: 0.5" material="color: green; opacity: 0.5" static-body></a-entity>
+
+    <a-entity id="tree-spot41" class="tree-spot" data-tree-id="tree41" position="-54.46701 0 10.82371" visible="false"
+      geometry="primitive: sphere; radius: 0.5" material="color: green; opacity: 0.5" static-body></a-entity>
+
+    <a-entity id="tree-spot42" class="tree-spot" data-tree-id="tree42" position="-48.01747 0 -7.74027" visible="false"
+      geometry="primitive: sphere; radius: 0.5" material="color: green; opacity: 0.5" static-body></a-entity>
+
+    <a-entity id="tree-spot43" class="tree-spot" data-tree-id="tree43" position="-35.83008 0 24.90411" visible="false"
+      geometry="primitive: sphere; radius: 0.5" material="color: green; opacity: 0.5" static-body></a-entity>
+
+    <a-entity id="tree-spot44" class="tree-spot" data-tree-id="tree44" position="19.84259 0 49.05706" visible="false"
+      geometry="primitive: sphere; radius: 0.5" material="color: green; opacity: 0.5" static-body></a-entity>
+
+    <a-entity id="tree-spot45" class="tree-spot" data-tree-id="tree45" position="9.37184 0 27.13354" visible="false"
+      geometry="primitive: sphere; radius: 0.5" material="color: green; opacity: 0.5" static-body></a-entity>
+
+    <a-entity id="tree-spot46" class="tree-spot" data-tree-id="tree46" position="46.85804 0 20.48524" visible="false"
+      geometry="primitive: sphere; radius: 0.5" material="color: green; opacity: 0.5" static-body></a-entity>
+
+    <a-entity id="tree-spot47" class="tree-spot" data-tree-id="tree47" position="48.81976 0 -0.20659" visible="false"
+      geometry="primitive: sphere; radius: 0.5" material="color: green; opacity: 0.5" static-body></a-entity>
+
+    <a-entity id="tree-spot48" class="tree-spot" data-tree-id="tree48" position="28.09358 0 -27.22942" visible="false"
+      geometry="primitive: sphere; radius: 0.5" material="color: green; opacity: 0.5" static-body></a-entity>
+
+    <a-entity id="tree-spot49" class="tree-spot" data-tree-id="tree49" position="-18.39982 0 -13.29022" visible="false"
+      geometry="primitive: sphere; radius: 0.5" material="color: green; opacity: 0.5" static-body></a-entity>
+
+    <a-entity id="tree-spot50" class="tree-spot" data-tree-id="tree50" position="35.95862 0 -3.30404" visible="false"
+      geometry="primitive: sphere; radius: 0.5" material="color: green; opacity: 0.5" static-body></a-entity>
+
+
+
+
+
+
+    <a-entity id="jaguar1" class="jaguars" rotation="0 1.4054654714559094 0" gltf-model="#jaguar"
+      position="-46.87582 0 -24.20109" scale="0.5 0.5 0.5"></a-entity>
+    </a-entity>
+    <a-entity id="jaguar2" class="jaguars" rotation="0 148.85214334380734 0" gltf-model="#jaguar"
+      position="-38.35115 0 39.58432" scale="0.5 0.5 0.5"></a-entity>
+    </a-entity>
+    <a-entity id="jaguar3" class="jaguars" gltf-model="#jaguar" position="36.63726 0 -24.73043"
+      scale="0.5 0.5 0.5"></a-entity>
+
+    <a-entity id="jaguar4" class="jaguars" rotation="0 39.18572952458726 0" gltf-model="#jaguar"
+      position="39.49123 0 24.43819" scale="0.5 0.5 0.5"></a-entity>
+    <a-entity id="jaguar5" class="jaguars" rotation="0 -62.90389041182282 0" gltf-model="#jaguar"
+      position="21.40642 0 28.02255" scale="0.5 0.5 0.5"></a-entity>
+
+    <a-entity id="frog modal1" class="frogs" gltf-model="#frog" position="-7.72503 0 -32.50735"
+      scale="0.005 0.005 0.005"></a-entity>
+
+    <a-entity id="frog modal2" class="frogs" gltf-model="#frog" position="42.26228 0 -10.39938"
+      scale="0.005 0.005 0.005"></a-entity>
+
+    <a-entity id="frog modal3" class="frogs" gltf-model="#frog" position="-6.11878 0 22.18724"
+      scale="0.005 0.005 0.005"></a-entity>
+
+
+    <a-entity id="frog modal4" rotation="0 -157.25743419837653 0" class="frogs" gltf-model="#frog"
+      position="-26.69096 0.05511 -9.55058" scale="0.005 0.005 0.005"></a-entity>
+
+
+    <a-entity id="frog modal5" rotation="0 -128.45484583715006 0" class="frogs" gltf-model="#frog"
+      position="25.56645 -0.09994 15.72918" scale="0.005 0.005 0.005"></a-entity>
+    </a-entity>
+    <a-entity id="monkeymodal1" class="monkeys" gltf-model="#monkey" position="3.4759 0 34.74073"
+      scale="0.2 0.2 0.2"></a-entity>
+
+    <a-entity id="monkeymodal2" rotation="0 -51.91685173239416 0" class="monkeys" gltf-model="#monkey"
+      position="-9.15911 0 7.40933" scale="0.2 0.2 0.2"></a-entity>
+
+    <a-entity id="monkeymodal3" rotation="0 -107.69830379294572 0" class="monkeys" gltf-model="#monkey"
+      position="-27.44205 0 -36.20064" scale="0.2 0.2 0.2"></a-entity>
+
+    <a-entity id="monkeymodal4" rotation="0 72.7868394200344 0" class="monkeys" gltf-model="#monkey"
+      position="9.7809 0 -22.85597" scale="0.2 0.2 0.2"></a-entity>
+    </a-entity>
+
+    <a-entity id="monkeymodal5" rotation="0 -74.64379563405339 0" class="monkeys" gltf-model="#monkey"
+      position="24.2389 0 -36.85167" scale="0.2 0.2 0.2"></a-entity>
+
+
+
+
+
+
+
+    <!-- Seed Spawn Area -->
+    <a-entity id="spawn-box" position="-2 0 -0.584" gltf-model="#basket" scale="0.05 0.05 0.05"></a-entity>
+
+    <a-plane id="grounde" geometry="height: 141.85; width: 142.34" src="#ground" static-body width="150" height="150"
+      rotation="-90 0 0" color="#CCC"></a-plane>
+
+
+
+    <a-entity id="activityexplanationRianForest"
+      text="value:Welcome to the Rainforest activity! Playing is simple: grab the chainsaw on your right and start cutting down trees. As you do, observe how the surrounding animals react. When you're done, grab a seed from the basket and begin regrowing the trees. Watch as the animals gradually return to the environment.; align: center; width: 3; color: #2133"
+      position="0.07977 1.79304 -3.32715" look-at="#camera">
+      <a-plane id="textbackgroundArcticActivity" geometry="height: 1.24; width: 3.44" position="0 0.01259 -0.1"
+        height="5" width="15" color="#000000" opacity="0.5"></a-plane>
+    </a-entity>
+  </a-scene>
+
+  <!-- Your logic -->
+  <script src="sripts/rainForestActivity/chainsaw.js"></script>
+  <script src="sripts/rainForestActivity/seed.js"></script>
+  <script src="sripts/rainForestActivity/treeAnimation.js"></script>
+  <script src="sripts/rainForestActivity/animalDisappearing.js"></script>
+  <script src="sripts/telaportFunctions.js"></script>
+  <script src="sripts/hoverFunction.js"></script>
+
+
+
+
+</body>
+
+</html>
