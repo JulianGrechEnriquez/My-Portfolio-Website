@@ -152,14 +152,6 @@ body {
 
 }
 
-.gameplay-img {
-    width: 0%;
-    height: 100px;
-    height: auto;
-    object-fit: cover;
-    border-radius: 20px;
-    margin-top: 15px;
-}
 
 .box h2 {
     font-size: 28px;
