@@ -21,6 +21,33 @@ body {
     font-size: 24px;
 }
 
+.aboutMe {
+    background: #B3C2FF;
+    
+    padding: 20px;
+    color: #0a0a3c;
+    border-radius: 20px;
+    margin: auto;
+    
+    width: 100%;
+    max-width: 1200px;
+    margin-bottom: 30px;
+}
+
+.aboutMe p {
+    margin-top: 15px;
+
+}
+
+.profile-pic {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
 @media (max-width:600px) {
     .Page_Titel {
         font-size: 20px;
@@ -94,7 +121,7 @@ body {
 .card:hover {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     scale: 1;
-    
+
     transition: all 0.3s ease;
 }
 
@@ -113,18 +140,25 @@ body {
 /* ========================= */
 .box {
     background: #B3C2FF;
-    margin-bottom: 20px;
+    
     padding: 20px;
     color: #0a0a3c;
     border-radius: 20px;
     margin: auto;
-
+    
     width: 100%;
     max-width: 1200px;
-    
+
 
 }
-
+.gameplay-img {
+    width: 0%;
+    height: 100px;
+    height: auto;
+    object-fit: cover;
+    border-radius: 20px;
+    margin-top: 15px;
+}
 
 .box h2 {
     font-size: 28px;
@@ -137,8 +171,17 @@ body {
     width: 100%;
     margin: 20px auto;
 
-    outline: #04044a solid 2px;
+    
 }
+.Games h1 {
+    text-align: center;
+    border: #04044a solid 2px;
+    margin-bottom: 10px;
+    margin: auto;
+    color: #0a0a3c ;
+    
+}
+
 
 .slides2d,
 .slides3d {
@@ -201,11 +244,11 @@ body {
 }
 
 .slide-btn.prev {
-    left: -50px;
+    left: -15px;
 }
 
 .slide-btn.next {
-    right: -50px;
+    right: -15px;
 }
 
 .slide-btn:hover {
@@ -234,15 +277,14 @@ body {
 .footer {
     background: #0a0a3c;
     padding: 20px;
-    display: flex;
-    justify-content: space-around;
+        color: white;
+        text-align: center;
+        
+        border-radius: 20px;
+
 }
 
-.footer h4,
-.footer p {
-    color: white;
-    margin-bottom: 8px;
-}
+
 
 /* =========================
    MEDIA QUERIES

@@ -44,19 +44,38 @@ window.addEventListener("resize", updateSlider2D);
 
 let currentIndex3D = 0;
 
+function getVisibleCards3D() {
+    const w = window.innerWidth;
+    if (w <= 600) return 1;
+    if (w <= 900) return 2;
+    if (w <= 1200) return 3;
+    return 4;
+}
+
 function changeSlide3D(direction) {
-    const slides = document.querySelector(".slides3d");
     const totalSlides = document.querySelectorAll(".slide3d").length;
+    const visibleCards = getVisibleCards3D();
 
     currentIndex3D += direction;
 
     if (currentIndex3D < 0) {
+        currentIndex3D = totalSlides - visibleCards;
+    }
+
+    if (currentIndex3D > totalSlides - visibleCards) {
         currentIndex3D = 0;
     }
 
-    if (currentIndex3D > totalSlides - 2) {
-        currentIndex3D = totalSlides - 2;
-    }
-
-    slides.style.transform = `translateX(-${currentIndex3D * 50}%)`;
+    updateSlider3D();
 }
+
+function updateSlider3D() {
+    const slides = document.querySelector(".slides3d");
+    const visibleCards = getVisibleCards3D();
+    const movePercentage = 100 / visibleCards;
+
+    slides.style.transform = `translateX(-${currentIndex3D * movePercentage}%)`;
+}
+
+/* 🔥 Important */
+window.addEventListener("resize", updateSlider3D);
