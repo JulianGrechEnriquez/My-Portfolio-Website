@@ -1,3 +1,6 @@
+/* =========================
+   RESET & GLOBAL
+========================= */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -9,46 +12,112 @@ body {
     background: #3E4E85;
 }
 
+/* =========================
+   LAYOUT & CONTAINER
+========================= */
+.container {
+    display: flex;
+    min-height: calc(100vh - 100px);
+}
+
+@media (max-width: 800px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .content {
+        padding: 15px;
+    }
+}
+
+.content {
+    flex: 1;
+    padding: 30px;
+    background: #eef1ff;
+    margin: 5px;
+}
+
+.course-info {
+    flex: 1;
+}
+
+.text-line {
+    height: 8px;
+    background: #bdbdbd;
+    margin: 5px 0 14px 0;
+    border-radius: 4px;
+}
+
+/* =========================
+   NAVBAR
+========================= */
 .navbar {
     background-color: #04044a;
     padding: 15px 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    position: sticky;
+    position: fixed; /* keeps it visible */
     top: 0;
-    position: fixed;
-    /* keeps it always visible */
-    top: 0;
-    /* stick to the top */
     left: 0;
     width: 100%;
-    /* full width of screen */
     z-index: 1000;
-    /* stays on top of other elements */
 }
 
+/* Logo */
+.logo {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+}
 
+.logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
 
+/* Nav links */
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+/* Buttons inside navbar */
+.navbutton a {
+    text-decoration: none;
+    color: #04044a;
+    background: #B3C2FF;
+    padding: 10px 18px;
+    border-radius: 10px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.navbutton a:hover {
+    background: #7f97ff;
+}
+
+/* =========================
+   MOBILE MENU
+========================= */
 .mobile-menu {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-
     background: #04044a;
-
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
     gap: 40px;
-
     transform: translateY(-100%);
     transition: transform 0.4s ease;
-
     z-index: 1000;
 }
 
@@ -73,72 +142,31 @@ body {
     cursor: pointer;
 }
 
-@media (max-width: 768px) {
-
-    .nav-links {
-        display: none;
-    }
-
-}
-
-.navbutton a {
-    text-decoration: none;
-    color: #04044a;
-    background: #B3C2FF;
-    padding: 10px 18px;
-    border-radius: 10px;
-    font-weight: bold;
-    transition: 0.3s;
-}
-
-.navbutton a:hover {
-    background: #7f97ff;
-}
-
-.nav-links {
-    list-style: none;
-    display: flex;
-    gap: 15px;
-    align-items: center;
-}
-
-.logo {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-
-
-
-}
-
-
+/* =========================
+   ABOUT / SECTIONS
+========================= */
 .Page_Titel {
     display: inline-block;
     background-color: #04044a;
     color: white;
     padding: 10px 20px;
     border-radius: 10px;
-    margin-bottom: 20px;
-    margin-top: 20px;
+    margin: 20px 0;
     font-size: 24px;
 }
 
 .aboutMe {
     background: #B3C2FF;
-
     padding: 20px;
     color: #0a0a3c;
     border-radius: 20px;
-    margin: auto;
-
+    margin: auto 0 30px;
     width: 100%;
     max-width: 1200px;
-    margin-bottom: 30px;
 }
 
 .aboutMe p {
     margin-top: 15px;
-
 }
 
 .profile-pic {
@@ -146,91 +174,29 @@ body {
     height: 150px;
     border-radius: 50%;
     object-fit: cover;
-    margin-top: 15px;
-    margin-bottom: 15px;
+    margin: 15px 0;
 }
 
-@media (max-width:600px) {
-    .Page_Titel {
-        font-size: 20px;
-        padding: 8px 16px;
-    }
-
-    .nav-links {
-        display: none;
-    }
-}
-
-
-.container {
-    display: flex;
-    min-height: calc(100vh - 100px);
-}
-
-/* make main layout stack on narrow viewports */
-@media (max-width: 800px) {
-    .container {
-        flex-direction: column;
-    }
-
-    .content {
-        padding: 15px;
-    }
-}
-
-.course-info {
-    flex: 1;
-}
-
-.text-line {
-    height: 8px;
-    background: #bdbdbd;
-    margin-bottom: 14px;
-    border-radius: 4px;
-    margin-top: 5px;
-}
-
-
-.content {
-    flex: 1;
-    padding: 30px;
-    background: #eef1ff;
-    margin: 5px;
-
-}
-
-
-
-/* ensure cards wrap nicely on smaller screens */
-@media(max-width:800px) {
-    .cards {
-        justify-content: center;
-    }
-}
-
+/* =========================
+   CARDS / SLIDERS
+========================= */
 .card {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     flex: 1;
-    /* allow cards to shrink; slider rules override when needed */
     min-width: 0;
     scale: 0.85;
-
     background: white;
     border-radius: 20px;
     text-align: center;
-
+    transition: all 0.3s ease;
 }
-
 
 .card:hover {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     scale: 1;
-
-    transition: all 0.3s ease;
 }
-
 
 .card-img {
     width: 100%;
@@ -238,26 +204,18 @@ body {
     object-fit: cover;
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
-
 }
 
-/* ========================= */
-/*        SLIDERS (2 CARDS)  */
-/* ========================= */
+/* SLIDERS */
 .box {
     background: #B3C2FF;
-
     padding: 20px;
     color: #0a0a3c;
     border-radius: 20px;
     margin: auto;
-
     width: 100%;
     max-width: 1200px;
-
-
 }
-
 
 .box h2 {
     font-size: 28px;
@@ -269,50 +227,22 @@ body {
     position: relative;
     width: 100%;
     margin: 20px auto;
-
-
+    overflow: hidden;
 }
-
-.Games {
-    border: #04044a solid 2px;
-}
-
-.Games h1 {
-    text-align: center;
-    border: #04044a solid 2px;
-    margin-bottom: 10px;
-    margin: auto;
-    color: #0a0a3c;
-
-}
-
 
 .slides2d,
 .slides3d {
     display: flex;
     transition: transform 0.5s ease;
     gap: 20px;
-
     padding-left: 20px;
-
-
     min-width: 0;
 }
-
 
 .slide2d,
 .slide3d {
     flex: 0 0 calc(25% - 20px);
 }
-
-
-
-
-.slide-btn:hover {
-    background-color: #1d0fdf;
-
-}
-
 
 .slider-wrapper {
     display: flex;
@@ -322,12 +252,6 @@ body {
     position: relative;
 }
 
-.slideshow-container {
-    overflow: hidden;
-    width: 100%;
-}
-
-/* Circular nav buttons outside slider */
 .slide-btn {
     background: #04044a;
     color: white;
@@ -347,98 +271,67 @@ body {
     z-index: 10;
 }
 
-.slide-btn.prev {
-    left: -15px;
-}
-
-.slide-btn.next {
-    right: -15px;
-}
+.slide-btn.prev { left: -15px; }
+.slide-btn.next { right: -15px; }
 
 .slide-btn:hover {
     background-color: #1d0fdf;
     transform: translateY(-50%) scale(1.08);
 }
 
-
-/* ========================= */
-/*        Footer             */
-/* ========================= */
-
+/* =========================
+   FOOTER
+========================= */
 .footercard {
     margin-top: 10px;
     background-color: #04044a;
     color: white;
     padding: 15px;
     text-align: center;
-
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
 }
-
-
 
 .footer {
     background: #0a0a3c;
     padding: 20px;
     color: white;
     text-align: center;
-
-
-
 }
-
-
 
 /* =========================
    MEDIA QUERIES
 ========================= */
-/* Responsive breakpoints */
-@media (max-width: 1200px) {
 
-    .slide2d,
-    .slide3d {
-        flex: 0 0 calc(33.333% - 20px);
-    }
+/* Desktop -> smaller screens sliders */
+@media (max-width: 1200px) {
+    .slide2d, .slide3d { flex: 0 0 calc(33.333% - 20px); }
 }
 
 @media (max-width: 900px) {
-
-    .slide2d,
-    .slide3d {
-        flex: 0 0 calc(50% - 20px);
-
-        padding-left: 0px;
-
-    }
+    .slide2d, .slide3d { flex: 0 0 calc(50% - 20px); padding-left: 0; }
 }
 
 @media (max-width: 600px) {
-
-    .slide2d,
-    .slide3d {
-        flex: 0 0 100%;
-        gap: 15px;
-        padding-left: 0px;
-    }
+    .slide2d, .slide3d { flex: 0 0 100%; gap: 15px; padding-left: 0; }
+    .Page_Titel { font-size: 20px; padding: 8px 16px; }
+    .nav-links { display: none; }
 }
 
-/* =========================
-   MOBILE FIX
-========================= */
-
-@media (max-width: 768px) {
-
-    @media (max-width: 600px) {
-
-        .slides2d,
-        .slides3d {
-            gap: 0;
-            /* remove space between cards */
-            padding-left: 0;
-            /* remove left offset */
-        }
-
+/* MOBILE CIRCULAR NAVBAR AT BOTTOM */
+@media (max-width: 767px) {
+    .navbar {
+        bottom: 20px;
+        top: auto;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        background-color: #B3C2FF;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     }
-
 }
