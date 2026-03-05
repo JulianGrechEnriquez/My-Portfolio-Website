@@ -79,3 +79,7 @@ function updateSlider3D() {
 
 /* 🔥 Important */
 window.addEventListener("resize", updateSlider3D);
+function toggleMenu() {
+    const menu = document.getElementById("mobileMenu");
+    menu.classList.toggle("open");
+}

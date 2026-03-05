@@ -9,15 +9,34 @@
 </head>
 
 <body>
+    <header>
+        <nav class="navbar">
+
+            <img src="images/logo.png" class="logo" onclick="toggleMenu()">
+
+            <ul class="nav-links">
+                <li class="navbutton"><a href="Index.html">Home</a></li>
+                <li class="navbutton"><a href="#Games">Games</a></li>
+                <li class="navbutton"><a href="AboutMe.html">About Me</a></li>
+                <li class="navbutton"><a href="Contact.html">Contact</a></li>
+            </ul>
+
+        </nav>
+    </header>
+    <div class="mobile-menu" id="mobileMenu">
+
+        <button class="close-btn" onclick="toggleMenu()">✕</button>
+
+        <a href="Index.html">Home</a>
+        <a href="AboutMe.html">About Me</a>
+        <a href="Contact.html">Contact</a>
+
+    </div>
 
     <div class="container">
         <main class="content">
-            <section class="aboutMe">
-                <h1>About Me</h1>
-                <img class="profile-pic" src="images/profilePic.png" alt="Profile Picture">
-                <p>Welcome to my portfolio! I'm a passionate game developer with experience in both 2D and 3D game
-                    development. Here you can explore my projects and see what I've been working on.</p>
-            </section>
+           
+
             <section id="Games" class="Games">
                 <h1>My Games</h1>
                 <section class="box">
@@ -30,7 +49,7 @@
                         <div class="slideshow-container">
                             <div class="slides2d">
 
-                                <article class="card slide2d" >
+                                <article class="card slide2d">
                                     <img class="card-img" src="images/2dgame3.jpg" alt="2D Game 1">
                                     <h3>Echoes of the Hero</h3>
                                     <p>A D&D inspired rouglite bulit using unity</p>
@@ -131,10 +150,11 @@
 
 
     <footer class="footer">
-        
+
         <h1>Contact</h1>
-        <p>linkedin: <a href="https://www.linkedin.com/in/julian-grech-enriquez-9878a638b/?trk=public-profile-join-page" target="_blank">Julian Grech Enriquez</a></p>
-        
+        <p>linkedin: <a href="https://www.linkedin.com/in/julian-grech-enriquez-9878a638b/?trk=public-profile-join-page"
+                target="_blank">Julian Grech Enriquez</a></p>
+
         <p>&copy; 2023 My Portfolio. All rights reserved.</p>
 
     </footer>
