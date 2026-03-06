@@ -7,22 +7,23 @@
     <title>Website Layout</title>
     <link rel="stylesheet" href="style.css">
 </head>
+<header>
+    <nav class="navbar">
+
+        <img src="images/logo.png" class="logo" onclick="toggleMenu()">
+
+        <ul class="nav-links">
+            <li class="navbutton"><a href="Index.html">Home</a></li>
+            <li class="navbutton"><a href="#Games">Games</a></li>
+            <li class="navbutton"><a href="AboutMe.html">About Me</a></li>
+            <li class="navbutton"><a href="Contact.html">Contact</a></li>
+        </ul>
+
+    </nav>
+</header>
 
 <body>
-    <header>
-        <nav class="navbar">
 
-            <img src="images/logo.png" class="logo" onclick="toggleMenu()">
-
-            <ul class="nav-links">
-                <li class="navbutton"><a href="Index.html">Home</a></li>
-                <li class="navbutton"><a href="#Games">Games</a></li>
-                <li class="navbutton"><a href="AboutMe.html">About Me</a></li>
-                <li class="navbutton"><a href="Contact.html">Contact</a></li>
-            </ul>
-
-        </nav>
-    </header>
     <div class="mobile-menu" id="mobileMenu">
 
         <button class="close-btn" onclick="toggleMenu()">✕</button>
@@ -35,7 +36,7 @@
 
     <div class="container">
         <main class="content">
-           
+
 
             <section id="Games" class="Games">
                 <h1>My Games</h1>
@@ -57,7 +58,7 @@
                                 </article>
 
                                 <article class="card slide2d" onclick="window.location.href='Jingle-jump.html'">
-                                    <img class="card-img" src="images/2dgame3.jpg" alt="2D Game 2">
+                                    <img class="card-img" src="images/Jingle Jump.jpg" alt="2D Game 2">
                                     <h3>Jingle Jump</h3>
                                     <p> a holiday themed platformer made using Construct </p>
                                     <div class="footercard">2D Project</div>

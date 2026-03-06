@@ -62,6 +62,7 @@ body {
     left: 0;
     width: 100%;
     z-index: 1000;
+    margin-bottom: 10px;
 }
 
 /* Logo */
@@ -277,6 +278,13 @@ body {
 .slide-btn:hover {
     background-color: #1d0fdf;
     transform: translateY(-50%) scale(1.08);
+}
+
+.gameplay-img {
+    width: 100%;
+    height: auto;
+    border-radius: 15px;
+    margin-bottom: 15px;
 }
 
 /* =========================
