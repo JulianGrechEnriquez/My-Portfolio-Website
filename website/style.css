@@ -10,7 +10,7 @@
 
 body {
     background: #3E4E85;
-     
+
 }
 
 
@@ -20,7 +20,7 @@ body {
 .container {
     display: flex;
     min-height: calc(100vh - 100px);
-    
+
 }
 
 @media (max-width: 800px) {
@@ -68,11 +68,13 @@ body {
     left: 50%;
     transform: translateX(-50%);
 
-    width: fit-content; /* makes it only as wide as the content */
+    width: fit-content;
+    /* makes it only as wide as the content */
     gap: 20px;
 
-    border-radius: 999px; /* pill shape */
-    box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+    border-radius: 999px;
+    /* pill shape */
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
 
     z-index: 1000;
 }
@@ -129,7 +131,7 @@ body {
     justify-content: center;
     align-items: center;
     gap: 40px;
-    transform: translateY(-100%);
+    transform: translateY(100%);
     transition: transform 0.4s ease;
     z-index: 1000;
 }
@@ -138,6 +140,9 @@ body {
     color: white;
     font-size: 28px;
     text-decoration: none;
+    background-color: #7f97ff;
+    border-radius: 5px;
+    padding: 12px 25px;
 }
 
 .mobile-menu.open {
@@ -199,7 +204,7 @@ body {
     justify-content: space-between;
     flex: 1;
     min-width: 0;
-    scale: 0.85;
+    scale: 0.9;
     background: white;
     border-radius: 20px;
     text-align: center;
@@ -219,7 +224,9 @@ body {
     border-top-right-radius: 20px;
 }
 
-.Games h1{text-align: center;}
+.Games h1 {
+    text-align: center;
+}
 
 /* SLIDERS */
 .box {
@@ -286,8 +293,13 @@ body {
     z-index: 10;
 }
 
-.slide-btn.prev { left: -15px; }
-.slide-btn.next { right: -15px; }
+.slide-btn.prev {
+    left: -15px;
+}
+
+.slide-btn.next {
+    right: -15px;
+}
 
 .slide-btn:hover {
     background-color: #1d0fdf;
@@ -301,6 +313,14 @@ body {
     margin-bottom: 15px;
 }
 
+.homeSection {
+    text-align: center;
+    padding-bottom: 80px;
+}
+
+
+
+
 /* =========================
    FOOTER
 ========================= */
@@ -313,12 +333,14 @@ body {
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
 }
+
 .controlltype {
     display: flex;
     justify-content: center;
     border-radius: 10px;
     background-color: #B3C2FF;
 }
+
 .footercard img {
     width: 80px;
     height: 70px;
@@ -333,23 +355,70 @@ body {
     text-align: center;
 }
 
+.contactlink{
+    color: #B3C2FF;
+    text-decoration: none;
+    font-weight: bold;
+}
+.contatct {
+    padding-bottom: 10px;
+    align-items: center;
+    
+
+}
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.contactLogo {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+}
+
+
+
+
 /* =========================
    MEDIA QUERIES
 ========================= */
 
 /* Desktop -> smaller screens sliders */
 @media (max-width: 1200px) {
-    .slide2d, .slide3d { flex: 0 0 calc(33.333% - 20px); }
+
+    .slide2d,
+    .slide3d {
+        flex: 0 0 calc(33.333% - 20px);
+    }
 }
 
 @media (max-width: 900px) {
-    .slide2d, .slide3d { flex: 0 0 calc(50% - 20px); padding-left: 0; }
+
+    .slide2d,
+    .slide3d {
+        flex: 0 0 calc(50% - 20px);
+        padding-left: 0;
+    }
 }
 
 @media (max-width: 600px) {
-    .slide2d, .slide3d { flex: 0 0 100%; gap: 15px; padding-left: 0; }
-    .Page_Titel { font-size: 20px; padding: 8px 16px; }
-    .nav-links { display: none; }
+
+    .slide2d,
+    .slide3d {
+        flex: 0 0 100%;
+        gap: 15px;
+        padding-left: 0;
+    }
+
+    .Page_Titel {
+        font-size: 20px;
+        padding: 8px 16px;
+    }
+
+    .nav-links {
+        display: none;
+    }
 }
 
 /* MOBILE CIRCULAR NAVBAR AT BOTTOM */
@@ -368,5 +437,8 @@ body {
         justify-content: center;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     }
-    .nav-links { display: none; }
+
+    .nav-links {
+        display: none;
+    }
 }

@@ -79,7 +79,26 @@ function updateSlider3D() {
 
 /* 🔥 Important */
 window.addEventListener("resize", updateSlider3D);
+
+
+const logo = document.querySelector(".logo");
+
+logo.addEventListener("click", function () {
+
+    if (window.innerWidth <= 767) {   // only work on mobile
+        const menu = document.getElementById("mobileMenu");
+        menu.classList.toggle("open");
+    }
+
+});
 function toggleMenu() {
     const menu = document.getElementById("mobileMenu");
     menu.classList.toggle("open");
 }
+
+const closeBtn = document.querySelector(".close-btn");
+
+closeBtn.addEventListener("click", function () {
+    const menu = document.getElementById("mobileMenu");
+    menu.classList.remove("open");
+});

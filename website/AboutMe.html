@@ -8,22 +8,36 @@
     <link rel="stylesheet" href="style.css">
 </head>
 
+<header>
+    <nav class="navbar">
+
+        <img src="images/logo.png" class="logo">
+
+        <ul class="nav-links">
+            <li class="navbutton"><a href="Index.html">Home</a></li>
+            <li class="navbutton"><a href="#Games">Games</a></li>
+            <li class="navbutton"><a href="AboutMe.html">About Me</a></li>
+            <li class="navbutton"><a href="#Contact">Contact</a></li>
+        </ul>
+
+    </nav>
+</header>
 
 <body>
-        <header>
-        <nav class="navbar">
 
-            <img src="images/logo.png" class="logo" onclick="toggleMenu()">
+    <div class="mobile-menu" id="mobileMenu">
 
-            <ul class="nav-links">
-                <li class="navbutton"><a href="Index.html">Home</a></li>
-                <li class="navbutton"><a href="#Games">Games</a></li>
-                <li class="navbutton"><a href="AboutMe.html">About Me</a></li>
-                <li class="navbutton"><a href="Contact.html">Contact</a></li>
-            </ul>
+        <button class="close-btn">✕</button>
 
-        </nav>
-    </header>
+        <a href="Index.html">Home</a>
+        <a href="AboutMe.html">About Me</a>
+        <a href="Contact.html">Contact</a>
+
+    </div>
+
+
+<body>
+
     <div class="mobile-menu" id="mobileMenu">
 
         <button class="close-btn" onclick="toggleMenu()">✕</button>
@@ -47,11 +61,44 @@
     </div>
 
 
+
     <footer class="footer">
-        
-        <h1>Contact</h1>
-        <p>linkedin: <a href="https://www.linkedin.com/in/julian-grech-enriquez-9878a638b/?trk=public-profile-join-page" target="_blank">Julian Grech Enriquez</a></p>
-        
+        <div id="Contact" class="contatct">
+            <h1>Contact</h1>
+
+            <p class="contact-item">
+                <img class="contactLogo" src="images/LinkedIn_logo_initials.png" alt="Instagram">
+                linkedin:
+                <a class="contactlink"
+                    href="https://www.linkedin.com/in/julian-grech-enriquez-9878a638b/?trk=public-profile-join-page"
+                    target="_blank">Julian Grech Enriquez</a>
+            </p>
+            <p class="contact-item">
+                <img class="contactLogo" src="images/instalogo.png" alt="Instagram">
+                instagram:
+                <a class="contactlink"
+                    href="https://www.instagram.com/julian_grech_enriquez/"
+                    target="_blank">Julian Grech Enriquez</a>
+            </p>
+            <p class="contact-item">
+                <img class="contactLogo" src="images/instalogo.png" alt="Instagram">
+                instagram:
+                <a class="contactlink"
+                    href="https://www.linkedin.com/in/julian-grech-enriquez-9878a638b/?trk=public-profile-join-page"
+                    target="_blank">Julian Grech Enriquez</a>
+            </p>
+
+            <p class="contact-item">
+                <img class="contactLogo" src="images/instalogo.png" alt="Instagram">
+                instagram:
+                <a class="contactlink"
+                    href="https://www.linkedin.com/in/julian-grech-enriquez-9878a638b/?trk=public-profile-join-page"
+                    target="_blank">Julian Grech Enriquez</a>
+            </p>
+        </div>
+
+
+
         <p>&copy; 2023 My Portfolio. All rights reserved.</p>
 
     </footer>
