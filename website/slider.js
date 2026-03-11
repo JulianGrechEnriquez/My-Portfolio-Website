@@ -35,7 +35,7 @@ function updateSlider2D() {
     slides.style.transform = `translateX(-${currentIndex2D * movePercentage}%)`;
 }
 
-/* 🔥 This is the important part */
+
 window.addEventListener("resize", updateSlider2D);
 
 /* =========================
