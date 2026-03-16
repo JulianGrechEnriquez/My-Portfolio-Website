@@ -310,6 +310,20 @@ body {
     transform: translateY(-50%) scale(1.08);
 }
 
+
+.homeSection {
+    text-align: center;
+    padding-bottom: 80px;
+}
+
+
+/* =========================
+   Game pages
+========================= */
+
+
+
+
 .gameplay {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -323,12 +337,6 @@ body {
       
     
 }
-.homeSection {
-    text-align: center;
-    padding-bottom: 80px;
-}
-
-
 
 
 /* =========================
@@ -452,3 +460,4 @@ body {
         display: none;
     }
 }
+
