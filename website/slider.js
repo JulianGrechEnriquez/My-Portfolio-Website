@@ -1,6 +1,68 @@
 /* =========================
    2D SLIDER
 ========================= */
+
+import { client } from './sanity.js';
+
+
+
+const query = `*[_type == "game"]{
+  title,
+  slug,
+  description,
+  type,
+  link,
+  controls,
+  "imageUrl": image.asset->url
+}`
+
+
+client.fetch(query).then(games => {
+  const container2D = document.querySelector('.slides2d')
+  const container3D = document.querySelector('.slides3d')
+
+  const getControlIcon = (control) => {
+    if (control === 'keyboard') return 'images/gameCards/keyboard-and-mouse.png'
+    if (control === 'controller') return 'images/gameCards/controller.png'
+    if (control === 'mobile') return 'images/gameCards/mobileIPhone.png'
+  }
+
+  games.forEach(game => {
+    const card = document.createElement('article')
+    card.classList.add('card')
+
+    if (game.type === '2d') card.classList.add('slide2d')
+    if (game.type === '3d') card.classList.add('slide3d')
+
+    const controlsHTML = game.controls
+      ?.map(c => `<img src="${getControlIcon(c)}" />`)
+      .join('') || ''
+
+    card.innerHTML = `
+      <img class="card-img" src="${game.imageUrl}" />
+      <h3>${game.title}</h3>
+      <p>${game.description}</p>
+      <div class="footercard">
+        <div class="controlltype">
+          ${controlsHTML}
+        </div>
+      </div>
+    `
+
+    if (game.link) {
+      card.onclick = () => {
+  window.location.href = `game.html?slug=${game.slug.current}`
+}
+    }
+
+    if (game.type === '2d') container2D.appendChild(card)
+    if (game.type === '3d') container3D.appendChild(card)
+  })
+
+  // 🔥 ADD THESE LINES
+  updateSlider2D()
+  updateSlider3D()
+})
 let currentIndex2D = 0;
 
 function getVisibleCards() {
@@ -102,3 +164,7 @@ closeBtn.addEventListener("click", function () {
     const menu = document.getElementById("mobileMenu");
     menu.classList.remove("open");
 });
+
+
+window.changeSlide2D = changeSlide2D
+window.changeSlide3D = changeSlide3D

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title id="pageTitle">Game Page</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+
+    <header>
+    <nav class="navbar">
+
+        <img src="images/logo.png" class="logo">
+
+        <ul class="nav-links">
+            <li class="navbutton"><a href="Index.html">Home</a></li>
+            <li class="navbutton"><a href="#OtherProjects">Games</a></li>
+            <li class="navbutton"><a href="AboutMe.html">About Me</a></li>
+            <li class="navbutton"><a href="#Contact">Contact</a></li>
+        </ul>
+
+    </nav>
+</header>
+
+
+  <div class="container">
+    <main class="content">
+
+      <!-- HERO -->
+      <section class="hero">
+        <img id="image" class="hero-img">
+        <h1 id="title"></h1>
+
+        <div class="game-actions">
+          <a id="playBtn" class="play-btn">▶ Play</a>
+        </div>
+      </section>
+
+      <!-- DESCRIPTION -->
+      <section class="GameInfo">
+        <h2>Game Overview</h2>
+        <p id="description"></p>
+      </section>
+
+      <!-- GAMEPLAY -->
+      <section>
+        <h2>Gameplay</h2>
+        <div id="gameplay" class="gameplay"></div>
+      </section>
+
+      <!-- FEATURES -->
+      <section>
+        <h2>Features</h2>
+        <ul id="features"></ul>
+      </section>
+
+      <!-- TECH -->
+      <section>
+        <h2>Tech Stack</h2>
+        <ul id="tech"></ul>
+      </section>
+
+      <!-- LEARNING -->
+      <section>
+        <h2>What I Learned</h2>
+        <p id="learned"></p>
+      </section>
+
+      <!-- FUTURE -->
+      <section>
+        <h2>Future Improvements</h2>
+        <p id="future"></p>
+      </section>
+
+      <!-- BACK BUTTON -->
+      <a href="index.html" class="back-btn">⬅ Back to Portfolio</a>
+
+  </div>
+  </main>
+
+  <script type="module" src="game.js"></script>
+
+</body>
+
+</html>

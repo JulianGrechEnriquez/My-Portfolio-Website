@@ -211,7 +211,7 @@ body {
     border-radius: 20px;
     text-align: center;
     transition: all 0.3s ease;
-   
+
 }
 
 .card:hover {
@@ -222,8 +222,10 @@ body {
 .card-img {
     aspect-ratio: 16 / 9;
     width: 100%;
-    height: 200px;       /* same image height for all cards */
-    object-fit: co;   /* crops image instead of stretching */
+    height: 200px;
+    /* same image height for all cards */
+    object-fit: co;
+    /* crops image instead of stretching */
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
 }
@@ -333,9 +335,17 @@ body {
 
 .gameplay-img {
     width: 100%;
-    height: 450px;        /* forces same height */
-      
     
+    /* forces same height */
+
+
+}
+
+.GameInfo {
+    background: #B3C2FF;
+    padding: 20px;
+    color: #0a0a3c;
+    border-radius: 20px;
 }
 
 
@@ -373,22 +383,77 @@ body {
     text-align: center;
 }
 
-.contactlink{
-    color: #B3C2FF;
-    text-decoration: none;
-    font-weight: bold;
-}
-.contatct {
-    padding-bottom: 10px;
-    align-items: center;
-    
 
+.hero {
+  text-align: center;
+  margin-bottom: 30px;
 }
+
+.hero-img {
+  width: 100%;
+  max-width: 600px;
+  border-radius: 10px;
+}
+
+.game-actions {
+  margin-top: 15px;
+}
+
+.play-btn {
+  padding: 10px 20px;
+  background: #00c853;
+  color: white;
+  text-decoration: none;
+  border-radius: 6px;
+}
+
+.gameplay-grid {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.gameplay-img {
+
+  border-radius: 8px;
+}
+
+.back-btn {
+  display: inline-block;
+  margin-top: 30px;
+  text-decoration: none;
+}
+
+.contatct {
+    display: flex;
+    justify-content: center;   /* center the whole row */
+    align-items: center;
+    gap: 30px;                 /* space between items */
+    flex-wrap: wrap;           /* allows wrapping on smaller screens */
+    text-align: center;
+}
+
+/* Each item stays as a row */
 .contact-item {
     display: flex;
     align-items: center;
     gap: 8px;
 }
+
+/* Optional: adjust icon size/spacing */
+.contactLogo {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+}
+
+/* Optional: cleaner link style */
+.contactlink {
+    color: #B3C2FF;
+    text-decoration: none;
+    font-weight: bold;
+}
+
 .contactLogo {
     width: 40px;
     height: 40px;
@@ -460,4 +525,3 @@ body {
         display: none;
     }
 }
-
