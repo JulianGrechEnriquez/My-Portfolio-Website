@@ -59,6 +59,14 @@ client.fetch(query, { slug }).then(game => {
   })
 
   // learned + future
-  document.getElementById('learned').textContent = game.learned || ''
+  // learned
+const learnedList = document.getElementById('learned')
+learnedList.innerHTML = ''
+
+game.learned?.forEach(item => {
+  const li = document.createElement('li')
+  li.textContent = item
+  learnedList.appendChild(li)
+})
   document.getElementById('future').textContent = game.future || ''
 })
