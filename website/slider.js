@@ -7,6 +7,7 @@ import { client } from './sanity.js';
 
 
 const query = `*[_type == "game"]{
+  _id,
   title,
   slug,
   description,
@@ -49,10 +50,16 @@ client.fetch(query).then(games => {
       </div>
     `
 
-    if (game.link) {
+    const gamePageUrl = game.slug?.current
+      ? `game.html?slug=${encodeURIComponent(game.slug.current)}`
+      : game._id
+        ? `game.html?gameId=${encodeURIComponent(game._id)}`
+        : null
+
+    if (gamePageUrl) {
       card.onclick = () => {
-  window.location.href = `game.html?slug=${game.slug.current}`
-}
+        window.location.href = gamePageUrl
+      }
     }
 
     if (game.type === '2d') container2D.appendChild(card)

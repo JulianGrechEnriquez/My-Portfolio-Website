@@ -1,28 +1,60 @@
 import { client } from './sanity.js'
+import { applyGamePageCustomization } from './game-page-layout.js'
 
 const params = new URLSearchParams(window.location.search)
 const slug = params.get('slug')
+const gameId = params.get('gameId')
 
-const query = `*[_type == "gamePage" && game->slug.current == $slug][0]{
+const query = `*[
+  _type == "gamePage" &&
+  (
+    ($slug != null && game->slug.current == $slug) ||
+    ($gameId != null && game->_id == $gameId)
+  )
+][0]{
   description,
   features,
   tech,
   learned,
   future,
+  theme,
+  heroLayout,
+  playButtonText,
+  sectionLabels,
+  pageLayout,
   "title": game->title,
+  "link": game->link,
   "imageUrl": game->image.asset->url,
   "gameplay": gameplayImages[].asset->url
 }`
 
-client.fetch(query, { slug }).then(game => {
+client.fetch(query, { slug, gameId }).then(game => {
 
   if (!game) {
     document.body.innerHTML = "<h1>Game not found</h1>"
     return
   }
 
+  applyGamePageCustomization({
+    theme: game.theme,
+    heroLayout: game.heroLayout,
+    pageLayout: game.pageLayout,
+    sectionLabels: game.sectionLabels,
+  })
+
   document.getElementById('title').textContent = game.title
+  document.getElementById('pageTitle').textContent = game.title
   document.getElementById('description').textContent = game.description
+
+  const playBtn = document.getElementById('playBtn')
+  if (game.link) {
+    playBtn.href = game.link
+    playBtn.target = '_blank'
+    playBtn.rel = 'noopener noreferrer'
+    playBtn.textContent = game.playButtonText || 'Play'
+  } else {
+    playBtn.remove()
+  }
 
   // main image
   document.getElementById('image').src = game.imageUrl
