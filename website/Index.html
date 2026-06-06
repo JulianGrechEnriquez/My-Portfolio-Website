@@ -18,6 +18,7 @@
         <ul class="nav-links">
             <li class="navbutton"><a href="Index.html">Home</a></li>
             <li class="navbutton"><a href="#OtherProjects">Games</a></li>
+            <li class="navbutton"><a href="#Events">Events</a></li>
             <li class="navbutton"><a href="AboutMe.html">About Me</a></li>
             <li class="navbutton"><a href="#Contact">Contact</a></li>
         </ul>
@@ -45,6 +46,25 @@
             <section id="OtherProjects" class="homeSection">
                 <h1>Other Projects</h1>
                 <p>This is the home section of my website.</p>
+
+                <section class="box">
+                    <h2>Other Projects</h2>
+
+                    <div class="slider-wrapper">
+
+                        <button class="slide-btn prev" onclick="changeSlide2D(-1)">❮</button>
+
+                        <div class="slideshow-container">
+                            <div class="slidesOtherProjects">
+
+                                
+
+                            </div>
+
+
+                        </div>
+                        <button class="slide-btn next" onclick="changeSlide2D(1)">❯</button>
+                </section>
             </section>
 
             <section id="Games" class="Games">
@@ -83,6 +103,28 @@
 
                         </div>
                         <button class="slide-btn next" onclick="changeSlide3D(1)">❯</button>
+                </section>
+
+            </section>
+
+            <section id="Events" class="Events">
+                <h1>Events I Participated In</h1>
+                <section class="box">
+                    <h2>Event Gallery</h2>
+
+                    <div class="slider-wrapper">
+
+                        <button class="slide-btn prev" onclick="eventsNext()">❮</button>
+
+                        <div class="slideshow-container">
+                            <div class="eventsCards" id="eventsTrack">
+
+                                
+
+                            </div>
+
+                        </div>
+                        <button class="slide-btn next" onclick="eventsPrev()">❯</button>
                 </section>
 
             </section>
@@ -134,6 +176,8 @@
     </footer>
 
     <script type="module" src="slider.js"></script>
+    <script type="module" src="events-cards.js"></script>
+    <script src="events-slider.js"></script>
 
 </body>
 

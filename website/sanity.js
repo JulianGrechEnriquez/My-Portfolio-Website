@@ -1,5 +1,5 @@
 // sanity.js
-import { createClient } from 'https://cdn.skypack.dev/@sanity/client'
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@sanity/client@6.10.0/+esm'
 
 export const client = createClient({
   projectId: 'pfcxsvqp', 

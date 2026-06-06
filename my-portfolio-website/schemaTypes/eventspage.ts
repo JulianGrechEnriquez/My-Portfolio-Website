@@ -1,6 +1,6 @@
 export default {
     name: 'eventPage',
-    title: 'Event  Page',
+    title: 'Event Page',
     type: 'document',
     fields: [
         {
@@ -9,28 +9,27 @@ export default {
             type: 'string',
         },
         {
-            name: 'game',
-            title: 'Game Reference',
+            name: 'event',
+            title: 'Event Reference',
             type: 'reference',
-            to: [{ type: 'game' }]
+            to: [{ type: 'eventsCard' }]
+        },
+        {
+            name: 'eventDate',
+            title: 'Event Date',
+            type: 'date',
         },
 
         { name: 'description', type: 'text' },
 
         {
-            name: 'gameplayImages',
+            name: 'images',
             type: 'array',
             of: [{ type: 'image' }]
         },
 
         {
-            name: 'features',
-            type: 'array',
-            of: [{ type: 'string' }]
-        },
-
-        {
-            name: 'tech',
+            name: 'MembersofTeam',
             type: 'array',
             of: [{ type: 'string' }]
         },
@@ -38,6 +37,14 @@ export default {
         { name: 'learned',
             type: 'array',
             of: [{ type: 'string' }] },
-        { name: 'future', type: 'text' }
+        { name: 'future', type: 'text' },
+        {
+            name: 'slug',
+            type: 'slug',
+            options: {
+                source: 'title',
+                maxLength: 96
+            }
+        }
     ]
 }

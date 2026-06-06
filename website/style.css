@@ -811,6 +811,49 @@ body {
   gap: 14px;
 }
 
+/* Events slider styles */
+.events-slider {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 18px 0 8px 0;
+}
+
+.events-track {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding: 12px;
+  background: white;
+  border-radius: 12px;
+  flex: 1 1 auto;
+}
+
+.events-track img {
+  height: 160px;
+  width: auto;
+  object-fit: cover;
+  border-radius: 8px;
+  flex: 0 0 auto;
+}
+
+.event-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.event-grid img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+
 .style-lab-controls label {
   display: grid;
   gap: 7px;
@@ -879,41 +922,80 @@ body {
 }
 
 .contatct {
-    display: flex;
-    justify-content: center;   /* center the whole row */
-    align-items: center;
-    gap: 30px;                 /* space between items */
-    flex-wrap: wrap;           /* allows wrapping on smaller screens */
-    text-align: center;
-}
+     display: flex;
+     justify-content: center;   /* center the whole row */
+     align-items: center;
+     gap: 30px;                 /* space between items */
+     flex-wrap: wrap;           /* allows wrapping on smaller screens */
+     text-align: center;
+ }
 
 /* Each item stays as a row */
 .contact-item {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
+     display: flex;
+     align-items: center;
+     gap: 8px;
+ }
 
 /* Optional: adjust icon size/spacing */
 .contactLogo {
-    width: 40px;
-    height: 40px;
-    object-fit: contain;
-}
+     width: 40px;
+     height: 40px;
+     object-fit: contain;
+ }
 
 /* Optional: cleaner link style */
 .contactlink {
-    color: #B3C2FF;
-    text-decoration: none;
-    font-weight: bold;
-}
+     color: #B3C2FF;
+     text-decoration: none;
+     font-weight: bold;
+ }
 
 .contactLogo {
-    width: 40px;
-    height: 40px;
-    object-fit: contain;
+     width: 40px;
+     height: 40px;
+     object-fit: contain;
+ }
+
+/* =========================
+   EVENT CARDS
+========================= */
+.Events h1 {
+    text-align: center;
 }
 
+.eventsCards {
+    display: flex;
+    transition: transform 0.5s ease;
+    gap: 20px;
+    padding-left: 20px;
+    min-width: 0;
+}
+
+.eventCard {
+    flex: 0 0 calc(25% - 20px);
+}
+
+@media (max-width: 1200px) {
+    .eventCard {
+        flex: 0 0 calc(33.333% - 20px);
+    }
+}
+
+@media (max-width: 900px) {
+    .eventCard {
+        flex: 0 0 calc(50% - 20px);
+        padding-left: 0;
+    }
+}
+
+@media (max-width: 600px) {
+    .eventCard {
+        flex: 0 0 100%;
+        gap: 15px;
+        padding-left: 0;
+    }
+}
 
 
 

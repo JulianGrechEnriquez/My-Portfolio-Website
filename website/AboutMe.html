@@ -57,6 +57,22 @@
                     development. Here you can explore my projects and see what I've been working on.</p>
             </section>
             
+                        <section class="eventsParticipated">
+                            <h1>Events</h1>
+                            <p>Events I've participated in</p>
+
+                            <div class="slider-wrapper">
+                                <button class="slide-btn prev" onclick="eventsPrev()">❮</button>
+                                <div class="slideshow-container">
+                                    <div class="eventsCards" id="eventsTrack">
+                                        
+                                    </div>
+                                </div>
+                                <button class="slide-btn next" onclick="eventsNext()">❯</button>
+                            </div>
+
+                            <p><a href="events.html">See all event photos</a></p>
+                        </section>
         </main>
     </div>
 
@@ -103,8 +119,9 @@
 
     </footer>
 
-    
-</body>
+    <script src="events-slider.js"></script>
+    <script type="module" src="events-cards.js"></script>
+
 </body>
 
 </html>

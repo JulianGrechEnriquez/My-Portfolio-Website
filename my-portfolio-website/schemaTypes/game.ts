@@ -34,7 +34,13 @@ export default {
             },
         },
         {
-            name: 'link',
+            name: 'Gitlink',
+            title: 'Git Link',
+            type: 'string',
+        },
+
+                {
+            name: 'Gamelink',
             title: 'Game Link',
             type: 'string',
         },

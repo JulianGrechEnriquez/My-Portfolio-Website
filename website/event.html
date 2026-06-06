@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title id="pageTitle">Event Page</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .loading {
+      text-align: center;
+      padding: 40px;
+      color: #0a0a3c;
+    }
+    .loading::after {
+      content: '';
+      animation: dots 1.5s steps(4, end) infinite;
+    }
+    @keyframes dots {
+      0%, 20% { content: ''; }
+      40% { content: '.'; }
+      60% { content: '..'; }
+      80%, 100% { content: '...'; }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <nav class="navbar">
+      <img src="images/logo.png" class="logo">
+
+      <ul class="nav-links">
+        <li class="navbutton"><a href="Index.html">Home</a></li>
+        <li class="navbutton"><a href="Index.html#Events">Events</a></li>
+        <li class="navbutton"><a href="AboutMe.html">About Me</a></li>
+        <li class="navbutton"><a href="Index.html#Contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="container">
+    <main class="content">
+      <div id="loadingState" class="loading">
+        <h2>Loading event</h2>
+      </div>
+
+      <section id="eventHero" class="hero" style="display: none;">
+        <img id="image" class="hero-img" alt="">
+        <div class="hero-copy">
+          <h1 id="title"></h1>
+          <p id="eventDate"></p>
+        </div>
+      </section>
+
+      <section id="overviewSection" class="GameInfo" style="display: none;">
+        <h2 id="overviewLabel">Event Overview</h2>
+        <p id="description"></p>
+      </section>
+
+      <section id="imagesSection" class="game-section" style="display: none;">
+        <h2 id="imagesLabel">Event Photos</h2>
+        <div id="images" class="gameplay"></div>
+      </section>
+
+      <section id="teamSection" class="game-section" style="display: none;">
+        <h2 id="teamLabel">Team Members</h2>
+        <ul id="team"></ul>
+      </section>
+
+      <section id="learnedSection" class="game-section" style="display: none;">
+        <h2 id="learnedLabel">What I Learned</h2>
+        <ul id="learned"></ul>
+      </section>
+
+      <section id="futureSection" class="game-section" style="display: none;">
+        <h2 id="futureLabel">Future Participation</h2>
+        <p id="future"></p>
+      </section>
+
+      <a href="Index.html" class="back-btn">Back to Portfolio</a>
+    </main>
+  </div>
+
+  <script type="module" src="event.js"></script>
+</body>
+
+</html>

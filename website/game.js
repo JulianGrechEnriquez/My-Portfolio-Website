@@ -23,7 +23,8 @@ const query = `*[
   sectionLabels,
   pageLayout,
   "title": game->title,
-  "link": game->link,
+  "gameLink": game->Gamelink,
+  "gitLink": game->Gitlink,
   "imageUrl": game->image.asset->url,
   "gameplay": gameplayImages[].asset->url
 }`
@@ -47,13 +48,24 @@ client.fetch(query, { slug, gameId }).then(game => {
   document.getElementById('description').textContent = game.description
 
   const playBtn = document.getElementById('playBtn')
-  if (game.link) {
-    playBtn.href = game.link
+  if (game.gameLink) {
+    playBtn.href = game.gameLink
     playBtn.target = '_blank'
     playBtn.rel = 'noopener noreferrer'
     playBtn.textContent = game.playButtonText || 'Play'
   } else {
     playBtn.remove()
+  }
+
+  // Git repository link
+  const gitBtn = document.getElementById('gitBtn')
+  if (game.gitLink) {
+    gitBtn.href = game.gitLink
+    gitBtn.target = '_blank'
+    gitBtn.rel = 'noopener noreferrer'
+    gitBtn.style.display = 'inline-block'
+  } else {
+    gitBtn.style.display = 'none'
   }
 
   // main image
@@ -101,4 +113,11 @@ game.learned?.forEach(item => {
   learnedList.appendChild(li)
 })
   document.getElementById('future').textContent = game.future || ''
+
+  // Git repository section
+  const repoSection = document.getElementById('repositorySection')
+  if (game.gitLink) {
+    document.getElementById('repositoryLink').href = game.gitLink
+    repoSection.style.display = 'block'
+  }
 })
