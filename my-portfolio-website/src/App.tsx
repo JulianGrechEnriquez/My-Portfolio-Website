@@ -1,0 +1,219 @@
+import { useEffect, useState } from 'react'
+import client from './lib/sanity'
+import { About, Contact, Experience, Hero, Projects } from './components/sections'
+import { EventDetail } from './components/sections/EventDetail'
+import { GameDetail } from './components/sections/GameDetail'
+import { EventGrid, GameGrid } from './components/sections/Projects'
+import { Footer, Navbar } from './components/common'
+import type { EventCard, EventPage, Game, GamePage, Project, SiteSettings } from './types'
+
+const query = `{
+  "settings": *[_type == "siteSettings"][0]{
+    title,
+    subtitle,
+    heroText,
+    about,
+    aboutImage,
+    education,
+    workExperience,
+    email,
+    socialLinks[]{label,href,logo}
+  },
+  "projects": *[_type == "project"] | order(title asc){_id,title,description,link,controls,type,image,slug},
+  "games": *[_type == "game"] | order(title asc){_id,title,description,Gamelink,Gitlink,controls,type,image,slug},
+  "gamePages": *[_type == "gamePage"]{
+    _id,
+    title,
+    game->{_id},
+    description,
+    gameplayImages,
+    features,
+    tech,
+    learned,
+    future,
+    heroLayout,
+    playButtonText,
+    sectionLabels,
+    pageLayout
+  },
+  "events": *[_type == "eventsCard"] | order(title asc){_id,title,description,image,slug},
+  "eventPages": *[_type == "eventPage"]{
+    _id,
+    title,
+    event->{_id},
+    eventDate,
+    description,
+    images,
+    MembersofTeam,
+    learned,
+    future,
+    slug
+  }
+}`
+
+const defaultSettings: SiteSettings = {
+  title: 'My Portfolio',
+  subtitle: 'Interactive games and creative projects built with Sanity',
+  heroText:
+    'A modern portfolio built with React, Tailwind, Vite, and Sanity as the content loader.',
+  about:
+    'This portfolio uses Sanity to store portfolio items, games, and event cards in a centralized content backend, then renders them dynamically in a React application.',
+  education: [
+    {
+      school: 'Your school',
+      qualification: 'Your qualification',
+      description: 'Add your education background in Sanity Site Settings.',
+    },
+  ],
+  workExperience: [
+    {
+      company: 'Your company',
+      role: 'Your role',
+      description: 'Add your work experience in Sanity Site Settings.',
+    },
+  ],
+  email: 'hello@example.com',
+  socialLinks: [
+    { label: 'GitHub', href: 'https://github.com' },
+    { label: 'LinkedIn', href: 'https://linkedin.com' },
+  ],
+}
+
+function PageHeader({ eyebrow, title, text }: { eyebrow: string; title: string; text: string }) {
+  return (
+    <section id="top" className="rounded-3xl border border-slate-800 bg-slate-900/80 p-8 shadow-xl shadow-slate-950/20 sm:p-12">
+      <div className="max-w-3xl space-y-4">
+        <p className="text-sm uppercase tracking-[0.3em] text-cyan-400">{eyebrow}</p>
+        <h1 className="text-4xl font-semibold tracking-tight text-white sm:text-5xl">{title}</h1>
+        <p className="text-slate-300">{text}</p>
+      </div>
+    </section>
+  )
+}
+
+function App() {
+  const [isLoading, setIsLoading] = useState(true)
+  const [settings, setSettings] = useState<SiteSettings | null>(null)
+  const [projects, setProjects] = useState<Project[]>([])
+  const [games, setGames] = useState<Game[]>([])
+  const [gamePages, setGamePages] = useState<GamePage[]>([])
+  const [events, setEvents] = useState<EventCard[]>([])
+  const [eventPages, setEventPages] = useState<EventPage[]>([])
+  const [currentPath, setCurrentPath] = useState(() => window.location.pathname)
+
+  useEffect(() => {
+    client
+      .fetch(query)
+      .then((data) => {
+        setSettings(data.settings ?? defaultSettings)
+        setProjects(data.projects ?? [])
+        setGames(data.games ?? [])
+        setGamePages(data.gamePages ?? [])
+        setEvents(data.events ?? [])
+        setEventPages(data.eventPages ?? [])
+      })
+      .finally(() => setIsLoading(false))
+  }, [])
+
+  useEffect(() => {
+    const updatePath = () => setCurrentPath(window.location.pathname)
+
+    window.addEventListener('popstate', updatePath)
+    return () => window.removeEventListener('popstate', updatePath)
+  }, [])
+
+  const activeSettings = settings ?? defaultSettings
+  const gameSlug = currentPath.startsWith('/games/') ? decodeURIComponent(currentPath.replace('/games/', '').replace(/\/$/, '')) : ''
+  const selectedGame = gameSlug
+    ? games.find((game) => game.slug?.current === gameSlug || game._id === gameSlug)
+    : undefined
+  const selectedGamePage = selectedGame
+    ? gamePages.find((page) => page.game?._id === selectedGame._id)
+    : undefined
+  const eventSlug = currentPath.startsWith('/events/') ? decodeURIComponent(currentPath.replace('/events/', '').replace(/\/$/, '')) : ''
+  const selectedEvent = eventSlug
+    ? events.find((event) => event.slug?.current === eventSlug || event._id === eventSlug)
+    : undefined
+  const selectedEventPage = selectedEvent
+    ? eventPages.find((page) => page.event?._id === selectedEvent._id || page.slug?.current === eventSlug)
+    : undefined
+
+  return (
+    <div className="min-h-screen bg-slate-950 text-slate-100">
+      <Navbar siteTitle={activeSettings.title} />
+      <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+        {selectedGame ? (
+          <GameDetail game={selectedGame} page={selectedGamePage} />
+        ) : isLoading && gameSlug ? (
+          <PageHeader
+            eyebrow="Loading"
+            title="Loading game page"
+            text="The game details are being loaded from Sanity."
+          />
+        ) : gameSlug ? (
+          <PageHeader
+            eyebrow="Game not found"
+            title="This game page is not available yet"
+            text="Check that the game has a slug in Sanity, then come back from the games page."
+          />
+        ) : selectedEvent ? (
+          <EventDetail event={selectedEvent} page={selectedEventPage} />
+        ) : isLoading && eventSlug ? (
+          <PageHeader
+            eyebrow="Loading"
+            title="Loading event page"
+            text="The event details are being loaded from Sanity."
+          />
+        ) : eventSlug ? (
+          <PageHeader
+            eyebrow="Event not found"
+            title="This event page is not available yet"
+            text="Check that the event has a slug in Sanity, then come back from the events page."
+          />
+        ) : currentPath === '/games' ? (
+          <>
+            <PageHeader
+              eyebrow="Playable demos"
+              title="Games"
+              text="A focused collection of the games I have made, with links to play them or view the source when available."
+            />
+            <section className="mt-10 rounded-3xl border border-slate-800 bg-slate-900/80 p-8 shadow-xl shadow-slate-950/20 sm:p-12">
+              <GameGrid games={games} />
+            </section>
+          </>
+        ) : currentPath === '/events' ? (
+          <>
+            <PageHeader
+              eyebrow="Events"
+              title="Events"
+              text="Game jams, showcases, and events I have participated in."
+            />
+            <section className="mt-10 rounded-3xl border border-slate-800 bg-slate-900/80 p-8 shadow-xl shadow-slate-950/20 sm:p-12">
+              <EventGrid events={events} />
+            </section>
+          </>
+        ) : (
+          <>
+            <Hero
+              title={activeSettings.title}
+              subtitle={activeSettings.subtitle}
+              heroText={activeSettings.heroText}
+              actionLabel="Get in touch"
+              email={activeSettings.email}
+            />
+            <About content={activeSettings.about} image={activeSettings.aboutImage} />
+            <Experience
+              education={activeSettings.education}
+              workExperience={activeSettings.workExperience}
+            />
+            <Projects projects={projects} games={games} events={events} />
+            <Contact email={activeSettings.email} socialLinks={activeSettings.socialLinks} />
+          </>
+        )}
+      </main>
+      <Footer email={activeSettings.email} socialLinks={activeSettings.socialLinks} />
+    </div>
+  )
+}
+
+export default App

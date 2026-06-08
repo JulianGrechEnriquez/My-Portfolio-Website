@@ -1,5 +1,3 @@
-import {StylePresetCodeInput} from './StylePresetCodeInput'
-
 export default {
     name: 'projectPage',
     title: 'Project Page',
@@ -41,65 +39,6 @@ export default {
             type: 'array',
             of: [{ type: 'string' }] },
         { name: 'future', type: 'text' },
-        {
-            name: 'stylePresetCode',
-            title: 'Style Preset Code',
-            type: 'text',
-            rows: 12,
-            description: 'Paste a preset code generated from game-style-lab.html, then click Apply preset code to fields.',
-            components: {
-                input: StylePresetCodeInput,
-            },
-        },
-        {
-            name: 'theme',
-            title: 'Page Theme',
-            type: 'object',
-            fields: [
-                {
-                    name: 'backgroundColor',
-                    title: 'Background Color',
-                    type: 'string',
-                    description: 'Example: #3E4E85',
-                },
-                {
-                    name: 'contentColor',
-                    title: 'Content Background Color',
-                    type: 'string',
-                    description: 'Example: #eef1ff',
-                },
-                {
-                    name: 'cardColor',
-                    title: 'Section Card Color',
-                    type: 'string',
-                    description: 'Example: #B3C2FF',
-                },
-                {
-                    name: 'textColor',
-                    title: 'Text Color',
-                    type: 'string',
-                    description: 'Example: #0a0a3c',
-                },
-                {
-                    name: 'accentColor',
-                    title: 'Accent Color',
-                    type: 'string',
-                    description: 'Example: #04044a',
-                },
-                {
-                    name: 'buttonColor',
-                    title: 'Play Button Color',
-                    type: 'string',
-                    description: 'Example: #00c853',
-                },
-                {
-                    name: 'buttonTextColor',
-                    title: 'Play Button Text Color',
-                    type: 'string',
-                    description: 'Example: #ffffff',
-                },
-            ],
-        },
         {
             name: 'heroLayout',
             title: 'Hero Layout',
