@@ -22,6 +22,10 @@ function getGamePath(game: Game) {
   return `/games/${encodeURIComponent(getItemId(game))}`
 }
 
+function getProjectPath(project: Project) {
+  return `/projects/${encodeURIComponent(getItemId(project))}`
+}
+
 function getEventPath(event: EventCard) {
   return `/events/${encodeURIComponent(getItemId(event))}`
 }
@@ -152,9 +156,10 @@ export function Projects({ projects, games, events }: ProjectsProps) {
 
         <div className="mt-8 grid gap-6 md:grid-cols-2">
           {projects.map((project) => (
-            <article key={project._id} className="space-y-4 rounded-3xl border border-slate-800 bg-slate-950/50 p-6 shadow-lg shadow-slate-950/20">
+            <article key={project._id} className="group relative space-y-4 rounded-3xl border border-slate-800 bg-slate-950/50 p-6 shadow-lg shadow-slate-950/20 transition hover:border-cyan-400/60">
+              <a aria-label={`Open ${project.title} project page`} className="absolute inset-0 z-10 rounded-3xl" href={getProjectPath(project)} />
               <CardImage image={project.image} title={project.title} />
-              <div className="space-y-3">
+              <div className="relative space-y-3">
                 <div className="flex flex-wrap items-center gap-3 text-xs uppercase tracking-[0.25em] text-cyan-300">
                   <span>{project.type || 'Project'}</span>
                   {project.controls?.map((control) => (
@@ -163,10 +168,10 @@ export function Projects({ projects, games, events }: ProjectsProps) {
                     </span>
                   ))}
                 </div>
-                <h3 className="text-xl font-semibold text-white">{project.title}</h3>
+                <h3 className="text-xl font-semibold text-white transition group-hover:text-cyan-100">{project.title}</h3>
                 <p className="text-slate-400">{project.description}</p>
                 {project.link ? (
-                  <a href={normalizeUrl(project.link)} rel="noreferrer" target="_blank" className="text-cyan-300 transition hover:text-cyan-100">
+                  <a href={normalizeUrl(project.link)} rel="noreferrer" target="_blank" className="relative z-20 text-cyan-300 transition hover:text-cyan-100">
                     View project
                   </a>
                 ) : null}

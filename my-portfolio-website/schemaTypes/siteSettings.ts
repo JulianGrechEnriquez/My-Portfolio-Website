@@ -32,6 +32,26 @@ export default {
       },
     },
     {
+      name: 'aboutInterests',
+      title: 'About Interest Tags',
+      type: 'array',
+      of: [{ type: 'string' }],
+    },
+    {
+      name: 'aboutStats',
+      title: 'About Mini Stats',
+      type: 'array',
+      of: [
+        {
+          type: 'object',
+          fields: [
+            { name: 'label', title: 'Label', type: 'string' },
+            { name: 'value', title: 'Value', type: 'string' },
+          ],
+        },
+      ],
+    },
+    {
       name: 'education',
       title: 'Education Background',
       type: 'array',
@@ -40,6 +60,7 @@ export default {
           type: 'object',
           fields: [
             { name: 'school', title: 'School', type: 'string' },
+            { name: 'schoolUrl', title: 'School Website', type: 'url' },
             { name: 'qualification', title: 'Qualification', type: 'string' },
             { name: 'startDate', title: 'Start Date', type: 'string' },
             { name: 'endDate', title: 'End Date', type: 'string' },
@@ -58,6 +79,7 @@ export default {
           type: 'object',
           fields: [
             { name: 'company', title: 'Company', type: 'string' },
+            { name: 'companyUrl', title: 'Company Website', type: 'url' },
             { name: 'role', title: 'Role', type: 'string' },
             { name: 'startDate', title: 'Start Date', type: 'string' },
             { name: 'endDate', title: 'End Date', type: 'string' },

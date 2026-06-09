@@ -36,12 +36,27 @@ export function Navbar({ siteTitle }: NavbarProps) {
             </span>
           </button>
         </div>
-        {isOpen ? (
-          <nav className="mt-4 grid gap-2 border-t border-slate-800 pt-4 text-sm text-slate-200 md:hidden">
+      </div>
+      {isOpen ? (
+        <div className="fixed inset-0 z-[80] min-h-screen bg-slate-950 px-6 py-6 md:hidden">
+          <div className="flex items-center justify-between">
+            <a href="/" className="text-lg font-semibold text-white" onClick={() => setIsOpen(false)}>
+              {siteTitle}
+            </a>
+            <button
+              aria-label="Close navigation menu"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-slate-700 bg-slate-900 text-2xl leading-none text-slate-100 transition hover:border-cyan-300"
+              onClick={() => setIsOpen(false)}
+              type="button"
+            >
+              ×
+            </button>
+          </div>
+          <nav className="mt-16 grid gap-4">
             {navItems.map((item) => (
               <a
                 key={item.href}
-                className="rounded-lg px-3 py-3 transition hover:bg-slate-900 hover:text-white"
+                className="rounded-2xl border border-slate-800 bg-slate-900/70 px-5 py-5 text-2xl font-semibold text-white transition hover:border-cyan-300 hover:text-cyan-100"
                 href={item.href}
                 onClick={() => setIsOpen(false)}
               >
@@ -49,8 +64,8 @@ export function Navbar({ siteTitle }: NavbarProps) {
               </a>
             ))}
           </nav>
-        ) : null}
-      </div>
+        </div>
+      ) : null}
     </header>
   )
 }

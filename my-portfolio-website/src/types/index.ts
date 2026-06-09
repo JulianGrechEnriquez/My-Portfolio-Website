@@ -18,6 +18,20 @@ export interface Project {
   }
 }
 
+export interface ProjectPage {
+  _id: string
+  title?: string
+  project?: {
+    _id: string
+  }
+  description?: string
+  gameplayImages?: ImageRef[]
+  features?: string[]
+  tech?: string[]
+  learned?: string[]
+  future?: string
+}
+
 export interface Game {
   _id: string
   title: string
@@ -96,6 +110,7 @@ export interface EventPage {
 
 export interface EducationItem {
   school?: string
+  schoolUrl?: string
   qualification?: string
   startDate?: string
   endDate?: string
@@ -105,6 +120,7 @@ export interface EducationItem {
 
 export interface WorkExperienceItem {
   company?: string
+  companyUrl?: string
   role?: string
   startDate?: string
   endDate?: string
@@ -118,6 +134,8 @@ export interface SiteSettings {
   heroText: string
   about: string
   aboutImage?: ImageRef
+  aboutInterests?: string[] | null
+  aboutStats?: Array<{ label?: string; value?: string }> | null
   education?: EducationItem[]
   workExperience?: WorkExperienceItem[]
   email: string
