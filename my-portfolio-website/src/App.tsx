@@ -70,8 +70,7 @@ const query = `{
       _type,
       name,
       link,
-      member->{_id,name,link},
-      @->{_id,name,link}
+      member->{_id,name,link}
     },
     learned,
     future,
