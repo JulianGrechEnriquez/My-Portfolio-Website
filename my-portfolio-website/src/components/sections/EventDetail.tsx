@@ -60,15 +60,17 @@ function TeamMembersSection({ members }: { members?: EventPage['MembersofTeam'] 
   return (
     <ul className="grid gap-3 text-slate-300 sm:grid-cols-2">
       {members.map((member, index) => {
-        const name = typeof member === 'string' ? member : member.name
-        const link = typeof member === 'string' ? undefined : member.link
+        const referencedMember = typeof member === 'string' ? undefined : member.member
+        const name = typeof member === 'string' ? member : referencedMember?.name || member.name
+        const link = typeof member === 'string' ? undefined : referencedMember?.link || member.link
+        const key = typeof member === 'string' ? `${member}-${index}` : referencedMember?._id || member._id || member._key || `${name}-${index}`
 
         if (!name) {
           return null
         }
 
         return (
-          <li key={`${name}-${index}`} className="rounded-2xl border border-slate-800 bg-slate-950/50 px-4 py-3">
+          <li key={key} className="rounded-2xl border border-slate-800 bg-slate-950/50 px-4 py-3">
             {link ? (
               <a className="block text-slate-300 transition hover:text-cyan-200" href={link} rel="noreferrer" target="_blank">
                 {name}

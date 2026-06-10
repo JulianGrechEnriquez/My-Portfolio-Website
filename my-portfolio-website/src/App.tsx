@@ -65,7 +65,14 @@ const query = `{
     gameJamGame->{_id,title,slug},
     gameJamOverview,
     images,
-    MembersofTeam,
+    MembersofTeam[]{
+      _key,
+      _type,
+      name,
+      link,
+      member->{_id,name,link},
+      @->{_id,name,link}
+    },
     learned,
     future,
     slug

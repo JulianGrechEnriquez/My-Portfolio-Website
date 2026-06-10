@@ -5,5 +5,6 @@ import projectPage from './projectpage'
 import eventPage from './eventspage'
 import eventCard from './eventscard'
 import siteSettings from './siteSettings'
+import teamMember from './teamMember'
 
-export const schemaTypes = [siteSettings, game, gamePage, project, projectPage, eventPage, eventCard]
+export const schemaTypes = [siteSettings, game, gamePage, project, projectPage, eventPage, eventCard, teamMember]

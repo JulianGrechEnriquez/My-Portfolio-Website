@@ -85,13 +85,17 @@ export default {
                 {
                     type: 'object',
                     fields: [
-                        { name: 'name', title: 'Name', type: 'string' },
-                        { name: 'link', title: 'Link', type: 'url' },
+                        {
+                            name: 'member',
+                            title: 'Team Member',
+                            type: 'reference',
+                            to: [{ type: 'teamMember' }],
+                        },
                     ],
                     preview: {
                         select: {
-                            title: 'name',
-                            subtitle: 'link',
+                            title: 'member.name',
+                            subtitle: 'member.link',
                         },
                     },
                 },

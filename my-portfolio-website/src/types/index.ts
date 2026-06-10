@@ -115,7 +115,20 @@ export interface EventPage {
   }
   gameJamOverview?: string
   images?: ImageRef[]
-  MembersofTeam?: Array<string | { name?: string; link?: string }>
+  MembersofTeam?: Array<
+    | string
+    | {
+        _id?: string
+        _key?: string
+        name?: string
+        link?: string
+        member?: {
+          _id?: string
+          name?: string
+          link?: string
+        }
+      }
+  >
   learned?: string[]
   future?: string
   slug?: {
