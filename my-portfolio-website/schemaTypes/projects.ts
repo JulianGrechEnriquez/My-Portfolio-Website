@@ -27,6 +27,11 @@ export default {
             title: 'Project Link',
             type: 'string',
         },
+        {
+            name: 'Gitlink',
+            title: 'Git Link',
+            type: 'string',
+        },
         
         {
             name: 'slug',

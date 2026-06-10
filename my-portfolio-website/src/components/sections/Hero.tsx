@@ -5,10 +5,9 @@ type HeroProps = {
   subtitle: string
   heroText: string
   actionLabel: string
-  email: string
 }
 
-export function Hero({ title, subtitle, heroText, actionLabel, email }: HeroProps) {
+export function Hero({ title, subtitle, heroText, actionLabel }: HeroProps) {
   return (
     <section id="top" className="rounded-3xl border border-slate-800 bg-slate-900/80 p-8 shadow-xl shadow-slate-950/20 sm:p-12">
       <div className="max-w-3xl space-y-6">
@@ -19,10 +18,10 @@ export function Hero({ title, subtitle, heroText, actionLabel, email }: HeroProp
         <p className="text-xl text-slate-300">{subtitle}</p>
         <p className="max-w-2xl text-slate-400">{heroText}</p>
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
-          <Button href={`mailto:${email}`}>{actionLabel}</Button>
-          <a className="inline-flex items-center text-sm font-medium text-slate-200 transition hover:text-white" href="#projects">
+          <Button href="#contact">{actionLabel}</Button>
+          <Button href="#projects" variant="secondary">
             Browse projects
-          </a>
+          </Button>
         </div>
       </div>
     </section>

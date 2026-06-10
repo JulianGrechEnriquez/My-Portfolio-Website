@@ -4,7 +4,6 @@ import type { EducationItem, WorkExperienceItem } from '../../types'
 type TimelineItem = {
   title?: string
   subtitle?: string
-  websiteUrl?: string
   startDate?: string
   endDate?: string
   description?: string
@@ -109,17 +108,6 @@ function TimelineSection({
         </p>
         <h3 className="mt-4 text-2xl font-semibold text-white">{activeItem?.title}</h3>
         {activeItem?.subtitle ? <p className="mt-3 font-semibold text-cyan-300">{activeItem.subtitle}</p> : null}
-        {activeItem?.websiteUrl ? (
-          <a
-            className="mt-4 inline-flex items-center gap-2 rounded-full border border-cyan-400/40 px-4 py-2 text-sm font-semibold text-cyan-200 transition hover:border-cyan-300 hover:bg-cyan-400/10 hover:text-white focus:outline-none focus:ring-2 focus:ring-cyan-300"
-            href={activeItem.websiteUrl}
-            rel="noreferrer"
-            target="_blank"
-          >
-            Visit website
-            <span aria-hidden="true">↗</span>
-          </a>
-        ) : null}
         {activeItem?.description ? <p className="mt-6 max-w-4xl leading-7 text-slate-300">{activeItem.description}</p> : null}
         {activeItem?.highlights?.length ? (
           <ul className="mt-6 grid gap-3 text-slate-300">
@@ -139,7 +127,6 @@ export function Experience({ education, workExperience }: ExperienceProps) {
   const educationItems = (education?.length ? education : defaultEducation).map((item) => ({
     title: item.qualification,
     subtitle: item.school,
-    websiteUrl: item.schoolUrl,
     startDate: item.startDate,
     endDate: item.endDate,
     description: item.description,
@@ -148,7 +135,6 @@ export function Experience({ education, workExperience }: ExperienceProps) {
   const workItems = (workExperience?.length ? workExperience : defaultWork).map((item) => ({
     title: item.role,
     subtitle: item.company,
-    websiteUrl: item.companyUrl,
     startDate: item.startDate,
     endDate: item.endDate,
     description: item.description,

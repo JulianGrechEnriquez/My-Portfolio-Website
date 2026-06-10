@@ -12,14 +12,15 @@ export function Button({ href, onClick, children, variant = 'primary', className
   const base = 'inline-flex items-center justify-center rounded-full px-5 py-3 text-sm font-semibold transition focus:outline-none focus:ring-2 focus:ring-offset-2'
   const style =
     variant === 'secondary'
-      ? 'bg-slate-700 text-slate-100 hover:bg-slate-600 focus:ring-slate-400'
+      ? 'border border-slate-700 text-slate-100 hover:border-cyan-300 hover:text-white focus:ring-cyan-300'
       : 'bg-cyan-500 text-slate-950 hover:bg-cyan-400 focus:ring-cyan-300'
 
   const classes = `${base} ${style} ${className}`.trim()
+  const opensNewTab = href ? !href.startsWith('#') && !href.startsWith('/') && !href.startsWith('mailto:') : false
 
   if (href) {
     return (
-      <a className={classes} href={href} rel="noreferrer" target="_blank">
+      <a className={classes} href={href} rel={opensNewTab ? 'noreferrer' : undefined} target={opensNewTab ? '_blank' : undefined}>
         {children}
       </a>
     )

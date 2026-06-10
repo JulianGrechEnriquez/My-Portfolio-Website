@@ -38,6 +38,37 @@ function ListSection({ items, fallback }: { items?: string[]; fallback: string }
   )
 }
 
+function TeamMembersSection({ members }: { members?: EventPage['MembersofTeam'] }) {
+  if (!members?.length) {
+    return <p className="text-slate-400">Add team members in the Sanity event page document.</p>
+  }
+
+  return (
+    <ul className="grid gap-3 text-slate-300 sm:grid-cols-2">
+      {members.map((member, index) => {
+        const name = typeof member === 'string' ? member : member.name
+        const link = typeof member === 'string' ? undefined : member.link
+
+        if (!name) {
+          return null
+        }
+
+        return (
+          <li key={`${name}-${index}`} className="rounded-2xl border border-slate-800 bg-slate-950/50 px-4 py-3">
+            {link ? (
+              <a className="block text-slate-300 transition hover:text-cyan-200" href={link} rel="noreferrer" target="_blank">
+                {name}
+              </a>
+            ) : (
+              name
+            )}
+          </li>
+        )
+      })}
+    </ul>
+  )
+}
+
 export function EventDetail({ event, page }: EventDetailProps) {
   const heroImage = getImageUrl(event.image, 1400, 780)
   const eventDate = formatDate(page?.eventDate)
@@ -88,7 +119,7 @@ export function EventDetail({ event, page }: EventDetailProps) {
         <section className="rounded-3xl border border-slate-800 bg-slate-900/80 p-6 shadow-xl shadow-slate-950/20 sm:p-8">
           <h2 className="text-2xl font-semibold text-white">Team Members</h2>
           <div className="mt-4">
-            <ListSection items={page?.MembersofTeam} fallback="Add team members in the Sanity event page document." />
+            <TeamMembersSection members={page?.MembersofTeam} />
           </div>
         </section>
 

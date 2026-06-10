@@ -170,11 +170,18 @@ export function Projects({ projects, games, events }: ProjectsProps) {
                 </div>
                 <h3 className="text-xl font-semibold text-white transition group-hover:text-cyan-100">{project.title}</h3>
                 <p className="text-slate-400">{project.description}</p>
-                {project.link ? (
-                  <a href={normalizeUrl(project.link)} rel="noreferrer" target="_blank" className="relative z-20 text-cyan-300 transition hover:text-cyan-100">
-                    View project
-                  </a>
-                ) : null}
+                <div className="flex flex-wrap gap-3">
+                  {project.link ? (
+                    <a href={normalizeUrl(project.link)} rel="noreferrer" target="_blank" className="relative z-20 inline-flex rounded-full bg-cyan-500 px-4 py-2 text-sm font-semibold text-slate-950 transition hover:bg-cyan-400">
+                      View project
+                    </a>
+                  ) : null}
+                  {project.Gitlink ? (
+                    <a href={normalizeUrl(project.Gitlink)} rel="noreferrer" target="_blank" className="relative z-20 inline-flex rounded-full border border-slate-700 px-4 py-2 text-sm font-semibold text-slate-100 transition hover:border-cyan-300 hover:text-white">
+                      Git link
+                    </a>
+                  ) : null}
+                </div>
               </div>
             </article>
           ))}

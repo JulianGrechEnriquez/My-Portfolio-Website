@@ -10,6 +10,7 @@ export interface Project {
   title: string
   description: string
   link?: string
+  Gitlink?: string
   controls?: string[]
   type?: string
   image?: ImageRef
@@ -100,7 +101,7 @@ export interface EventPage {
   eventDate?: string
   description?: string
   images?: ImageRef[]
-  MembersofTeam?: string[]
+  MembersofTeam?: Array<string | { name?: string; link?: string }>
   learned?: string[]
   future?: string
   slug?: {
@@ -110,7 +111,6 @@ export interface EventPage {
 
 export interface EducationItem {
   school?: string
-  schoolUrl?: string
   qualification?: string
   startDate?: string
   endDate?: string
@@ -120,7 +120,6 @@ export interface EducationItem {
 
 export interface WorkExperienceItem {
   company?: string
-  companyUrl?: string
   role?: string
   startDate?: string
   endDate?: string

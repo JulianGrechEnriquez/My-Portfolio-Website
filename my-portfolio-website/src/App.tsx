@@ -22,7 +22,7 @@ const query = `{
     email,
     socialLinks[]{label,href,logo}
   },
-  "projects": *[_type == "project"] | order(title asc){_id,title,description,link,controls,type,image,slug},
+  "projects": *[_type == "project"] | order(title asc){_id,title,description,link,Gitlink,controls,type,image,slug},
   "projectPages": *[_type == "projectPage"]{
     _id,
     title,
@@ -247,7 +247,6 @@ function App() {
               subtitle={activeSettings.subtitle}
               heroText={activeSettings.heroText}
               actionLabel="Get in touch"
-              email={activeSettings.email}
             />
             <About
               content={activeSettings.about}

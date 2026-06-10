@@ -60,7 +60,6 @@ export default {
           type: 'object',
           fields: [
             { name: 'school', title: 'School', type: 'string' },
-            { name: 'schoolUrl', title: 'School Website', type: 'url' },
             { name: 'qualification', title: 'Qualification', type: 'string' },
             { name: 'startDate', title: 'Start Date', type: 'string' },
             { name: 'endDate', title: 'End Date', type: 'string' },
@@ -79,7 +78,6 @@ export default {
           type: 'object',
           fields: [
             { name: 'company', title: 'Company', type: 'string' },
-            { name: 'companyUrl', title: 'Company Website', type: 'url' },
             { name: 'role', title: 'Role', type: 'string' },
             { name: 'startDate', title: 'Start Date', type: 'string' },
             { name: 'endDate', title: 'End Date', type: 'string' },

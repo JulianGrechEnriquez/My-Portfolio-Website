@@ -57,11 +57,18 @@ export function ProjectDetail({ project, page }: ProjectDetailProps) {
             {page?.title || project.title}
           </h1>
           <p className="mt-4 max-w-3xl text-lg text-slate-300">{overview}</p>
-          {project.link ? (
-            <div className="mt-6">
-              <a className="inline-flex rounded-full bg-cyan-500 px-6 py-3 text-sm font-semibold text-slate-950 transition hover:bg-cyan-400" href={normalizeUrl(project.link)} rel="noreferrer" target="_blank">
-                Open project
-              </a>
+          {project.link || project.Gitlink ? (
+            <div className="mt-6 flex flex-wrap gap-3">
+              {project.link ? (
+                <a className="inline-flex rounded-full bg-cyan-500 px-6 py-3 text-sm font-semibold text-slate-950 transition hover:bg-cyan-400" href={normalizeUrl(project.link)} rel="noreferrer" target="_blank">
+                  Open project
+                </a>
+              ) : null}
+              {project.Gitlink ? (
+                <a className="inline-flex rounded-full border border-slate-700 px-6 py-3 text-sm font-semibold text-slate-100 transition hover:border-cyan-300 hover:text-white" href={normalizeUrl(project.Gitlink)} rel="noreferrer" target="_blank">
+                  Git link
+                </a>
+              ) : null}
             </div>
           ) : null}
         </div>

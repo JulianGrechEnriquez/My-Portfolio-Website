@@ -31,7 +31,21 @@ export default {
         {
             name: 'MembersofTeam',
             type: 'array',
-            of: [{ type: 'string' }]
+            of: [
+                {
+                    type: 'object',
+                    fields: [
+                        { name: 'name', title: 'Name', type: 'string' },
+                        { name: 'link', title: 'Link', type: 'url' },
+                    ],
+                    preview: {
+                        select: {
+                            title: 'name',
+                            subtitle: 'link',
+                        },
+                    },
+                },
+            ]
         },
 
         { name: 'learned',
