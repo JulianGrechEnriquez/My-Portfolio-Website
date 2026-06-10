@@ -4,7 +4,7 @@ import { About, Contact, Experience, Hero, Projects } from './components/section
 import { EventDetail } from './components/sections/EventDetail'
 import { GameDetail } from './components/sections/GameDetail'
 import { ProjectDetail } from './components/sections/ProjectDetail'
-import { EventGrid, GameGrid } from './components/sections/Projects'
+import { EventGrid, GameGrid, GroupedGameGrid } from './components/sections/Projects'
 import { Footer, Navbar } from './components/common'
 import type { EventCard, EventPage, Game, GamePage, Project, ProjectPage, SiteSettings } from './types'
 
@@ -34,13 +34,14 @@ const query = `{
     learned,
     future
   },
-  "games": *[_type == "game"] | order(title asc){_id,title,description,Gamelink,Gitlink,controls,type,image,slug},
+  "games": *[_type == "game"] | order(title asc){_id,title,description,Gamelink,Gitlink,controls,type,genre,image,slug},
   "gamePages": *[_type == "gamePage"]{
     _id,
     title,
     game->{_id},
     description,
     gameplayImages,
+    gameplayVideoUrl,
     features,
     tech,
     learned,
@@ -56,7 +57,13 @@ const query = `{
     title,
     event->{_id},
     eventDate,
+    eventType,
     description,
+    eventLocation,
+    eventWebsite,
+    gameJamDuration,
+    gameJamGame->{_id,title,slug},
+    gameJamOverview,
     images,
     MembersofTeam,
     learned,
@@ -226,7 +233,7 @@ function App() {
               text="A focused collection of the games I have made, with links to play them or view the source when available."
             />
             <section className="mt-10 rounded-3xl border border-slate-800 bg-slate-900/80 p-8 shadow-xl shadow-slate-950/20 sm:p-12">
-              <GameGrid games={games} />
+              <GroupedGameGrid games={games} />
             </section>
           </>
         ) : currentPath === '/events' ? (

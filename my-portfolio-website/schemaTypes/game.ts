@@ -34,6 +34,12 @@ export default {
             },
         },
         {
+            name: 'genre',
+            title: 'Genres',
+            type: 'array',
+            of: [{ type: 'string' }],
+        },
+        {
             name: 'Gitlink',
             title: 'Git Link',
             type: 'string',

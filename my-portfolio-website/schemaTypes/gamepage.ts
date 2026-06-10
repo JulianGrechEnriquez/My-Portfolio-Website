@@ -22,6 +22,12 @@ export default {
             type: 'array',
             of: [{ type: 'image' }]
         },
+        {
+            name: 'gameplayVideoUrl',
+            title: 'Gameplay Video URL',
+            type: 'url',
+            description: 'Paste a YouTube, Vimeo, or direct video file URL.',
+        },
 
         {
             name: 'features',

@@ -30,13 +30,28 @@ function getEventPath(event: EventCard) {
   return `/events/${encodeURIComponent(getItemId(event))}`
 }
 
+function getGameTypeLabel(type?: string) {
+  if (type?.toLowerCase() === '2d') return '2D Game'
+  if (type?.toLowerCase() === '3d') return '3D Game'
+
+  return type || 'Game'
+}
+
+function getGameGenres(genre?: Game['genre']) {
+  if (Array.isArray(genre)) {
+    return genre.filter(Boolean)
+  }
+
+  return genre ? [genre] : []
+}
+
 function CardImage({ image, title }: CardImageProps) {
-  const src = image ? urlFor(image).width(900).height(520).auto('format').url() : undefined
+  const src = image ? urlFor(image).width(900).auto('format').url() : undefined
 
   return (
     <div className="overflow-hidden rounded-3xl bg-slate-950 shadow-lg shadow-slate-950/40">
       {src ? (
-        <img src={src} alt={title} className="h-56 w-full object-cover" />
+        <img src={src} alt={title} className="max-h-[28rem] w-full rounded-none object-contain" />
       ) : (
         <div className="flex h-56 items-center justify-center bg-slate-800 text-slate-400">No image</div>
       )}
@@ -46,6 +61,7 @@ function CardImage({ image, title }: CardImageProps) {
 
 function GameCard({ game }: { game: Game }) {
   const [isMobileActive, setIsMobileActive] = useState(false)
+  const genres = getGameGenres(game.genre)
 
   return (
     <article id={getItemId(game)} className="group relative min-w-[82vw] snap-center space-y-4 rounded-3xl border border-slate-800 bg-slate-950/50 p-6 shadow-lg shadow-slate-950/20 transition hover:border-cyan-400/60 sm:min-w-[22rem] md:min-w-0">
@@ -55,7 +71,7 @@ function GameCard({ game }: { game: Game }) {
       </div>
       <div className={`relative space-y-3 ${isMobileActive ? 'blur-sm transition md:blur-none' : 'transition'}`}>
         <div className="flex flex-wrap items-center gap-3 text-xs uppercase tracking-[0.25em] text-cyan-300">
-          <span>{game.type || 'Game'}</span>
+          <span>{getGameTypeLabel(game.type)}</span>
           {game.controls?.map((control) => (
             <span key={control} className="rounded-full bg-slate-800 px-2 py-1">
               {control}
@@ -63,6 +79,15 @@ function GameCard({ game }: { game: Game }) {
           ))}
         </div>
         <h3 className="text-xl font-semibold text-white transition group-hover:text-cyan-100">{game.title}</h3>
+        {genres.length ? (
+          <div className="flex flex-wrap gap-2 text-xs uppercase tracking-[0.2em]">
+            {genres.map((genre) => (
+              <span key={genre} className="rounded-full border border-cyan-400/40 bg-cyan-400/10 px-2 py-1 text-cyan-200">
+                {genre}
+              </span>
+            ))}
+          </div>
+        ) : null}
         <p className="text-slate-400">{game.description}</p>
         <div className="flex flex-wrap gap-4 text-cyan-300">
           {game.Gamelink ? (
@@ -130,6 +155,48 @@ export function GameGrid({ games }: { games: Game[] }) {
       {games.map((game) => (
         <GameCard key={game._id} game={game} />
       ))}
+    </div>
+  )
+}
+
+function GameGroup({ title, games }: { title: string; games: Game[] }) {
+  if (!games.length) {
+    return null
+  }
+
+  return (
+    <section>
+      <div className="mb-5 flex items-end justify-between gap-4">
+        <div>
+          <p className="text-xs uppercase tracking-[0.3em] text-cyan-400">Game type</p>
+          <h2 className="mt-2 text-2xl font-semibold text-white">{title}</h2>
+        </div>
+        <span className="rounded-full border border-slate-700 px-3 py-1 text-xs font-semibold text-slate-300">
+          {games.length} {games.length === 1 ? 'game' : 'games'}
+        </span>
+      </div>
+      <GameGrid games={games} />
+    </section>
+  )
+}
+
+export function GroupedGameGrid({ games }: { games: Game[] }) {
+  const games2d = games.filter((game) => game.type?.toLowerCase() === '2d')
+  const games3d = games.filter((game) => game.type?.toLowerCase() === '3d')
+  const otherGames = games.filter((game) => {
+    const type = game.type?.toLowerCase()
+    return type !== '2d' && type !== '3d'
+  })
+
+  if (!games.length) {
+    return <p className="text-slate-400">Add games in Sanity to show them here.</p>
+  }
+
+  return (
+    <div className="space-y-10">
+      <GameGroup title="2D Games" games={games2d} />
+      <GameGroup title="3D Games" games={games3d} />
+      <GameGroup title="Other Games" games={otherGames} />
     </div>
   )
 }

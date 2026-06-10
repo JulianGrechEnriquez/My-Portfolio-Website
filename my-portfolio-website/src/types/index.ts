@@ -41,6 +41,7 @@ export interface Game {
   Gitlink?: string
   controls?: string[]
   type?: string
+  genre?: string | string[]
   image?: ImageRef
   slug?: {
     current: string
@@ -55,6 +56,7 @@ export interface GamePage {
   }
   description?: string
   gameplayImages?: ImageRef[]
+  gameplayVideoUrl?: string
   features?: string[]
   tech?: string[]
   learned?: string[]
@@ -99,7 +101,19 @@ export interface EventPage {
     _id: string
   }
   eventDate?: string
+  eventType?: 'inPerson' | 'gameJam' | 'online' | 'showcase'
   description?: string
+  eventLocation?: string
+  eventWebsite?: string
+  gameJamDuration?: string
+  gameJamGame?: {
+    _id: string
+    title?: string
+    slug?: {
+      current: string
+    }
+  }
+  gameJamOverview?: string
   images?: ImageRef[]
   MembersofTeam?: Array<string | { name?: string; link?: string }>
   learned?: string[]

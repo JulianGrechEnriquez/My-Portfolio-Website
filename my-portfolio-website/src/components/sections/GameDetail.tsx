@@ -14,6 +14,79 @@ function getImageUrl(image?: ImageRef, width = 1200, height = 720) {
   return image ? urlFor(image).width(width).height(height).auto('format').url() : undefined
 }
 
+function getGameTypeLabel(type?: string) {
+  if (type?.toLowerCase() === '2d') return '2D Game'
+  if (type?.toLowerCase() === '3d') return '3D Game'
+
+  return type || 'Game'
+}
+
+function getControlLabel(control: string) {
+  if (control === 'keyboard') return 'Keyboard & Mouse'
+  if (control === 'controller') return 'Controller'
+  if (control === 'mobile') return 'Mobile'
+
+  return control
+}
+
+function getGameGenres(genre?: Game['genre']) {
+  if (Array.isArray(genre)) {
+    return genre.filter(Boolean)
+  }
+
+  return genre ? [genre] : []
+}
+
+function getVideoEmbedUrl(value: string) {
+  try {
+    const url = new URL(value)
+
+    if (url.hostname.includes('youtube.com')) {
+      const videoId = url.searchParams.get('v')
+      return videoId ? `https://www.youtube.com/embed/${videoId}` : value
+    }
+
+    if (url.hostname.includes('youtu.be')) {
+      const videoId = url.pathname.replace('/', '')
+      return videoId ? `https://www.youtube.com/embed/${videoId}` : value
+    }
+
+    if (url.hostname.includes('vimeo.com')) {
+      const videoId = url.pathname.split('/').filter(Boolean).pop()
+      return videoId ? `https://player.vimeo.com/video/${videoId}` : value
+    }
+  } catch {
+    return value
+  }
+
+  return value
+}
+
+function GameplayVideo({ url }: { url: string }) {
+  const isDirectVideo = /\.(mp4|webm|ogg)(\?.*)?$/i.test(url)
+  const src = isDirectVideo ? url : getVideoEmbedUrl(url)
+
+  if (isDirectVideo) {
+    return (
+      <video className="max-h-[36rem] w-full rounded-2xl bg-slate-950 object-contain" controls src={src}>
+        <track kind="captions" />
+      </video>
+    )
+  }
+
+  return (
+    <div className="aspect-video overflow-hidden rounded-2xl bg-slate-950">
+      <iframe
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowFullScreen
+        className="h-full w-full rounded-none"
+        src={src}
+        title="Gameplay video"
+      />
+    </div>
+  )
+}
+
 function Section({
   title,
   children,
@@ -61,6 +134,7 @@ export function GameDetail({ game, page }: GameDetailProps) {
   const contentLayout = page?.pageLayout?.contentLayout ?? 'stacked'
   const spacing = page?.pageLayout?.sectionSpacing === 'compact' ? 'mt-6' : page?.pageLayout?.sectionSpacing === 'airy' ? 'mt-14' : 'mt-10'
   const overview = page?.description || game.description
+  const genres = getGameGenres(game.genre)
 
   const renderedSections: Record<string, React.ReactNode> = {
     overview: (
@@ -70,30 +144,35 @@ export function GameDetail({ game, page }: GameDetailProps) {
     ),
     gameplay: (
       <Section key="gameplay" title={labels.gameplay ?? 'Gameplay'}>
-        {page?.gameplayImages?.length ? (
-          <div
-            className={
-              gameplayLayout === 'strip'
-                ? 'flex gap-4 overflow-x-auto pb-2'
-                : gameplayLayout === 'featured'
-                  ? 'grid gap-4 lg:grid-cols-[1.3fr_0.7fr]'
-                  : 'grid gap-4 sm:grid-cols-2'
-            }
-          >
-            {page.gameplayImages.map((image, index) => {
-              const src = getImageUrl(image)
-              return src ? (
-                <img
-                  key={`${image.asset._ref}-${index}`}
-                  src={src}
-                  alt={`${game.title} gameplay ${index + 1}`}
-                  className={`${gameplayLayout === 'strip' ? 'h-64 min-w-80' : 'h-64 w-full'} ${imageShape === 'square' ? 'rounded-none' : 'rounded-2xl'} ${imageShape === 'shadow' ? 'shadow-2xl shadow-slate-950/40' : ''} object-cover`}
-                />
-              ) : null
-            })}
+        {page?.gameplayVideoUrl || page?.gameplayImages?.length ? (
+          <div className="space-y-4">
+            {page?.gameplayVideoUrl ? <GameplayVideo url={page.gameplayVideoUrl} /> : null}
+            {page?.gameplayImages?.length ? (
+              <div
+                className={
+                  gameplayLayout === 'strip'
+                    ? 'flex gap-4 overflow-x-auto pb-2'
+                    : gameplayLayout === 'featured'
+                      ? 'grid gap-4 lg:grid-cols-[1.3fr_0.7fr]'
+                      : 'grid gap-4 sm:grid-cols-2'
+                }
+              >
+                {page.gameplayImages.map((image, index) => {
+                  const src = getImageUrl(image)
+                  return src ? (
+                    <img
+                      key={`${image.asset._ref}-${index}`}
+                      src={src}
+                      alt={`${game.title} gameplay ${index + 1}`}
+                      className={`${gameplayLayout === 'strip' ? 'h-64 min-w-80' : 'h-64 w-full'} ${imageShape === 'square' ? 'rounded-none' : 'rounded-2xl'} ${imageShape === 'shadow' ? 'shadow-2xl shadow-slate-950/40' : ''} object-cover`}
+                    />
+                  ) : null
+                })}
+              </div>
+            ) : null}
           </div>
         ) : (
-          <p className="text-slate-400">Add gameplay screenshots in the Sanity game page document.</p>
+          <p className="text-slate-400">Add a gameplay video or screenshots in the Sanity game page document.</p>
         )}
       </Section>
     ),
@@ -126,14 +205,26 @@ export function GameDetail({ game, page }: GameDetailProps) {
       </a>
 
       <section className="mt-6 overflow-hidden rounded-3xl border border-slate-800 bg-slate-900/80 shadow-xl shadow-slate-950/20">
-        {heroImage ? <img src={heroImage} alt={game.title} className="h-72 w-full rounded-none object-cover sm:h-96" /> : null}
+        {heroImage ? <img src={heroImage} alt={game.title} className="max-h-[36rem] w-full rounded-none object-contain" /> : null}
         <div className="p-8 sm:p-12">
           <p className="text-sm uppercase tracking-[0.3em] text-cyan-400">
-            {game.type || 'Game'}
+            {getGameTypeLabel(game.type)}
           </p>
           <h1 className="mt-3 text-4xl font-semibold tracking-tight text-white sm:text-6xl">
             {page?.title || game.title}
           </h1>
+          <div className="mt-5 flex flex-wrap gap-3 text-xs font-semibold uppercase tracking-[0.2em]">
+            {genres.map((genre) => (
+              <span key={genre} className="rounded-full border border-cyan-400/40 bg-cyan-400/10 px-3 py-2 text-cyan-200">
+                {genre}
+              </span>
+            ))}
+            {game.controls?.map((control) => (
+              <span key={control} className="rounded-full border border-slate-700 bg-slate-950/60 px-3 py-2 text-slate-300">
+                {getControlLabel(control)}
+              </span>
+            ))}
+          </div>
           <p className="mt-4 max-w-3xl text-lg text-slate-300">{overview}</p>
           <div className="mt-6 flex flex-wrap gap-3">
             {game.Gamelink ? (
