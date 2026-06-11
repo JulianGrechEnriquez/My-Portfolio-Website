@@ -34,10 +34,5 @@ export default {
             type: 'array',
             of: [{ type: 'string' }]
         },
-
-        { name: 'learned',
-            type: 'array',
-            of: [{ type: 'string' }] },
-        { name: 'future', type: 'text' },
     ]
 }

@@ -29,8 +29,6 @@ export interface ProjectPage {
   gameplayImages?: ImageRef[]
   features?: string[]
   tech?: string[]
-  learned?: string[]
-  future?: string
 }
 
 export interface Game {
@@ -43,9 +41,6 @@ export interface Game {
   type?: string
   genre?: string | string[]
   image?: ImageRef
-  slug?: {
-    current: string
-  }
 }
 
 export interface GamePage {
@@ -59,23 +54,15 @@ export interface GamePage {
   gameplayVideoUrl?: string
   features?: string[]
   tech?: string[]
-  learned?: string[]
-  future?: string
-  heroLayout?: 'centered' | 'split' | 'banner'
   playButtonText?: string
   sectionLabels?: {
     overview?: string
     gameplay?: string
     features?: string
     tech?: string
-    learned?: string
-    future?: string
   }
   pageLayout?: {
-    preset?: 'classic' | 'arcade' | 'showcase' | 'compact'
-    overviewLayout?: 'card' | 'split' | 'callout'
     contentLayout?: 'stacked' | 'two-column' | 'alternating'
-    sectionStyle?: 'filled' | 'outlined' | 'minimal'
     gameplayLayout?: 'grid' | 'featured' | 'strip'
     imageShape?: 'rounded' | 'square' | 'shadow'
     sectionSpacing?: 'comfortable' | 'compact' | 'airy'
@@ -89,9 +76,6 @@ export interface EventCard {
   title: string
   description: string
   image?: ImageRef
-  slug?: {
-    current: string
-  }
 }
 
 export interface EventPage {
@@ -109,9 +93,6 @@ export interface EventPage {
   gameJamGame?: {
     _id: string
     title?: string
-    slug?: {
-      current: string
-    }
   }
   gameJamOverview?: string
   images?: ImageRef[]
@@ -129,11 +110,6 @@ export interface EventPage {
         }
       }
   >
-  learned?: string[]
-  future?: string
-  slug?: {
-    current: string
-  }
 }
 
 export interface EducationItem {

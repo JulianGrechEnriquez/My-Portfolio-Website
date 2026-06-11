@@ -8,7 +8,7 @@ type GameDetailProps = {
   page?: GamePage
 }
 
-const defaultSectionOrder = ['overview', 'gameplay', 'features', 'tech', 'learned', 'future']
+const defaultSectionOrder = ['overview', 'gameplay', 'features', 'tech']
 
 function getImageUrl(image?: ImageRef, width = 1200, height = 720) {
   return image ? urlFor(image).width(width).height(height).auto('format').url() : undefined
@@ -184,16 +184,6 @@ export function GameDetail({ game, page }: GameDetailProps) {
     tech: (
       <Section key="tech" title={labels.tech ?? 'Tech Stack'}>
         <ListSection items={page?.tech} />
-      </Section>
-    ),
-    learned: (
-      <Section key="learned" title={labels.learned ?? 'What I Learned'}>
-        <ListSection items={page?.learned} />
-      </Section>
-    ),
-    future: (
-      <Section key="future" title={labels.future ?? 'Future Improvements'}>
-        <p className="text-slate-300">{page?.future || 'Add future improvement notes in the Sanity game page document.'}</p>
       </Section>
     ),
   }

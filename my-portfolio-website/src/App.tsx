@@ -4,7 +4,7 @@ import { About, Contact, Experience, Hero, Projects } from './components/section
 import { EventDetail } from './components/sections/EventDetail'
 import { GameDetail } from './components/sections/GameDetail'
 import { ProjectDetail } from './components/sections/ProjectDetail'
-import { EventGrid, GameGrid, GroupedGameGrid } from './components/sections/Projects'
+import { EventGrid, GameGrid, GroupedGameGrid, ProjectGrid } from './components/sections/Projects'
 import { Footer, Navbar } from './components/common'
 import type { EventCard, EventPage, Game, GamePage, Project, ProjectPage, SiteSettings } from './types'
 
@@ -30,11 +30,9 @@ const query = `{
     description,
     gameplayImages,
     features,
-    tech,
-    learned,
-    future
+    tech
   },
-  "games": *[_type == "game"] | order(title asc){_id,title,description,Gamelink,Gitlink,controls,type,genre,image,slug},
+  "games": *[_type == "game"] | order(title asc){_id,title,description,Gamelink,Gitlink,controls,type,genre,image},
   "gamePages": *[_type == "gamePage"]{
     _id,
     title,
@@ -44,14 +42,11 @@ const query = `{
     gameplayVideoUrl,
     features,
     tech,
-    learned,
-    future,
-    heroLayout,
     playButtonText,
     sectionLabels,
     pageLayout
   },
-  "events": *[_type == "eventsCard"] | order(title asc){_id,title,description,image,slug},
+  "events": *[_type == "eventsCard"] | order(title asc){_id,title,description,image},
   "eventPages": *[_type == "eventPage"]{
     _id,
     title,
@@ -62,7 +57,7 @@ const query = `{
     eventLocation,
     eventWebsite,
     gameJamDuration,
-    gameJamGame->{_id,title,slug},
+    gameJamGame->{_id,title},
     gameJamOverview,
     images,
     MembersofTeam[]{
@@ -71,10 +66,7 @@ const query = `{
       name,
       link,
       member->{_id,name,link}
-    },
-    learned,
-    future,
-    slug
+    }
   }
 }`
 
@@ -158,6 +150,7 @@ function App() {
   }, [])
 
   const activeSettings = settings ?? defaultSettings
+  const normalizedPath = currentPath.replace(/\/$/, '') || '/'
   const projectSlug = currentPath.startsWith('/projects/') ? decodeURIComponent(currentPath.replace('/projects/', '').replace(/\/$/, '')) : ''
   const selectedProject = projectSlug
     ? projects.find((project) => project.slug?.current === projectSlug || project._id === projectSlug)
@@ -167,17 +160,17 @@ function App() {
     : undefined
   const gameSlug = currentPath.startsWith('/games/') ? decodeURIComponent(currentPath.replace('/games/', '').replace(/\/$/, '')) : ''
   const selectedGame = gameSlug
-    ? games.find((game) => game.slug?.current === gameSlug || game._id === gameSlug)
+    ? games.find((game) => game._id === gameSlug)
     : undefined
   const selectedGamePage = selectedGame
     ? gamePages.find((page) => page.game?._id === selectedGame._id)
     : undefined
   const eventSlug = currentPath.startsWith('/events/') ? decodeURIComponent(currentPath.replace('/events/', '').replace(/\/$/, '')) : ''
   const selectedEvent = eventSlug
-    ? events.find((event) => event.slug?.current === eventSlug || event._id === eventSlug)
+    ? events.find((event) => event._id === eventSlug)
     : undefined
   const selectedEventPage = selectedEvent
-    ? eventPages.find((page) => page.event?._id === selectedEvent._id || page.slug?.current === eventSlug)
+    ? eventPages.find((page) => page.event?._id === selectedEvent._id)
     : undefined
   const fallbackAboutStats = [
     { label: 'Games made', value: String(games.length) },
@@ -215,7 +208,7 @@ function App() {
           <PageHeader
             eyebrow="Game not found"
             title="This game page is not available yet"
-            text="Check that the game has a slug in Sanity, then come back from the games page."
+            text="Check that the game exists in Sanity, then come back from the games page."
           />
         ) : selectedEvent ? (
           <EventDetail event={selectedEvent} page={selectedEventPage} />
@@ -229,9 +222,20 @@ function App() {
           <PageHeader
             eyebrow="Event not found"
             title="This event page is not available yet"
-            text="Check that the event has a slug in Sanity, then come back from the events page."
+            text="Check that the event exists in Sanity, then come back from the events page."
           />
-        ) : currentPath === '/games' ? (
+        ) : normalizedPath === '/projects' ? (
+          <>
+            <PageHeader
+              eyebrow="Featured work"
+              title="Projects"
+              text="A focused collection of the projects I have made, with links to open each build or view the source when available."
+            />
+            <section className="mt-10 rounded-3xl border border-slate-800 bg-slate-900/80 p-8 shadow-xl shadow-slate-950/20 sm:p-12">
+              <ProjectGrid projects={projects} />
+            </section>
+          </>
+        ) : normalizedPath === '/games' ? (
           <>
             <PageHeader
               eyebrow="Playable demos"
@@ -242,7 +246,7 @@ function App() {
               <GroupedGameGrid games={games} />
             </section>
           </>
-        ) : currentPath === '/events' ? (
+        ) : normalizedPath === '/events' ? (
           <>
             <PageHeader
               eyebrow="Events"

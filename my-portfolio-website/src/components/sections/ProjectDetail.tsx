@@ -8,8 +8,8 @@ type ProjectDetailProps = {
   page?: ProjectPage
 }
 
-function getImageUrl(image?: ImageRef, width = 1200, height = 720) {
-  return image ? urlFor(image).width(width).height(height).auto('format').url() : undefined
+function getImageUrl(image?: ImageRef, width = 1200) {
+  return image ? urlFor(image).width(width).auto('format').url() : undefined
 }
 
 function Section({ title, children }: { title: string; children: ReactNode }) {
@@ -38,17 +38,17 @@ function ListSection({ items }: { items?: string[] }) {
 }
 
 export function ProjectDetail({ project, page }: ProjectDetailProps) {
-  const heroImage = getImageUrl(project.image, 1400, 780)
+  const heroImage = getImageUrl(project.image, 1400)
   const overview = page?.description || project.description
 
   return (
     <div className="-mx-4 px-4 py-2 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
-      <a className="inline-flex text-sm font-semibold text-cyan-300 transition hover:text-cyan-100" href="/#projects">
+      <a className="inline-flex text-sm font-semibold text-cyan-300 transition hover:text-cyan-100" href="/projects">
         Back to projects
       </a>
 
       <section className="mt-6 overflow-hidden rounded-3xl border border-slate-800 bg-slate-900/80 shadow-xl shadow-slate-950/20">
-        {heroImage ? <img src={heroImage} alt={project.title} className="h-72 w-full rounded-none object-cover sm:h-96" /> : null}
+        {heroImage ? <img src={heroImage} alt={project.title} className="max-h-[36rem] w-full rounded-none object-contain" /> : null}
         <div className="p-8 sm:p-12">
           <p className="text-sm uppercase tracking-[0.3em] text-cyan-400">
             {project.type || 'Project'}
@@ -89,7 +89,7 @@ export function ProjectDetail({ project, page }: ProjectDetailProps) {
                     key={`${image.asset._ref}-${index}`}
                     src={src}
                     alt={`${project.title} image ${index + 1}`}
-                    className="h-64 w-full rounded-2xl object-cover"
+                    className="max-h-[28rem] w-full rounded-2xl bg-slate-950 object-contain"
                   />
                 ) : null
               })}
@@ -105,14 +105,6 @@ export function ProjectDetail({ project, page }: ProjectDetailProps) {
 
         <Section title="Tech Stack">
           <ListSection items={page?.tech} />
-        </Section>
-
-        <Section title="What I Learned">
-          <ListSection items={page?.learned} />
-        </Section>
-
-        <Section title="Future Improvements">
-          <p className="text-slate-300">{page?.future || 'Add future improvement notes in the Sanity project page document.'}</p>
         </Section>
       </div>
     </div>

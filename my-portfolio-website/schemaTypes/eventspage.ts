@@ -101,18 +101,5 @@ export default {
                 },
             ]
         },
-
-        { name: 'learned',
-            type: 'array',
-            of: [{ type: 'string' }] },
-        { name: 'future', type: 'text' },
-        {
-            name: 'slug',
-            type: 'slug',
-            options: {
-                source: 'title',
-                maxLength: 96
-            }
-        }
     ]
 }

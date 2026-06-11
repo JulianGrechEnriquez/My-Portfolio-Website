@@ -40,25 +40,6 @@ export default {
             type: 'array',
             of: [{ type: 'string' }]
         },
-
-        { name: 'learned',
-            type: 'array',
-            of: [{ type: 'string' }] },
-        { name: 'future', type: 'text' },
-        {
-            name: 'heroLayout',
-            title: 'Hero Layout',
-            type: 'string',
-            options: {
-                list: [
-                    { title: 'Centered', value: 'centered' },
-                    { title: 'Split Image and Text', value: 'split' },
-                    { title: 'Large Banner', value: 'banner' },
-                ],
-                layout: 'radio',
-            },
-            initialValue: 'centered',
-        },
         {
             name: 'playButtonText',
             title: 'Play Button Text',
@@ -74,8 +55,6 @@ export default {
                 { name: 'gameplay', title: 'Gameplay Label', type: 'string' },
                 { name: 'features', title: 'Features Label', type: 'string' },
                 { name: 'tech', title: 'Tech Stack Label', type: 'string' },
-                { name: 'learned', title: 'What I Learned Label', type: 'string' },
-                { name: 'future', title: 'Future Improvements Label', type: 'string' },
             ],
         },
         {
@@ -83,35 +62,6 @@ export default {
             title: 'Page Layout',
             type: 'object',
             fields: [
-                {
-                    name: 'preset',
-                    title: 'Layout Preset',
-                    type: 'string',
-                    options: {
-                        list: [
-                            { title: 'Classic Portfolio', value: 'classic' },
-                            { title: 'Arcade', value: 'arcade' },
-                            { title: 'Showcase', value: 'showcase' },
-                            { title: 'Compact', value: 'compact' },
-                        ],
-                        layout: 'radio',
-                    },
-                    initialValue: 'classic',
-                },
-                {
-                    name: 'overviewLayout',
-                    title: 'Game Overview Layout',
-                    type: 'string',
-                    options: {
-                        list: [
-                            { title: 'Normal Card', value: 'card' },
-                            { title: 'Title Beside Text', value: 'split' },
-                            { title: 'Callout Block', value: 'callout' },
-                        ],
-                        layout: 'radio',
-                    },
-                    initialValue: 'card',
-                },
                 {
                     name: 'contentLayout',
                     title: 'Rest Of Page Layout',
@@ -125,20 +75,6 @@ export default {
                         layout: 'radio',
                     },
                     initialValue: 'stacked',
-                },
-                {
-                    name: 'sectionStyle',
-                    title: 'Section Style',
-                    type: 'string',
-                    options: {
-                        list: [
-                            { title: 'Filled Cards', value: 'filled' },
-                            { title: 'Outlined Cards', value: 'outlined' },
-                            { title: 'Minimal', value: 'minimal' },
-                        ],
-                        layout: 'radio',
-                    },
-                    initialValue: 'filled',
                 },
                 {
                     name: 'gameplayLayout',
@@ -196,8 +132,6 @@ export default {
                                     { title: 'Gameplay', value: 'gameplay' },
                                     { title: 'Features', value: 'features' },
                                     { title: 'Tech Stack', value: 'tech' },
-                                    { title: 'What I Learned', value: 'learned' },
-                                    { title: 'Future Improvements', value: 'future' },
                                 ],
                             },
                         },
@@ -217,8 +151,6 @@ export default {
                                     { title: 'Gameplay', value: 'gameplay' },
                                     { title: 'Features', value: 'features' },
                                     { title: 'Tech Stack', value: 'tech' },
-                                    { title: 'What I Learned', value: 'learned' },
-                                    { title: 'Future Improvements', value: 'future' },
                                 ],
                             },
                         },

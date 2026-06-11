@@ -67,14 +67,5 @@ export default {
                 },
             ],
         },
-        {
-            name: 'slug',
-            type: 'slug',
-            options: {
-                source: 'title',
-                maxLength: 96
-            }
-        }
-
     ],
 }

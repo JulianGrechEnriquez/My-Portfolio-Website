@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { urlFor } from '../../lib/sanity'
 import { normalizeUrl } from '../../utils/helpers'
 import type { EventCard, EventPage, ImageRef } from '../../types'
@@ -33,22 +34,49 @@ function getEventTypeLabel(type?: EventPage['eventType']) {
 }
 
 function getGamePath(game: NonNullable<EventPage['gameJamGame']>) {
-  return `/games/${encodeURIComponent(game.slug?.current || game._id)}`
+  return `/games/${encodeURIComponent(game._id)}`
 }
 
-function ListSection({ items, fallback }: { items?: string[]; fallback: string }) {
-  if (!items?.length) {
-    return <p className="text-slate-400">{fallback}</p>
-  }
+function TeamMemberItem({ name, link }: { name: string; link?: string }) {
+  const [isMobileActive, setIsMobileActive] = useState(false)
+  const normalizedLink = link ? normalizeUrl(link) : undefined
 
   return (
-    <ul className="grid gap-3 text-slate-300 sm:grid-cols-2">
-      {items.map((item) => (
-        <li key={item} className="rounded-2xl border border-slate-800 bg-slate-950/50 px-4 py-3">
-          {item}
-        </li>
-      ))}
-    </ul>
+    <li className="relative w-fit min-w-40 overflow-hidden rounded-2xl border border-slate-800 bg-slate-950/50">
+      <div className={`px-4 py-3 ${isMobileActive ? 'blur-sm transition md:blur-none' : 'transition'}`}>
+        {normalizedLink ? (
+          <a className="hidden text-slate-300 transition hover:text-cyan-200 md:block" href={normalizedLink} rel="noreferrer" target="_blank">
+            {name}
+          </a>
+        ) : (
+          <span className="hidden text-slate-300 md:block">{name}</span>
+        )}
+        <span className="block text-slate-300 md:hidden">{name}</span>
+      </div>
+      {normalizedLink ? (
+        <>
+          <button
+            aria-label={`Show link for ${name}`}
+            className="absolute inset-0 z-10 rounded-2xl md:hidden"
+            onClick={() => setIsMobileActive((current) => !current)}
+            type="button"
+          />
+          {isMobileActive ? (
+            <div
+              aria-label={`Hide link for ${name}`}
+              className="absolute inset-0 z-30 flex items-center justify-center rounded-2xl bg-slate-950/55 p-3 backdrop-blur-sm md:hidden"
+              onClick={() => setIsMobileActive(false)}
+              role="button"
+              tabIndex={0}
+            >
+              <a className="inline-flex rounded-full bg-cyan-500 px-5 py-2 text-sm font-semibold text-slate-950 shadow-lg shadow-slate-950/30 transition hover:bg-cyan-400" href={normalizedLink} rel="noreferrer" target="_blank" onClick={(event) => event.stopPropagation()}>
+                Visit
+              </a>
+            </div>
+          ) : null}
+        </>
+      ) : null}
+    </li>
   )
 }
 
@@ -58,7 +86,7 @@ function TeamMembersSection({ members }: { members?: EventPage['MembersofTeam'] 
   }
 
   return (
-    <ul className="grid gap-3 text-slate-300 sm:grid-cols-2">
+    <ul className="flex flex-wrap gap-3 text-slate-300">
       {members.map((member, index) => {
         const referencedMember = typeof member === 'string' ? undefined : member.member
         const name = typeof member === 'string' ? member : referencedMember?.name || member.name
@@ -69,19 +97,20 @@ function TeamMembersSection({ members }: { members?: EventPage['MembersofTeam'] 
           return null
         }
 
-        return (
-          <li key={key} className="rounded-2xl border border-slate-800 bg-slate-950/50 px-4 py-3">
-            {link ? (
-              <a className="block text-slate-300 transition hover:text-cyan-200" href={link} rel="noreferrer" target="_blank">
-                {name}
-              </a>
-            ) : (
-              name
-            )}
-          </li>
-        )
+        return <TeamMemberItem key={key} name={name} link={link} />
       })}
     </ul>
+  )
+}
+
+function TeamMembersCard({ members }: { members?: EventPage['MembersofTeam'] }) {
+  return (
+    <section className="w-full rounded-3xl border border-slate-800 bg-slate-900/80 p-6 shadow-xl shadow-slate-950/20 sm:p-8 lg:w-[30rem]">
+      <h2 className="text-2xl font-semibold text-white">Team Members</h2>
+      <div className="mt-4">
+        <TeamMembersSection members={members} />
+      </div>
+    </section>
   )
 }
 
@@ -98,17 +127,17 @@ function EventDetails({ page }: { page?: EventPage }) {
     }
 
     return (
-      <section className="rounded-3xl border border-slate-800 bg-slate-900/80 p-6 shadow-xl shadow-slate-950/20 sm:p-8">
+      <section className="w-full rounded-3xl border border-slate-800 bg-slate-900/80 p-6 shadow-xl shadow-slate-950/20 sm:p-8 lg:w-[30rem]">
         <h2 className="text-2xl font-semibold text-white">Game Jam Details</h2>
-        <div className="mt-4 grid gap-3 text-slate-300 sm:grid-cols-2">
+        <div className="mt-4 flex flex-wrap gap-3 text-slate-300">
           {page.gameJamDuration ? (
-            <div className="rounded-2xl border border-slate-800 bg-slate-950/50 px-4 py-3">
+            <div className="w-fit min-w-48 rounded-2xl border border-slate-800 bg-slate-950/50 px-4 py-3">
               <p className="text-xs uppercase tracking-[0.25em] text-cyan-300">Duration</p>
               <p className="mt-2">{page.gameJamDuration}</p>
             </div>
           ) : null}
           {page.gameJamGame ? (
-            <div className="rounded-2xl border border-slate-800 bg-slate-950/50 px-4 py-3">
+            <div className="w-fit min-w-48 rounded-2xl border border-slate-800 bg-slate-950/50 px-4 py-3">
               <p className="text-xs uppercase tracking-[0.25em] text-cyan-300">Game</p>
               <a className="mt-2 block text-slate-300 transition hover:text-cyan-200" href={getGamePath(page.gameJamGame)}>
                 {page.gameJamGame.title || 'Open game'}
@@ -150,6 +179,7 @@ export function EventDetail({ event, page }: EventDetailProps) {
   const heroImage = getImageUrl(event.image, 1400, 780)
   const eventDate = formatDate(page?.eventDate)
   const description = page?.description || event.description
+  const isGameJam = page?.eventType === 'gameJam'
 
   return (
     <div>
@@ -170,7 +200,17 @@ export function EventDetail({ event, page }: EventDetailProps) {
       </section>
 
       <div className="mt-10 space-y-6">
-        <EventDetails page={page} />
+        {isGameJam ? (
+          <div className="grid gap-6 lg:grid-cols-[30rem_30rem] lg:items-start lg:justify-center">
+            <EventDetails page={page} />
+            <TeamMembersCard members={page?.MembersofTeam} />
+          </div>
+        ) : (
+          <>
+            <EventDetails page={page} />
+            <TeamMembersCard members={page?.MembersofTeam} />
+          </>
+        )}
 
         <section className="rounded-3xl border border-slate-800 bg-slate-900/80 p-6 shadow-xl shadow-slate-950/20 sm:p-8">
           <h2 className="text-2xl font-semibold text-white">Event Photos</h2>
@@ -195,24 +235,6 @@ export function EventDetail({ event, page }: EventDetailProps) {
           </div>
         </section>
 
-        <section className="rounded-3xl border border-slate-800 bg-slate-900/80 p-6 shadow-xl shadow-slate-950/20 sm:p-8">
-          <h2 className="text-2xl font-semibold text-white">Team Members</h2>
-          <div className="mt-4">
-            <TeamMembersSection members={page?.MembersofTeam} />
-          </div>
-        </section>
-
-        <section className="rounded-3xl border border-slate-800 bg-slate-900/80 p-6 shadow-xl shadow-slate-950/20 sm:p-8">
-          <h2 className="text-2xl font-semibold text-white">What I Learned</h2>
-          <div className="mt-4">
-            <ListSection items={page?.learned} fallback="Add what you learned in the Sanity event page document." />
-          </div>
-        </section>
-
-        <section className="rounded-3xl border border-slate-800 bg-slate-900/80 p-6 shadow-xl shadow-slate-950/20 sm:p-8">
-          <h2 className="text-2xl font-semibold text-white">Future Improvements</h2>
-          <p className="mt-4 text-slate-300">{page?.future || 'Add future notes in the Sanity event page document.'}</p>
-        </section>
       </div>
     </div>
   )

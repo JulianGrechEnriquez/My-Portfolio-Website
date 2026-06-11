@@ -24,10 +24,10 @@
   "dependencies": {
     "@sanity/client": "^5.0.0",
     "@sanity/image-url": "^2.1.1",
-    "@sanity/vision": "^5.30.0",
+    "@sanity/vision": "^5.31.1",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
-    "sanity": "^5.30.0",
+    "sanity": "^5.31.1",
     "styled-components": "^6.1.18"
   },
   "devDependencies": {

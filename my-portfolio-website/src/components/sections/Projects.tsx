@@ -19,7 +19,7 @@ function getItemId(item: { _id: string; slug?: { current: string } }) {
 }
 
 function getGamePath(game: Game) {
-  return `/games/${encodeURIComponent(getItemId(game))}`
+  return `/games/${encodeURIComponent(game._id)}`
 }
 
 function getProjectPath(project: Project) {
@@ -27,7 +27,7 @@ function getProjectPath(project: Project) {
 }
 
 function getEventPath(event: EventCard) {
-  return `/events/${encodeURIComponent(getItemId(event))}`
+  return `/events/${encodeURIComponent(event._id)}`
 }
 
 function getGameTypeLabel(type?: string) {
@@ -45,6 +45,62 @@ function getGameGenres(genre?: Game['genre']) {
   return genre ? [genre] : []
 }
 
+function ProjectCard({ project }: { project: Project }) {
+  const [isMobileActive, setIsMobileActive] = useState(false)
+
+  return (
+    <article id={getItemId(project)} className="group relative min-w-[82vw] snap-center space-y-4 rounded-3xl border border-slate-800 bg-slate-950/50 p-6 shadow-lg shadow-slate-950/20 transition hover:border-cyan-400/60 sm:min-w-[22rem] md:min-w-0">
+      <a aria-label={`Open ${project.title} project page`} className="absolute inset-0 z-10 hidden rounded-3xl md:block" href={getProjectPath(project)} />
+      <div className={isMobileActive ? 'blur-sm transition md:blur-none' : 'transition'}>
+        <CardImage image={project.image} title={project.title} />
+      </div>
+      <div className={`relative space-y-3 ${isMobileActive ? 'blur-sm transition md:blur-none' : 'transition'}`}>
+        <div className="flex flex-wrap items-center gap-3 text-xs uppercase tracking-[0.25em] text-cyan-300">
+          <span>{project.type || 'Project'}</span>
+          {project.controls?.map((control) => (
+            <span key={control} className="rounded-full bg-slate-800 px-2 py-1">
+              {control}
+            </span>
+          ))}
+        </div>
+        <h3 className="text-xl font-semibold text-white transition group-hover:text-cyan-100">{project.title}</h3>
+        <p className="text-slate-400">{project.description}</p>
+        <div className="flex flex-wrap gap-3">
+          {project.link ? (
+            <a href={normalizeUrl(project.link)} rel="noreferrer" target="_blank" className="relative z-20 inline-flex rounded-full bg-cyan-500 px-4 py-2 text-sm font-semibold text-slate-950 transition hover:bg-cyan-400">
+              View project
+            </a>
+          ) : null}
+          {project.Gitlink ? (
+            <a href={normalizeUrl(project.Gitlink)} rel="noreferrer" target="_blank" className="relative z-20 inline-flex rounded-full border border-slate-700 px-4 py-2 text-sm font-semibold text-slate-100 transition hover:border-cyan-300 hover:text-white">
+              Git link
+            </a>
+          ) : null}
+        </div>
+      </div>
+      <button
+        aria-label={`Show actions for ${project.title}`}
+        className="absolute inset-0 z-10 rounded-3xl md:hidden"
+        onClick={() => setIsMobileActive((current) => !current)}
+        type="button"
+      />
+      {isMobileActive ? (
+        <div
+          aria-label={`Hide actions for ${project.title}`}
+          className="absolute inset-0 z-30 flex items-center justify-center rounded-3xl bg-slate-950/55 p-6 backdrop-blur-sm md:hidden"
+          onClick={() => setIsMobileActive(false)}
+          role="button"
+          tabIndex={0}
+        >
+          <a className="inline-flex rounded-full bg-cyan-500 px-6 py-3 text-sm font-semibold text-slate-950 shadow-lg shadow-slate-950/30 transition hover:bg-cyan-400" href={getProjectPath(project)} onClick={(event) => event.stopPropagation()}>
+            Learn more
+          </a>
+        </div>
+      ) : null}
+    </article>
+  )
+}
+
 function CardImage({ image, title }: CardImageProps) {
   const src = image ? urlFor(image).width(900).auto('format').url() : undefined
 
@@ -55,6 +111,20 @@ function CardImage({ image, title }: CardImageProps) {
       ) : (
         <div className="flex h-56 items-center justify-center bg-slate-800 text-slate-400">No image</div>
       )}
+    </div>
+  )
+}
+
+export function ProjectGrid({ projects }: { projects: Project[] }) {
+  if (!projects.length) {
+    return <p className="text-slate-400">Add projects in Sanity to show them here.</p>
+  }
+
+  return (
+    <div className="-mx-6 flex snap-x gap-4 overflow-x-auto px-6 pb-4 md:mx-0 md:grid md:snap-none md:grid-cols-2 md:overflow-visible md:px-0 md:pb-0">
+      {projects.map((project) => (
+        <ProjectCard key={project._id} project={project} />
+      ))}
     </div>
   )
 }
@@ -105,12 +175,18 @@ function GameCard({ game }: { game: Game }) {
       <button
         aria-label={`Show actions for ${game.title}`}
         className="absolute inset-0 z-10 rounded-3xl md:hidden"
-        onClick={() => setIsMobileActive(true)}
+        onClick={() => setIsMobileActive((current) => !current)}
         type="button"
       />
       {isMobileActive ? (
-        <div className="absolute inset-0 z-30 flex items-center justify-center rounded-3xl bg-slate-950/55 p-6 backdrop-blur-sm md:hidden">
-          <a className="inline-flex rounded-full bg-cyan-500 px-6 py-3 text-sm font-semibold text-slate-950 shadow-lg shadow-slate-950/30 transition hover:bg-cyan-400" href={getGamePath(game)}>
+        <div
+          aria-label={`Hide actions for ${game.title}`}
+          className="absolute inset-0 z-30 flex items-center justify-center rounded-3xl bg-slate-950/55 p-6 backdrop-blur-sm md:hidden"
+          onClick={() => setIsMobileActive(false)}
+          role="button"
+          tabIndex={0}
+        >
+          <a className="inline-flex rounded-full bg-cyan-500 px-6 py-3 text-sm font-semibold text-slate-950 shadow-lg shadow-slate-950/30 transition hover:bg-cyan-400" href={getGamePath(game)} onClick={(event) => event.stopPropagation()}>
             Learn more
           </a>
         </div>
@@ -135,12 +211,18 @@ function EventCardItem({ event }: { event: EventCard }) {
       <button
         aria-label={`Show actions for ${event.title}`}
         className="absolute inset-0 z-10 rounded-3xl md:hidden"
-        onClick={() => setIsMobileActive(true)}
+        onClick={() => setIsMobileActive((current) => !current)}
         type="button"
       />
       {isMobileActive ? (
-        <div className="absolute inset-0 z-30 flex items-center justify-center rounded-3xl bg-slate-950/55 p-6 backdrop-blur-sm md:hidden">
-          <a className="inline-flex rounded-full bg-cyan-500 px-6 py-3 text-sm font-semibold text-slate-950 shadow-lg shadow-slate-950/30 transition hover:bg-cyan-400" href={getEventPath(event)}>
+        <div
+          aria-label={`Hide actions for ${event.title}`}
+          className="absolute inset-0 z-30 flex items-center justify-center rounded-3xl bg-slate-950/55 p-6 backdrop-blur-sm md:hidden"
+          onClick={() => setIsMobileActive(false)}
+          role="button"
+          tabIndex={0}
+        >
+          <a className="inline-flex rounded-full bg-cyan-500 px-6 py-3 text-sm font-semibold text-slate-950 shadow-lg shadow-slate-950/30 transition hover:bg-cyan-400" href={getEventPath(event)} onClick={(event) => event.stopPropagation()}>
             Learn more
           </a>
         </div>
@@ -219,39 +301,13 @@ export function Projects({ projects, games, events }: ProjectsProps) {
           <p className="text-sm uppercase tracking-[0.3em] text-cyan-400">Featured work</p>
           <h2 className="text-3xl font-semibold text-white">Projects and games</h2>
           <p className="max-w-2xl text-slate-400">Every item below is loaded from Sanity, so content is managed separately from this app.</p>
+          <a className="text-sm font-semibold text-cyan-300 transition hover:text-cyan-100" href="/projects">
+            View all projects
+          </a>
         </div>
 
-        <div className="mt-8 grid gap-6 md:grid-cols-2">
-          {projects.map((project) => (
-            <article key={project._id} className="group relative space-y-4 rounded-3xl border border-slate-800 bg-slate-950/50 p-6 shadow-lg shadow-slate-950/20 transition hover:border-cyan-400/60">
-              <a aria-label={`Open ${project.title} project page`} className="absolute inset-0 z-10 rounded-3xl" href={getProjectPath(project)} />
-              <CardImage image={project.image} title={project.title} />
-              <div className="relative space-y-3">
-                <div className="flex flex-wrap items-center gap-3 text-xs uppercase tracking-[0.25em] text-cyan-300">
-                  <span>{project.type || 'Project'}</span>
-                  {project.controls?.map((control) => (
-                    <span key={control} className="rounded-full bg-slate-800 px-2 py-1">
-                      {control}
-                    </span>
-                  ))}
-                </div>
-                <h3 className="text-xl font-semibold text-white transition group-hover:text-cyan-100">{project.title}</h3>
-                <p className="text-slate-400">{project.description}</p>
-                <div className="flex flex-wrap gap-3">
-                  {project.link ? (
-                    <a href={normalizeUrl(project.link)} rel="noreferrer" target="_blank" className="relative z-20 inline-flex rounded-full bg-cyan-500 px-4 py-2 text-sm font-semibold text-slate-950 transition hover:bg-cyan-400">
-                      View project
-                    </a>
-                  ) : null}
-                  {project.Gitlink ? (
-                    <a href={normalizeUrl(project.Gitlink)} rel="noreferrer" target="_blank" className="relative z-20 inline-flex rounded-full border border-slate-700 px-4 py-2 text-sm font-semibold text-slate-100 transition hover:border-cyan-300 hover:text-white">
-                      Git link
-                    </a>
-                  ) : null}
-                </div>
-              </div>
-            </article>
-          ))}
+        <div className="mt-8">
+          <ProjectGrid projects={projects} />
         </div>
       </div>
 

@@ -4,7 +4,6 @@ import {TextInputProps, useDocumentOperation, useFormValue} from 'sanity'
 
 type StylePreset = {
   theme?: Record<string, string>
-  heroLayout?: string
   playButtonText?: string
   pageLayout?: Record<string, string | string[]>
   sectionLabels?: Record<string, string>
@@ -21,10 +20,7 @@ const themeFields = [
 ]
 
 const pageLayoutFields = [
-  'preset',
-  'overviewLayout',
   'contentLayout',
-  'sectionStyle',
   'gameplayLayout',
   'imageShape',
   'sectionSpacing',
@@ -32,7 +28,7 @@ const pageLayoutFields = [
   'hiddenSections',
 ]
 
-const sectionLabelFields = ['overview', 'gameplay', 'features', 'tech', 'learned', 'future']
+const sectionLabelFields = ['overview', 'gameplay', 'features', 'tech']
 
 export function StylePresetCodeInput(props: TextInputProps) {
   const [message, setMessage] = useState('')
@@ -96,7 +92,6 @@ function buildPatchSet(preset: StylePreset) {
   if (Object.keys(theme).length) patchSet.theme = theme
   if (Object.keys(pageLayout).length) patchSet.pageLayout = pageLayout
   if (Object.keys(sectionLabels).length) patchSet.sectionLabels = sectionLabels
-  if (typeof preset.heroLayout === 'string') patchSet.heroLayout = preset.heroLayout
   if (typeof preset.playButtonText === 'string') patchSet.playButtonText = preset.playButtonText
 
   return patchSet
