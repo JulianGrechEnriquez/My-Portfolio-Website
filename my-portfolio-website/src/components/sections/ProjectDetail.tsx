@@ -56,7 +56,6 @@ export function ProjectDetail({ project, page }: ProjectDetailProps) {
           <h1 className="mt-3 text-4xl font-semibold tracking-tight text-white sm:text-6xl">
             {page?.title || project.title}
           </h1>
-          <p className="mt-4 max-w-3xl text-lg text-slate-300">{overview}</p>
           {project.link || project.Gitlink ? (
             <div className="mt-6 flex flex-wrap gap-3">
               {project.link ? (
