@@ -215,7 +215,6 @@ export function GameDetail({ game, page }: GameDetailProps) {
               </span>
             ))}
           </div>
-          <p className="mt-4 max-w-3xl text-lg text-slate-300">{overview}</p>
           <div className="mt-6 flex flex-wrap gap-3">
             {game.Gamelink ? (
               <a className="inline-flex rounded-full bg-cyan-500 px-6 py-3 text-sm font-semibold text-slate-950 transition hover:bg-cyan-400" href={normalizeUrl(game.Gamelink)} rel="noreferrer" target="_blank">
